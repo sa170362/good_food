@@ -1,0 +1,44 @@
+<div *ngIf="korisnik">
+    <h2>Profil</h2>
+    <form (ngSubmit)="updateProfile()">
+      <label>Korisničko ime:</label>
+      <input type="text" [(ngModel)]="korisnik.korisnickoIme" name="korisnickoIme" disabled>
+  
+      <label>Lozinka:</label>
+      <input type="password" [(ngModel)]="korisnik.lozinka" name="lozinka">
+  
+      <label>Ime:</label>
+      <input type="text" [(ngModel)]="korisnik.ime" name="ime">
+  
+      <label>Prezime:</label>
+      <input type="text" [(ngModel)]="korisnik.prezime" name="prezime">
+  
+      <label>Pol:</label>
+      <select [(ngModel)]="korisnik.pol" name="pol">
+        <option value="M">Muški</option>
+        <option value="Ž">Ženski</option>
+      </select>
+  
+      <label>Adresa:</label>
+      <input type="text" [(ngModel)]="korisnik.adresa" name="adresa">
+  
+      <label>Kontakt telefon:</label>
+      <input type="text" [(ngModel)]="korisnik.kontaktTelefon" name="kontaktTelefon">
+  
+      <label>Email:</label>
+      <input type="email" [(ngModel)]="korisnik.email" name="email" disabled>
+  
+      <label>Broj kreditne kartice:</label>
+      <input type="text" [(ngModel)]="korisnik.brojKreditneKartice" name="brojKreditneKartice">
+  
+      <button type="submit">Ažuriraj profil</button>
+    </form>
+  
+    <h3>Ažuriranje profilne slike</h3>
+    <input type="file" accept="image/jpeg,image/png" (change)="onFileSelected($event)">
+    <button (click)="uploadProfilePicture()">Ubaci profilnu sliku</button>
+  </div>
+  <div *ngIf="!korisnik">
+    <p>Učitavanje korisničkih podataka...</p>
+  </div>
+  

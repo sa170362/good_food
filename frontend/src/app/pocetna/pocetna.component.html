@@ -1,0 +1,40 @@
+<!-- src/app/home/home.component.html -->
+
+<div class="container">
+  <h2>Početna stranica - Kutak dobre hrane</h2>
+
+  <!-- Prikaz informacija o restoranima -->
+  <div class="row">
+    <div class="col-md-6">
+      <h4>Informacije o restoranima</h4>
+      <ul>
+        <li>Ukupan broj restorana: {{ restorani.length }}</li>
+        <!-- Dodajte još informacija po zahtevu -->
+      </ul>
+    </div>
+  </div>
+
+  <!-- Tabela sa restoranima -->
+  <div class="row">
+    <div class="col-md-12">
+      <h4>Lista restorana</h4>
+      <input type="text" class="form-control mb-2" placeholder="Pretraga..." [(ngModel)]="searchQuery">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th (click)="sortBy('ime')">Naziv</th>
+            <th (click)="sortBy('adresa')">Adresa</th>
+            <th (click)="sortBy('tip')">Tip restorana</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let restoran of restorani">
+            <td>{{ restoran.ime }}</td>
+            <td>{{ restoran.adresa }}</td>
+            <td>{{ restoran.tip }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

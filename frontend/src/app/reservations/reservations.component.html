@@ -1,0 +1,18 @@
+<div>
+    <h2>Neobrađene rezervacije</h2>
+    <ul>
+      <li *ngFor="let reservation of neobradjeneRezervacije">
+        <p><strong>Ime gosta:</strong> {{ reservation.imeGosta }}</p>
+        <p><strong>Datum i vreme rezervacije:</strong> {{ reservation.datumVremeRezervacije | date: 'dd.MM.yyyy. HH:mm' }}</p>
+        <p><strong>Broj gostiju:</strong> {{ reservation.brojGostiju }}</p>
+        <p><strong>Komentar gosta:</strong> {{ reservation.komentarGosta || '-' }}</p>
+        <p><strong>Da li je potvrđena rezervacija:</strong> {{ reservation.potvrdjenaRezervacija ? 'Da' : 'Ne' }}</p>
+        <p><strong>Razlog odbijanja:</strong> {{ reservation.razlogOdbijanja || '-' }}</p>
+        <p><strong>Broj stola:</strong> {{ reservation.brojStola || '-' }}</p>
+        <p><strong>Datum kreiranja:</strong> {{ reservation.datumKreiranja | date: 'dd.MM.yyyy. HH:mm' }}</p>
+        <button (click)="confirmReservation(reservation)">Potvrdi</button>
+        <button (click)="rejectReservation(reservation)">Odbij</button>
+      </li>
+    </ul>
+  </div>
+  
