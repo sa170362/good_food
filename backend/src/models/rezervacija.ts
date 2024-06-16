@@ -7,7 +7,7 @@ const reservationSchema = new Schema({
   datumVremeRezervacije: { type: Date, required: true },
   brojGostiju: { type: Number, required: true }, 
   komentarGosta: { type: String },
-  potvrdjenaRezervacija: { type: Boolean, default: false },
+  statusRezervacije: { type: String },
   razlogOdbijanja: { type: String },
   brojStola: { type: Number },
   datumKreiranja: { type: Date, default: Date.now } 
