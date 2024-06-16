@@ -20,9 +20,6 @@ let KorisnikSchema = new Schema({
     type: String,
     unique: true,
   },
-  opstina: {
-    type: String,
-  },
   tip: {
     type: String,
   },
@@ -42,6 +39,9 @@ let KorisnikSchema = new Schema({
     type: String,
   },
   profilnaSlikaUrl: {
+    type: String,
+  },
+  profilnaSlika: {
     type: String,
   },
   brojKreditneKartice: {

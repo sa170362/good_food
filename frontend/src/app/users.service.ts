@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Korisnik } from './models/korisnik';
+import { Message } from './models/message';
 
 @Injectable({
   providedIn: 'root',
@@ -31,4 +32,19 @@ export class UsersService {
     };
     return this.http.post<Korisnik>(`${this.uri}/login`, data);
   }
+  register(user: Korisnik){
+    // alert(user.profilnaSlika)
+    return this.http.post<Message>(`${this.uri}/register`,
+     user)
+  }
+  checkUsernameExists(username: string) {
+    return this.http.get<boolean>(`${this.uri}/check-username/${username}`);
+  }
+
+  checkEmailExists(mejl: string) {
+    return this.http.get<boolean>(`${this.uri}/check-email/${mejl}`);
+  }
+  
+
+
 }

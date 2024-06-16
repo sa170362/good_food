@@ -11,5 +11,5 @@ const controller = new rezervacija_controller_1.RezervacijaController();
 // GET ruta za dohvatanje svih neobrađenih rezervacija
 rezervacijaRouter.get("/neobradjene", controller.getNeobradjeneRezervacije);
 // PUT ruta za potvrdu ili odbijanje rezervacije
-rezervacijaRouter.put("/:id", controller.potvrdiRezervaciju);
+rezervacijaRouter.put("/:imeGosta", controller.potvrdiRezervaciju);
 exports.default = rezervacijaRouter;

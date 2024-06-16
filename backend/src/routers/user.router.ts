@@ -18,4 +18,22 @@ userRouter
   .route("/profile/upload")
   .post(upload.single('profilna_slika'), (req, res) => new UserController().uploadProfilePicture(req, res));  // Ruta za učitavanje profilne slike
 
+
+//   userRouter.route("/register").post(
+//     (req,res)=>new UserController().register(req,res)
+    
+// )
+userRouter.route("/register").post(upload.single('profilnaSlika'), (req, res) => controller.register(req, res));
+
+userRouter
+  .route("/check-username/:korisnickoIme")
+  .get((req, res) =>  {
+    console.log("Request received for check-username");
+    controller.checkUsername(req, res);
+  }); // Ruta za proveru jedinstvenosti korisničkog imena
+
+userRouter
+  .route("/check-email/:mejl")
+  .get((req, res) => controller.checkEmail(req, res)); // Ruta za proveru jedinstvenosti email-a
+
 export default userRouter;
