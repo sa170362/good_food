@@ -16,7 +16,7 @@ export class EditUserComponent implements OnInit {
     private router: Router,
     private userService: UsersService
   ) {
-    // this.selectedUser = JSON.parse(localStorage.getItem('selectedUser'));
+
   }
 
   ngOnInit(): void {

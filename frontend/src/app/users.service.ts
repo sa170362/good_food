@@ -32,6 +32,13 @@ export class UsersService {
     };
     return this.http.post<Korisnik>(`${this.uri}/login`, data);
   }
+  prijavaNaSistemAdmin(korisnickoIme: string, lozinka: string) {
+    const data = {
+      korisnickoIme: korisnickoIme,
+      lozinka: lozinka,
+    };
+    return this.http.post<Korisnik>(`${this.uri}/loginAdmin`, data);
+  }
   register(user: Korisnik){
     // alert(user.profilnaSlika)
     return this.http.post<Message>(`${this.uri}/register`,
@@ -78,5 +85,21 @@ export class UsersService {
   }
   unblockUser(korisnickoIme: string) {
     return this.http.put<Message>(`${this.uri}/unblockUser/${korisnickoIme}`, {});
+  }
+
+  changePasswordWithOld(username: string, oldPassword: string, newPassword: string) {
+    return this.http.put<any>(`${this.uri}/api/change-password-with-old`, { username, oldPassword, newPassword });
+  }
+
+  getSecurityQuestion(username: string) {
+    return this.http.get<any>(`${this.uri}/api/security-question/${username}`);
+  }
+
+  answerSecurityQuestion(username: string, securityAnswer: string) {
+    return this.http.put<any>(`${this.uri}/api/answer-security-question`, { username, securityAnswer });
+  }
+
+  changePasswordWithSecurityAnswer(username: string, newPassword: string) {
+    return this.http.put<any>(`${this.uri}/api/change-password-with-security-answer`, { username, newPassword });
   }
 }

@@ -1,7 +1,9 @@
-<header class="bg-dark text-light py-4">
+<header class="header-bg text-light py-4">
   <div class="container">
     <div class="d-flex justify-content-between align-items-center">
-      <h1 class="text-white">Kutak dobre hrane</h1>
+      <h1 class="text-white">
+        <i class="fas fa-utensils"></i> Kutak dobre hrane
+      </h1>
       <nav>
         <ul class="nav">
           <li class="nav-item">
@@ -16,87 +18,81 @@
     </div>
   </div>
 </header>
-<form (ngSubmit)="register()" #registrationForm="ngForm" novalidate>
-    <div>
+
+<div class="main-bg container my-5">
+  <h2 class="text-center mb-4 text-primary">Registracija</h2>
+  <hr />
+  <form (ngSubmit)="register()" #registrationForm="ngForm" novalidate class="p-4 rounded shadow-sm border-primary">
+    <div class="form-group">
       <label for="korisnickoIme">Username:</label>
-      <input type="text" id="korisnickoIme" name="korisnickoIme" [(ngModel)]="user.korisnickoIme" required>
-      <div *ngIf="formErrors.korisnickoIme" class="error">{{ formErrors.korisnickoIme }}</div>
+      <input type="text" class="form-control mb-3" id="korisnickoIme" name="korisnickoIme" [(ngModel)]="user.korisnickoIme" required>
+      <div *ngIf="formErrors.korisnickoIme" class="error text-danger">{{ formErrors.korisnickoIme }}</div>
     </div>
-    <br/>
-    <div>
+    <div class="form-group">
       <label for="lozinka">Password:</label>
-      <input type="password" id="lozinka" name="lozinka" [(ngModel)]="user.lozinka" required>
-      <div *ngIf="formErrors.lozinka" class="error">{{ formErrors.lozinka }}</div>
+      <input type="password" class="form-control mb-3" id="lozinka" name="lozinka" [(ngModel)]="user.lozinka" required>
+      <div *ngIf="formErrors.lozinka" class="error text-danger">{{ formErrors.lozinka }}</div>
     </div>
-    <br/>
-    <div>
+    <div class="form-group">
       <label for="ime">Firstname:</label>
-      <input type="text" id="ime" name="ime" [(ngModel)]="user.ime" required>
-      <div *ngIf="formErrors.ime" class="error">{{ formErrors.ime }}</div>
+      <input type="text" class="form-control mb-3" id="ime" name="ime" [(ngModel)]="user.ime" required>
+      <div *ngIf="formErrors.ime" class="error text-danger">{{ formErrors.ime }}</div>
     </div>
-    <br/>
-    <div>
+    <div class="form-group">
       <label for="prezime">Lastname:</label>
-      <input type="text" id="prezime" name="prezime" [(ngModel)]="user.prezime" required>
-      <div *ngIf="formErrors.prezime" class="error">{{ formErrors.prezime }}</div>
+      <input type="text" class="form-control mb-3" id="prezime" name="prezime" [(ngModel)]="user.prezime" required>
+      <div *ngIf="formErrors.prezime" class="error text-danger">{{ formErrors.prezime }}</div>
     </div>
-    <br/>
-    <div>
+    <div class="form-group">
       <label for="pol">Gender:</label>
-      <select id="pol" name="pol" [(ngModel)]="user.pol" required>
+      <select class="form-control mb-3" id="pol" name="pol" [(ngModel)]="user.pol" required>
         <option value="">Select</option>
         <option value="M">Male</option>
         <option value="F">Female</option>
       </select>
-      <div *ngIf="formErrors.pol" class="error">{{ formErrors.pol }}</div>
+      <div *ngIf="formErrors.pol" class="error text-danger">{{ formErrors.pol }}</div>
     </div>
-    <br/>
-    <div>
+    <div class="form-group">
       <label for="adresa">Address:</label>
-      <input type="text" id="adresa" name="adresa" [(ngModel)]="user.adresa" required>
-      <div *ngIf="formErrors.adresa" class="error">{{ formErrors.adresa }}</div>
+      <input type="text" class="form-control mb-3" id="adresa" name="adresa" [(ngModel)]="user.adresa" required>
+      <div *ngIf="formErrors.adresa" class="error text-danger">{{ formErrors.adresa }}</div>
     </div>
-    <br/>
-    <div>
-        <label for="kontaktTelefon">Contact Phone:</label>
-        <input type="text" id="kontaktTelefon" name="kontaktTelefon" [(ngModel)]="user.kontaktTelefon" required>
-        <div *ngIf="formErrors.kontaktTelefon" class="error">{{ formErrors.kontaktTelefon }}</div>
-      </div>
-      <br/>
-      <div>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" [(ngModel)]="user.mejl" required>
-        <div *ngIf="formErrors.email" class="error">{{ formErrors.email }}</div>
-      </div>
-    <br/>
-    <div>
+    <div class="form-group">
+      <label for="kontaktTelefon">Contact Phone:</label>
+      <input type="text" class="form-control mb-3" id="kontaktTelefon" name="kontaktTelefon" [(ngModel)]="user.kontaktTelefon" required>
+      <div *ngIf="formErrors.kontaktTelefon" class="error text-danger">{{ formErrors.kontaktTelefon }}</div>
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" class="form-control mb-3" id="email" name="email" [(ngModel)]="user.mejl" required>
+      <div *ngIf="formErrors.email" class="error text-danger">{{ formErrors.email }}</div>
+    </div>
+    <div class="form-group">
       <label for="brojKreditneKartice">Credit Card Number:</label>
-      <input type="text" id="brojKreditneKartice" name="brojKreditneKartice" [(ngModel)]="user.brojKreditneKartice" required>
+      <input type="text" class="form-control mb-3" id="brojKreditneKartice" name="brojKreditneKartice" [(ngModel)]="user.brojKreditneKartice" required>
     </div>
-    <br/>
-    <div>
+    <div class="form-group">
       <label for="bezbednosnoPitanje">Security Question:</label>
-      <input type="text" id="bezbednosnoPitanje" name="bezbednosnoPitanje" [(ngModel)]="user.sigurnosnoPitanje" required>
-      <div *ngIf="formErrors.bezbednosnoPitanje" class="error">{{ formErrors.bezbednosnoPitanje }}</div>
+      <input type="text" class="form-control mb-3" id="bezbednosnoPitanje" name="bezbednosnoPitanje" [(ngModel)]="user.sigurnosnoPitanje" required>
+      <div *ngIf="formErrors.bezbednosnoPitanje" class="error text-danger">{{ formErrors.bezbednosnoPitanje }}</div>
     </div>
-    <br/>
-    <div>
+    <div class="form-group">
       <label for="bezbednosniOdgovor">Security Answer:</label>
-      <input type="text" id="bezbednosniOdgovor" name="bezbednosniOdgovor" [(ngModel)]="user.sigurnosniOdgovor" required>
-      <div *ngIf="formErrors.bezbednosniOdgovor" class="error">{{ formErrors.bezbednosniOdgovor }}</div>
+      <input type="text" class="form-control mb-3" id="bezbednosniOdgovor" name="bezbednosniOdgovor" [(ngModel)]="user.sigurnosniOdgovor" required>
+      <div *ngIf="formErrors.bezbednosniOdgovor" class="error text-danger">{{ formErrors.bezbednosniOdgovor }}</div>
     </div>
-    <br/>
-    <div>
-        <label for="profilnaSlika">Profile Picture:</label>
-        <input type="file" id="profilnaSlika" name="profilnaSlika" accept="image/jpeg,image/png"
-               (change)="onFileSelected($event)" required>
-        <div *ngIf="formErrors.profilnaSlika" class="error">{{ formErrors.profilnaSlika }}</div>
-      </div>
-    <button type="submit">Register</button>
+    <div class="form-group">
+      <label for="profilnaSlika">Profile Picture:</label>
+      <input type="file" class="form-control-file" id="profilnaSlika" name="profilnaSlika" accept="image/jpeg,image/png" (change)="onFileSelected($event)" required>
+      <div *ngIf="formErrors.profilnaSlika" class="error text-danger">{{ formErrors.profilnaSlika }}</div>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Register</button>
   </form>
-  <footer class="bg-dark text-light py-3 mt-5">
-    <div class="container text-center">
-      <hr class="mb-4">
-      <p>&copy; {{ currentYear }} Kutak dobre hrane. All rights reserved.</p>
-    </div>
-  </footer>
+</div>
+
+<footer class="footer-bg text-light py-3 mt-5">
+  <div class="container text-center">
+    <hr class="bg-warning mb-4">
+    <p>&copy; {{ currentYear }} Kutak dobre hrane. All rights reserved.</p>
+  </div>
+</footer>

@@ -1,4 +1,4 @@
-<!-- src/app/home/home.component.html -->
+<!-- src/app/home/home.component.html
 <header class="bg-dark text-light py-4">
   <div class="container">
     <div class="d-flex justify-content-between align-items-center">
@@ -11,7 +11,7 @@
           <li class="nav-item">
             <a class="nav-link text-light" routerLink="/registracija">Registruj se</a>
           </li>
-          <!-- Add more navigation links as needed -->
+
         </ul>
       </nav>
     </div>
@@ -20,18 +20,18 @@
 <div class="container">
   <h2>Početna stranica - Kutak dobre hrane</h2>
 
-  <!-- Prikaz informacija o restoranima -->
+
   <div class="row">
     <div class="col-md-6">
       <h4>Informacije o restoranima</h4>
       <ul>
         <li>Ukupan broj restorana: {{ restorani.length }}</li>
-        <!-- Dodajte još informacija po zahtevu -->
+
       </ul>
     </div>
   </div>
 
-  <!-- Tabela sa restoranima -->
+
   <div class="row">
     <div class="col-md-12">
       <h4>Lista restorana</h4>
@@ -60,4 +60,78 @@
     <hr class="mb-4">
     <p>&copy; {{ currentYear }} Kutak dobre hrane. All rights reserved.</p>
   </div>
+</footer> -->
+
+<header class="header-bg text-light py-4">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+      <h1 class="text-white">
+        <i class="fas fa-utensils"></i> Kutak dobre hrane
+      </h1>
+      <nav>
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link text-light" routerLink="/login">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" routerLink="/registracija">Registruj se</a>
+          </li>
+
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<div class="main-bg container my-5">
+  <h2 class="text-center mb-4 text-primary">Početna stranica - Kutak dobre hrane</h2>
+
+  <div class="row">
+    <div class="col-md-6 mb-4">
+      <div class="card shadow-sm border-primary">
+        <div class="card-body">
+          <h4 class="card-title text-warning">Informacije o restoranima</h4>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item bg-light">Ukupan broj restorana: {{ restorani.length }}</li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card shadow-sm border-primary">
+        <div class="card-body">
+          <h4 class="card-title text-warning">Lista restorana</h4>
+          <input type="text" class="form-control mb-3" placeholder="Pretraga..." [(ngModel)]="searchQuery">
+          <table class="table table-striped table-hover">
+            <thead class="bg-warning text-dark">
+              <tr>
+                <th (click)="sortBy('ime')" class="sortable">Naziv</th>
+                <th (click)="sortBy('adresa')" class="sortable">Adresa</th>
+                <th (click)="sortBy('tip')" class="sortable">Tip restorana</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let restoran of restorani">
+                <td>{{ restoran.ime }}</td>
+                <td>{{ restoran.adresa }}</td>
+                <td>{{ restoran.tip }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer-bg text-light py-3 mt-5">
+  <div class="container text-center">
+    <hr class="bg-warning mb-4">
+    <p>&copy; {{ currentYear }} Kutak dobre hrane. All rights reserved.</p>
+  </div>
 </footer>
+

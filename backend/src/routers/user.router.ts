@@ -8,7 +8,9 @@ const upload = multer({ dest: 'uploads/' });
 userRouter
   .route("/login")
   .post((req, res) => new UserController().login(req, res));
-
+  userRouter
+  .route("/loginAdmin")
+  .post((req, res) => new UserController().loginAdmin(req, res));
   userRouter
   .route("/profile")
   .get((req, res) => new UserController().getProfile(req, res))  // Nova ruta za dohvat profila
@@ -71,4 +73,9 @@ userRouter
   userRouter.put('/unblockUser/:korisnickoIme', (req, res) => {
     controller.unblockUser(req, res);
   });
+  userRouter.put('/change-password-with-old', controller.changePasswordWithOld);
+  userRouter.get('/security-question/:username', controller.getSecurityQuestion);
+  userRouter.put('/answer-security-question', controller.answerSecurityQuestion);
+  userRouter.put('/change-password-with-security-answer', controller.changePasswordWithSecurityAnswer);
+
 export default userRouter;

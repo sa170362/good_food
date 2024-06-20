@@ -1,0 +1,60 @@
+<div class="container">
+    <h2>Change Password</h2>
+  
+    <!-- Form for changing password with old password -->
+    <div *ngIf="showOldPasswordForm">
+      <form (ngSubmit)="changePasswordWithOld()">
+        <label>Old Password:</label>
+        <input type="password" [(ngModel)]="oldPassword" name="oldPassword" required>
+  
+        <label>New Password:</label>
+        <input type="password" [(ngModel)]="newPassword" name="newPassword" required>
+  
+        <label>Confirm New Password:</label>
+        <input type="password" [(ngModel)]="confirmPassword" name="confirmPassword" required>
+  
+        <button type="submit">Change Password</button>
+        <br><br>
+        <a (click)="showSecurityQuestionForm = true">Forgot Old Password?</a>
+      </form>
+    </div>
+  
+    <!-- Form for answering security question -->
+    <div *ngIf="!showOldPasswordForm && showSecurityQuestionForm">
+      <form (ngSubmit)="answerSecurityQuestion()">
+        <label>Username:</label>
+        <input type="text" [(ngModel)]="username" name="username" required>
+  
+        <label>Security Question:</label>
+        <input type="text" [(ngModel)]="securityQuestion" name="securityQuestion" disabled>
+  
+        <label>Security Answer:</label>
+        <input type="text" [(ngModel)]="securityAnswer" name="securityAnswer" required>
+  
+        <button type="button" (click)="getSecurityQuestion()">Answer Security Question</button>
+      </form>
+    </div>
+  
+    <!-- Form for changing password after answering security question -->
+    <div *ngIf="!showOldPasswordForm && !showSecurityQuestionForm && showChangePasswordForm">
+      <form (ngSubmit)="changePasswordWithSecurityAnswer()">
+        <label>New Password:</label>
+        <input type="password" [(ngModel)]="newPassword" name="newPassword" required>
+  
+        <label>Confirm New Password:</label>
+        <input type="password" [(ngModel)]="confirmPassword" name="confirmPassword" required>
+  
+        <button type="submit">Change Password</button>
+      </form>
+    </div>
+  
+    <!-- Success message -->
+    <div *ngIf="passwordChanged">
+      <p>Password changed successfully. Please login again.</p>
+    </div>
+  
+    <!-- Error message -->
+    <div *ngIf="errorMessage">
+      <p>{{ errorMessage }}</p>
+    </div>
+  </div>

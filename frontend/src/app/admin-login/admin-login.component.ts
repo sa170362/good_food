@@ -4,12 +4,11 @@ import { Korisnik } from '../models/korisnik';
 import { UsersService } from '../users.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-admin-login',
+  templateUrl: './admin-login.component.html',
+  styleUrls: ['./admin-login.component.css']
 })
-export class LoginComponent implements OnInit {
-
+export class AdminLoginComponent implements OnInit {
   constructor(private servis: UsersService, private ruter: Router) { }
 
   ngOnInit(): void {
@@ -21,19 +20,15 @@ export class LoginComponent implements OnInit {
   poruka: string = "";
 
   prijavaNaSistem() {
-    this.servis.prijavaNaSistem(this.kor_ime, this.lozinka).subscribe(
+    this.servis.prijavaNaSistemAdmin(this.kor_ime, this.lozinka).subscribe(
       (korisnik: Korisnik) => {
         if (!korisnik) {
           this.poruka = 'Pogrešno korisničko ime ili lozinka.';
         } else {
-          if(korisnik.tip == 'konobar')
+          if(korisnik.tip == 'admin')
           {localStorage.setItem('currentUser', JSON.stringify(korisnik));
-          this.ruter.navigate(['profil']);}
-          else{
-            if(korisnik.tip == 'gost')
-            {localStorage.setItem('currentUser', JSON.stringify(korisnik));
-            this.ruter.navigate(['profil']);}
-          }
+          this.ruter.navigate(['admin']);}
+          
         }
       },
       (error) => {
@@ -46,5 +41,6 @@ export class LoginComponent implements OnInit {
       }
     );
   }
+
 
 }

@@ -12,6 +12,7 @@ import { ReservationsComponent } from './reservations/reservations.component';
 import { RestoranLayoutComponent } from './restoran-layout/restoran-layout.component';
 import { PorudzbinaComponent } from './porudzbina/porudzbina.component';
 import { LoginComponent } from './login/login.component';
+import { PromenaLozinkeComponent } from './promena-lozinke/promena-lozinke.component';
 
 
 const routes: Routes = [
@@ -28,6 +29,7 @@ const routes: Routes = [
   { path: 'restoranMapa/:ime', component: RestoranLayoutComponent },
   { path: "porudzbine", component: PorudzbinaComponent },
   { path: "login", component: LoginComponent },
+  { path: "promenaLozinke", component: PromenaLozinkeComponent },
 
 ];
 

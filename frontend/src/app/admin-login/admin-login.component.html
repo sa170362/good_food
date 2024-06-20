@@ -1,0 +1,35 @@
+<header class="bg-dark text-light py-4">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <h1 class="text-white">Kutak dobre hrane</h1>
+        <nav>
+          <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link text-light" routerLink="/login">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" routerLink="/registracija">Registracija</a>
+              </li>
+            <!-- Add more navigation links as needed -->
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+<div class="container">
+    <b>Ulogujte se</b>
+    <hr />
+    <form (ngSubmit)="prijavaNaSistem()">
+        <input type="text" [(ngModel)]="kor_ime" name="korisnickoIme" placeholder="Korisničko ime" required>
+        <input type="password" [(ngModel)]="lozinka" name="lozinka" placeholder="Lozinka" required>
+        <button type="submit">Prijavi se</button>
+      </form>
+      
+      <p *ngIf="poruka" class="error-message">{{ poruka }}</p>
+</div>
+<footer class="bg-dark text-light py-3 mt-5">
+    <div class="container text-center">
+      <hr class="mb-4">
+      <p>&copy; {{ currentYear }} Kutak dobre hrane. All rights reserved.</p>
+    </div>
+  </footer>
