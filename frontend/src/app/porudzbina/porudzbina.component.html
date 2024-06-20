@@ -1,0 +1,12 @@
+<header>
+    <h1>Narudžbine</h1>
+  </header>
+  <main>
+    <div *ngFor="let order of orders" class="order">
+      <p><strong>Customer:</strong> {{ order.customer }}</p>
+      <p><strong>Status:</strong> {{ order.status }}</p>
+      <button class="confirm" (click)="openDeliveryTimeModal(order)">Potvrdi</button>
+      <button class="reject" (click)="rejectOrder(order)">Odbij</button>
+    </div>
+  </main>
+  

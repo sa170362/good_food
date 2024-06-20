@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { PocetnaComponent } from './pocetna/pocetna.component';
 import { ProfilComponent } from './profil/profil.component';
 import { ReservationsComponent } from './reservations/reservations.component';
+import { PorudzbinaComponent } from './porudzbina/porudzbina.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { ReservationsComponent } from './reservations/reservations.component';
     PocetnaComponent,
     ProfilComponent,
     ReservationsComponent,
+    PorudzbinaComponent,
   ],
   imports: [
     BrowserModule,

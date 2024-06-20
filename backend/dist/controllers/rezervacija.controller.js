@@ -16,17 +16,15 @@ exports.RezervacijaController = void 0;
 const rezervacija_1 = __importDefault(require("../models/rezervacija"));
 class RezervacijaController {
     constructor() {
-        // Metoda za dobavljanje svih neobradjenih rezervacija, sortiranih po datumu
         this.getAllNeobradjeneRezervacije = (req, res) => {
             rezervacija_1.default.find({ statusRezervacije: 'neobradjena' })
-                .sort({ datumVremeRezervacije: 1 }) // sortiranje od najskorijih ka najstarijim
+                .sort({ datumVremeRezervacije: 1 })
                 .then(rezervacije => res.json(rezervacije))
                 .catch(err => {
                 console.error(err);
                 res.status(500).json({ message: "Greška pri dohvatanju rezervacija" });
             });
         };
-        // Potvrđivanje rezervacije
         this.confirmReservation = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const imeGosta = decodeURIComponent(req.params.imeGosta);
             const { brojStola } = req.body;
@@ -44,7 +42,6 @@ class RezervacijaController {
                 res.status(500).json({ message: 'Greška pri potvrđivanju rezervacije' });
             }
         });
-        // Odbijanje rezervacije
         this.rejectReservation = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const imeGosta = decodeURIComponent(req.params.imeGosta);
             const { brojStola, razlogOdbijanja } = req.body;
