@@ -1,0 +1,38 @@
+<h2>Add New Restaurant</h2>
+<form (ngSubmit)="onSubmit()">
+  <label>
+    Name:
+    <input type="text" [(ngModel)]="restaurant.ime" name="ime" required>
+  </label>
+  <br>
+  <label>
+    Address:
+    <input type="text" [(ngModel)]="restaurant.adresa" name="adresa" required>
+  </label>
+  <br>
+  <label>
+    Type:
+    <select [(ngModel)]="restaurant.tip" name="tip" required>
+      <option *ngFor="let type of types" [value]="type">{{ type }}</option>
+    </select>
+  </label>
+  <label>
+    Short Description:
+    <textarea [(ngModel)]="restaurant.kratakOpis" name="kratakOpis" required></textarea>
+  </label>
+  <label>
+    Contact Person:
+    <input type="text" [(ngModel)]="restaurant.kontaktOsoba" name="kontaktOsoba" required>
+  </label>
+  <label>
+    Working Hours From:
+    <input type="time" [(ngModel)]="restaurant.workingHoursFrom" name="workingHoursFrom" required>
+  </label>
+  <label>
+    Working Hours To:
+    <input type="time" [(ngModel)]="restaurant.workingHoursTo" name="workingHoursTo" required>
+  </label>
+
+  <br>
+  <button type="submit">Add Restaurant</button>
+</form>

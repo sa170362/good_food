@@ -1,0 +1,51 @@
+<h2>Edit User</h2>
+<div *ngIf="user">
+  <form (ngSubmit)="onSubmit()">
+    <label>
+      Username:
+      <input type="text" [(ngModel)]="user.korisnickoIme" name="korisnickoIme" required>
+    </label>
+    <label>
+      Password:
+      <input type="password" [(ngModel)]="user.lozinka" name="lozinka" required>
+    </label>
+    <label>
+      Firstname:
+      <input type="text" [(ngModel)]="user.ime" name="ime" required>
+    </label>
+    <label>
+      Lastname:
+      <input type="text" [(ngModel)]="user.prezime" name="prezime" required>
+    </label>
+    <label>
+      Gender:
+      <input type="text" [(ngModel)]="user.pol" name="pol" required>
+    </label>
+    <label>
+      Address:
+      <input type="text" [(ngModel)]="user.adresa" name="adresa" required>
+    </label>
+    <label>
+      Contact Phone:
+      <input type="text" [(ngModel)]="user.kontaktTelefon" name="kontaktTelefon" required>
+    </label>
+    <label>
+      Email:
+      <input type="email" [(ngModel)]="user.mejl" name="mejl" required>
+    </label>
+    <label>
+      Credit Card Number:
+      <input type="text" [(ngModel)]="user.brojKreditneKartice" name="brojKreditneKartice" required>
+    </label>
+    <label>
+      User Type:
+      <input type="text" [(ngModel)]="user.tip" name="tip" required>
+    </label>
+    <label>
+      Status:
+      <input type="text" [(ngModel)]="user.status" name="status">
+    </label>
+    
+    <button type="submit">Update</button>
+  </form>
+</div>

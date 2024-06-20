@@ -1,0 +1,105 @@
+<h2>Guests</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>Firstname</th>
+      <th>Lastname</th>
+      <th>Email</th>
+      <th>Akcija</th>
+      <!-- Add more columns as needed -->
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let guest of guests">
+      <td>{{ guest.korisnickoIme }}</td>
+      <td>{{ guest.ime }}</td>
+      <td>{{ guest.prezime }}</td>
+      <td>{{ guest.mejl }}</td>
+      <td>
+        <button (click)="deactivateUserGuest(guest.korisnickoIme)">Deactivate</button>
+        <button (click)="navigateToEditUser(guest)">Edit</button>
+      </td>
+      <!-- Add more columns as needed -->
+    </tr>
+  </tbody>
+</table>
+
+<h2>Waiters</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>Firstname</th>
+      <th>Lastname</th>
+      <th>Email</th>
+      <th>Akcija</th>
+      <!-- Add more columns as needed -->
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let waiter of waiters">
+      <td>{{ waiter.korisnickoIme }}</td>
+      <td>{{ waiter.ime }}</td>
+      <td>{{ waiter.prezime }}</td>
+      <td>{{ waiter.mejl }}</td>
+      <td>
+        <button (click)="deactivateUserKonobar(waiter.korisnickoIme)">Deactivate</button>
+        <button (click)="navigateToEditUser(waiter)">Edit</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Restaurants</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Address</th>
+      <th>Phone</th>
+      <th>Akcija</th>
+      <!-- Add more columns as needed -->
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let restaurant of restaurants">
+      <td>{{ restaurant.ime }}</td>
+      <td>{{ restaurant.adresa }}</td>
+      <td>{{ restaurant.tip }}</td>
+      <td>
+        <button (click)="dodajMapu(restaurant.ime)">Dodaj mapu</button>
+       
+      </td>
+      <!-- Add more columns as needed -->
+    </tr>
+  </tbody>
+
+  <h2>Deaktivirani nalozi </h2>
+<table>
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>Firstname</th>
+      <th>Lastname</th>
+      <th>Email</th>
+      <th>Tip korisnika</th>
+      <th>Akcija</th>
+      <!-- Add more columns as needed -->
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{ user.korisnickoIme }}</td>
+      <td>{{ user.ime }}</td>
+      <td>{{ user.prezime }}</td>
+      <td>{{ user.mejl }}</td>
+      <td>{{ user.tip }}</td>
+      <td>
+        <button (click)="unblockUser(user.korisnickoIme)">Unblock</button>
+        
+      </td>
+      <!-- Add more columns as needed -->
+    </tr>
+  </tbody>
+</table>

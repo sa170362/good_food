@@ -1,73 +1,67 @@
-import { Component } from '@angular/core';
-import {  UsersService} from '../users.service';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Korisnik } from '../models/korisnik';
-
+import { Restoran } from '../models/restoran';
+import { RestoranService } from '../restoran.service';
+import { UsersService } from '../users.service';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './registracija.component.html',
-  styleUrls: ['./registracija.component.css']
+  selector: 'app-dodaj-konobara',
+  templateUrl: './dodaj-konobara.component.html',
+  styleUrls: ['./dodaj-konobara.component.css']
 })
-export class RegisterComponent {
-  constructor(private servis: UsersService){}
-
-  user: Korisnik = new Korisnik()
+export class DodajKonobaraComponent implements OnInit{
+  waiter: Korisnik = new Korisnik();
+  restaurants: Restoran[] = [];
   formErrors: any = {};
   usernameExists: boolean = false;
   emailExists: boolean = false;
   userFound: Korisnik = new Korisnik()
   selectedFile: File | null = null;
-  // register(){
-  //   this.servis.register(this.user).subscribe(
-  //     data=>{
-  //       if(data.message=="ok") alert("Dodato")
-  //     }
-  //   )
-  // }
+
+  constructor(
+    private usersService: UsersService,
+    private restaurantService: RestoranService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.restaurantService.getRestaurants().subscribe(
+      (restaurants: Restoran[]) => {
+        this.restaurants = restaurants;
+      }
+    );
+  }
+
+  onSubmit(): void {
+    this.register();
+  }
   register(): void {
     if (this.validateForm()) {
-      this.servis.checkUsernameExists(this.user.korisnickoIme).subscribe(
+      this.usersService.checkUsernameExists(this.waiter.korisnickoIme).subscribe(
         exists => {
           this.usernameExists = exists;
           if (exists) {
             this.formErrors.korisnickoIme = "Username already exists";
           } else {
-            this.servis.checkEmailExists(this.user.mejl).subscribe(
+            this.usersService.checkEmailExists(this.waiter.mejl).subscribe(
               emailExists => {
                 this.emailExists = emailExists;
                 if (emailExists) {
                   this.formErrors.email = "Email already exists";
                 } else {
-                  // Proceed with registration
-                  // this.user.profilnaSlika = this.selectedFile;
-                  this.servis.register(this.user).subscribe(
-                    data => {
-                      if (data.message === "ok") {
-                        alert("Successfully registered");
-                        this.user = new Korisnik(); // Reset form after successful registration
-                      }
+                  this.usersService.registerKonobar(this.waiter).subscribe(
+                    () => {
+                      this.waiter= new Korisnik();
+                      this.router.navigate(['/admin']);
                     }
-                    // ,
-                    // error => {
-                    //   console.error('Error registering user:', error);
-                    //   alert("Registration failed. Please try again.");
-                    // }
                   );
                 }
               }
-              // ,
-              // error => {
-              //   console.error('Error checking email:', error);
-              //   alert("Error checking email availability. Please try again.");
-              // }
             );
           }
         }
-        // ,
-        // error => {
-        //   console.error('Error checking username:', error);
-        //   alert("Error checking username availability. Please try again.");
-        // }
+      
       );
     }
   }
@@ -89,65 +83,56 @@ export class RegisterComponent {
     let isValid = true;
 
 
-    if (!this.user.korisnickoIme) {
+    if (!this.waiter.korisnickoIme) {
       this.formErrors.korisnickoIme = "Username is required";
       isValid = false;
     }
 
-    if (!this.user.lozinka) {
+    if (!this.waiter.lozinka) {
       this.formErrors.lozinka = "Password is required";
       isValid = false;
-    } else if (!this.validatePassword(this.user.lozinka)) {
+    } else if (!this.validatePassword(this.waiter.lozinka)) {
       this.formErrors.lozinka = "Invalid password format";
       isValid = false;
     }
 
-    if (!this.user.ime) {
+    if (!this.waiter.ime) {
       this.formErrors.ime = "Firstname is required";
       isValid = false;
     }
 
-    if (!this.user.prezime) {
+    if (!this.waiter.prezime) {
       this.formErrors.prezime = "Lastname is required";
       isValid = false;
     }
 
-    if (!this.user.pol) {
+    if (!this.waiter.pol) {
       this.formErrors.pol = "Gender is required";
       isValid = false;
     }
 
-    if (!this.user.adresa) {
+    if (!this.waiter.adresa) {
       this.formErrors.adresa = "Address is required";
       isValid = false;
     }
 
-    if (!this.user.kontaktTelefon) {
+    if (!this.waiter.kontaktTelefon) {
       this.formErrors.kontaktTelefon = "Contact Phone is required";
       isValid = false;
-    } else if (!this.validatePhone(this.user.kontaktTelefon)) {
+    } else if (!this.validatePhone(this.waiter.kontaktTelefon)) {
       this.formErrors.kontaktTelefon = "Invalid phone number format";
       isValid = false;
     }
 
-    if (!this.user.mejl) {
+    if (!this.waiter.mejl) {
       this.formErrors.email = "Email is required";
       isValid = false;
-    } else if (!this.validateEmail(this.user.mejl)) {
+    } else if (!this.validateEmail(this.waiter.mejl)) {
       this.formErrors.email = "Invalid email format";
       isValid = false;
     }
-    if (!this.user.sigurnosnoPitanje) {
-      this.formErrors.bezbednosnoPitanje = "Security question is required";
-      isValid = false;
-    }
 
-    if (!this.user.sigurnosniOdgovor) {
-      this.formErrors.bezbednosniOdgovor = "Security answer is required";
-      isValid = false;
-    }
-
-    if (!this.user.profilnaSlika) {
+    if (!this.waiter.profilnaSlika) {
       this.formErrors.profilnaSlika = "Profile picture is required";
       isValid = false;
     }
@@ -165,7 +150,7 @@ export class RegisterComponent {
         const img = new Image();
         img.onload = () => {
           if (img.width >= 100 && img.width <= 300 && img.height >= 100 && img.height <= 300) {
-            this.user.profilnaSlika = file; // Store the file in a separate variable
+            this.waiter.profilnaSlika = file;
           } else {
             this.formErrors.profilnaSlika = 'Profile picture must be between 100x100 px and 300x300 px.';
           }

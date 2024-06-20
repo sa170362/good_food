@@ -10,6 +10,12 @@ import { PocetnaComponent } from './pocetna/pocetna.component';
 import { ProfilComponent } from './profil/profil.component';
 import { ReservationsComponent } from './reservations/reservations.component';
 import { RegisterComponent } from './registracija/registracija.component';
+import { AdministratorPocetnaComponent } from './administrator-pocetna/administrator-pocetna.component';
+import { AdministratorZahteviComponent } from './administrator-zahtevi/administrator-zahtevi.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
+import { DodajKonobaraComponent } from './dodaj-konobara/dodaj-konobara.component';
+import { DodajRestoranComponent } from './dodaj-restoran/dodaj-restoran.component';
+import { RestoranLayoutComponent } from './restoran-layout/restoran-layout.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +25,12 @@ import { RegisterComponent } from './registracija/registracija.component';
     ProfilComponent,
     ReservationsComponent,
     RegisterComponent,
+    AdministratorPocetnaComponent,
+    AdministratorZahteviComponent,
+    EditUserComponent,
+    DodajKonobaraComponent,
+    DodajRestoranComponent,
+    RestoranLayoutComponent,
   ],
   imports: [
     BrowserModule,

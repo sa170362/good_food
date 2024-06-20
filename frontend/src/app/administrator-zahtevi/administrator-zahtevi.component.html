@@ -1,0 +1,34 @@
+<h2>Zahtevi</h2>
+<table *ngIf="korisnici && korisnici.length > 0">
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>Firstname</th>
+      <th>Lastname</th>
+      <th>Email</th>
+      <th>Akcija</th>
+      <!-- Add more columns as needed -->
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let korisnik of korisnici">
+      <td>{{ korisnik.korisnickoIme }}</td>
+      <td>{{ korisnik.ime }}</td>
+      <td>{{ korisnik.prezime }}</td>
+      <td>{{ korisnik.mejl }}</td>
+      <td>
+        <button (click)="activateUser(korisnik.korisnickoIme)">Activate</button>
+      </td>
+      <td>
+        <button (click)="rejectUser(korisnik.korisnickoIme)">Reject</button>
+      </td>
+      <!-- <td>
+        <button (click)="deactivateUserGuest(user.korisnickoIme)">Decline</button>
+      </td> -->
+      <!-- Add more columns as needed -->
+    </tr>
+  </tbody>
+</table>
+<div *ngIf="korisnici && korisnici.length === 0">
+    <p>Nema korisnika tipa gost sa statusom pending.</p>
+  </div>

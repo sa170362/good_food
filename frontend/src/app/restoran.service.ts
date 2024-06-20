@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { Restoran } from './models/restoran';
 
 @Injectable({
   providedIn: 'root'
@@ -22,5 +23,14 @@ export class RestoranService {
           return throwError(error); // Return an observable error
         })
       );
+  }
+  getAllRestaurants() {
+    return this.http.get<Restoran[]>(this.apiUrl);
+  }
+  addRestaurant(restaurant: Restoran) {
+    return this.http.post<Restoran>(`${this.apiUrl}/add`, restaurant);
+  }
+  saveLayoutForRestoran(ime: string, layout: any) {
+    return this.http.post(`${this.apiUrl}/${ime}/save-layout`, { layout });
   }
 }

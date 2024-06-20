@@ -9,5 +9,7 @@ const restoranRouter = express_1.default.Router();
 const restoranController = new restoran_controller_1.RestoranController();
 // Definicija ruta za REST API operacije nad restoranima
 restoranRouter.get('/restorani', restoranController.getAllRestorani);
+restoranRouter.post('/add', restoranController.addRestoran);
+restoranRouter.post('/:ime/save-layout', restoranController.saveLayoutForRestoran);
 // Dodajte ostale rute za dodavanje, brisanje, izmenu restorana ako je potrebno
 exports.default = restoranRouter;

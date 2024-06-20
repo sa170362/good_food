@@ -20,10 +20,11 @@ export class ProfilComponent implements OnInit {
     pol: 'muški',
     adresa: 'Prvomajska 20',
     kontaktTelefon: '433434393493',
-    email: 'petar@gmail.com"',
+    mejl: 'petar@gmail.com"',
     profilnaSlika: undefined,
     profilnaSlikaUrl: 'https://example.com/profile-pic-petar.jpg',
-    brojKreditneKartice: '4567-8901-2345-6789'
+    brojKreditneKartice: '4567-8901-2345-6789',
+    tip:'konobar'
   };
 
   profilnaSlika: File | undefined;

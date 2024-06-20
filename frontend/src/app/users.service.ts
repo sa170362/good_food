@@ -44,7 +44,39 @@ export class UsersService {
   checkEmailExists(mejl: string) {
     return this.http.get<boolean>(`${this.uri}/check-email/${mejl}`);
   }
-  
-
-
+  getUsersByType(type: string) {
+    return this.http.get<Korisnik[]>(`${this.uri}/type/${type}`);
+  }
+  deactivateUserGuest(korisnickoIme: string) {
+    return this.http.put<Message>(`${this.uri}/deactivateUserGuest/${korisnickoIme}`, {});
+  }
+  deactivateUserKonobar(korisnickoIme: string) {
+    return this.http.put<Message>(`${this.uri}/deactivateUserKonobar/${korisnickoIme}`, {});
+  }
+  getUsersPending() {
+    return this.http.get<Korisnik[]>(`${this.uri}/users?type=gost&status=pending`);
+  }
+  getUsersBlocked() {
+    return this.http.get<Korisnik[]>(`${this.uri}/blocked`);
+  }
+  activateUser(korisnickoIme: string) {
+    return this.http.put<Message>(`${this.uri}/activateUser/${korisnickoIme}`, {});
+  }
+  rejectUser(korisnickoIme: string) {
+    return this.http.put<Message>(`${this.uri}/rejectUser/${korisnickoIme}`, {});
+  }
+  updateUserByAdmin(korisnickoIme: string, updatedData: any){
+    // alert("alo1")
+    return this.http.put<Korisnik>(`${this.uri}/users/${korisnickoIme}`, updatedData);
+  }
+  getUserByUsername(korisnickoIme: string){
+    return this.http.get<Korisnik>(`${this.uri}/users/${korisnickoIme}`);
+  }
+  registerKonobar(user: Korisnik){
+    return this.http.post<Message>(`${this.uri}/registerKonobar`,
+     user)
+  }
+  unblockUser(korisnickoIme: string) {
+    return this.http.put<Message>(`${this.uri}/unblockUser/${korisnickoIme}`, {});
+  }
 }

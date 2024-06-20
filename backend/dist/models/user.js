@@ -50,5 +50,8 @@ let KorisnikSchema = new Schema({
     brojKreditneKartice: {
         type: String,
     },
+    status: {
+        type: String,
+    },
 });
 exports.default = mongoose_1.default.model("Korisnik", KorisnikSchema, "korisnici");

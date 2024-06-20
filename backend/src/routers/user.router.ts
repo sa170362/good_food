@@ -36,4 +36,39 @@ userRouter
   .route("/check-email/:mejl")
   .get((req, res) => controller.checkEmail(req, res)); // Ruta za proveru jedinstvenosti email-a
 
+  userRouter.route('/type/:type').get((req, res) => controller.getUsersByType(req, res));
+
+  userRouter.put('/deactivateUserGuest/:korisnickoIme', (req, res) => {
+    controller.deactivateUserGuest(req, res);
+  });
+  userRouter.put('/deactivateUserKonobar/:korisnickoIme', (req, res) => {
+    controller.deactivateUserGuest(req, res);
+  });
+  userRouter.route('/requests').get((req, res) => controller.getRequests(req, res));
+  userRouter.route('/blocked').get((req, res) => controller.getUsersBlocked(req, res));
+  userRouter.get('/pending-guests', controller.getPendingGuests);
+  userRouter
+  .get('/users', (req, res) => {
+    const userType = req.query.type as string;
+    const status = req.query.status as string;
+
+    if (userType === 'gost' && status === 'pending') {
+      controller.getPendingGuests(req, res);
+    } else {
+      res.status(400).json({ message: 'Invalid query parameters' });
+    }
+  });
+  userRouter.put('/activateUser/:korisnickoIme', (req, res) => {
+    controller.activateUser(req, res);
+  });
+  userRouter.put('/rejectUser/:korisnickoIme', (req, res) => {
+    controller.rejectUser(req, res);
+  });
+
+  userRouter.put('/users/:korisnickoIme', (req, res) => controller.updateUserByAdmin(req, res));
+  userRouter.get('/getusers/:korisnickoIme', (req, res) => controller.getUserByUsername(req, res));
+  userRouter.route("/registerKonobar").post(upload.single('profilnaSlika'), (req, res) => controller.registerKonobar(req, res));
+  userRouter.put('/unblockUser/:korisnickoIme', (req, res) => {
+    controller.unblockUser(req, res);
+  });
 export default userRouter;
