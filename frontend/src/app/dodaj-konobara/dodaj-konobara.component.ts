@@ -11,6 +11,7 @@ import { UsersService } from '../users.service';
   styleUrls: ['./dodaj-konobara.component.css']
 })
 export class DodajKonobaraComponent implements OnInit{
+  currentYear: number = new Date().getFullYear();
   waiter: Korisnik = new Korisnik();
   restaurants: Restoran[] = [];
   formErrors: any = {};

@@ -28,7 +28,7 @@ export class ProfilComponent implements OnInit {
   };
 
   profilnaSlika: File | undefined;
-
+  currentYear: number = new Date().getFullYear();
   constructor(private userService: UsersService) { }
 
   ngOnInit(): void {

@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  currentYear: number = new Date().getFullYear();
   kor_ime: string = "";
   lozinka: string = "";
   tip: string = "";

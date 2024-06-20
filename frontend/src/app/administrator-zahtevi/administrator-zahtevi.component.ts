@@ -9,6 +9,7 @@ import { UsersService } from '../users.service';
   styleUrls: ['./administrator-zahtevi.component.css']
 })
 export class AdministratorZahteviComponent  implements OnInit{
+  currentYear: number = new Date().getFullYear();
   korisnici: Korisnik[] = [];
   constructor(private usersService: UsersService, private restaurantsService: RestoranService) {}
   ngOnInit(): void {

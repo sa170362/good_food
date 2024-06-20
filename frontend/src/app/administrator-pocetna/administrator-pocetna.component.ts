@@ -16,7 +16,7 @@ export class AdministratorPocetnaComponent implements OnInit  {
   restaurants: Restoran[] = [];
   users: Korisnik[] = [];
 
-
+  currentYear: number = new Date().getFullYear();
   constructor(private usersService: UsersService, private restaurantsService: RestoranService, private router: Router) {}
   ngOnInit(): void {
     this.fetchGuests();

@@ -9,6 +9,7 @@ import { UsersService } from '../users.service';
 })
 export class EditUserComponent implements OnInit {
   user: Korisnik = new Korisnik();
+  currentYear: number = new Date().getFullYear();
   oldUsername:string =''
   constructor(
     private route: ActivatedRoute,

@@ -1,3 +1,25 @@
+<header class="bg-dark text-light py-4">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+      <h1 class="text-white">Kutak dobre hrane</h1>
+      <nav>
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link text-light" routerLink="/dodajRestoran">Dodaj restoran</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" routerLink="/dodajKonobara">Dodaj konobara</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" routerLink="/requests">Zahtevi za registraciju</a>
+          </li>
+          <!-- Add more navigation links as needed -->
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
 <h2>Edit User</h2>
 <div *ngIf="user">
   <form (ngSubmit)="onSubmit()">
@@ -49,3 +71,9 @@
     <button type="submit">Update</button>
   </form>
 </div>
+<footer class="bg-dark text-light py-3 mt-5">
+  <div class="container text-center">
+    <hr class="mb-4">
+    <p>&copy; {{ currentYear }} Kutak dobre hrane. All rights reserved.</p>
+  </div>
+</footer>

@@ -9,6 +9,7 @@ import { RestoranService } from '../restoran.service';
   styleUrls: ['./dodaj-restoran.component.css']
 })
 export class DodajRestoranComponent {
+  currentYear: number = new Date().getFullYear();
   restaurant: Restoran = new Restoran();
   types: string[] = ['kineski', 'indiski', 'japanski', 'domaća kuhinja', 'italijanski', 'francuski'];
   layoutMap: any;

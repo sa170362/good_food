@@ -1,33 +1,59 @@
-<b>Ulogujte se</b>
-<hr />
-<form>
-    <table>
-        <tr>
-            <td>Korisnicko ime:</td>
-            <td>
-                <input type='text' name='kor_ime' [(ngModel)]='kor_ime'>
-            </td>
-        </tr>
-        <tr>
-            <td>Lozinka:</td>
-            <td>
-                <input type='password' name='lozinka' [(ngModel)]='lozinka'>
-            </td>
-        </tr>
-        <tr>
-            <td>Tip:</td>
-            <td>
-                <select name="tip" [(ngModel)]='tip'>
-                    <option value="kupac">Kupac</option>
-                    <option value="radnik">Radnik</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td colspan='2'>
-                <input type='button' value='Prijava' (click)='prijavaNaSistem()'>
-            </td>
-        </tr>
-    </table>
-</form>
-<span class='greska'>{{poruka}}</span>
+<header class="bg-dark text-light py-4">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <h1 class="text-white">Kutak dobre hrane</h1>
+        <nav>
+          <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link text-light" routerLink="/login">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" routerLink="/registracija">Registracija</a>
+              </li>
+            <!-- Add more navigation links as needed -->
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+<div class="container">
+    <b>Ulogujte se</b>
+    <hr />
+    <form>
+        <table>
+            <tr>
+                <td>Korisnicko ime:</td>
+                <td>
+                    <input type='text' name='kor_ime' [(ngModel)]='kor_ime'>
+                </td>
+            </tr>
+            <tr>
+                <td>Lozinka:</td>
+                <td>
+                    <input type='password' name='lozinka' [(ngModel)]='lozinka'>
+                </td>
+            </tr>
+            <tr>
+                <td>Tip:</td>
+                <td>
+                    <select name="tip" [(ngModel)]='tip'>
+                        <option value="kupac">Kupac</option>
+                        <option value="radnik">Radnik</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan='2'>
+                    <input type='button' value='Prijava' (click)='prijavaNaSistem()'>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <span class='greska'>{{poruka}}</span>
+</div>
+<footer class="bg-dark text-light py-3 mt-5">
+    <div class="container text-center">
+      <hr class="mb-4">
+      <p>&copy; {{ currentYear }} Kutak dobre hrane. All rights reserved.</p>
+    </div>
+  </footer>

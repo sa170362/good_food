@@ -8,7 +8,7 @@ import { RestoranService } from '../restoran.service';
   styleUrls: ['./pocetna.component.css']
 })
 export class PocetnaComponent implements OnInit {
-
+  currentYear: number = new Date().getFullYear();
   restorani: any[] = [];
   sortByOptions = ['name', 'address', 'type'];
   searchQuery: string = '';

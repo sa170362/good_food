@@ -8,7 +8,7 @@ import { Rezervacija } from '../models/rezervacija';
   styleUrls: ['./reservations.component.css']
 })
 export class ReservationsComponent implements OnInit {
-
+  currentYear: number = new Date().getFullYear();
   neobradjeneRezervacije: Rezervacija[] = [];
   canvas!: HTMLCanvasElement;
   ctx!: CanvasRenderingContext2D;

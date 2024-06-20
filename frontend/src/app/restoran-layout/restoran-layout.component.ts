@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class RestoranLayoutComponent implements OnInit{
   restoranIme: string = '';
+  currentYear: number = new Date().getFullYear();
   @ViewChild('layoutCanvas', { static: true }) canvas!: ElementRef<HTMLCanvasElement>;
   private ctx!: CanvasRenderingContext2D;
 

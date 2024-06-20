@@ -11,6 +11,7 @@ import { RegisterComponent } from './registracija/registracija.component';
 import { ReservationsComponent } from './reservations/reservations.component';
 import { RestoranLayoutComponent } from './restoran-layout/restoran-layout.component';
 import { PorudzbinaComponent } from './porudzbina/porudzbina.component';
+import { LoginComponent } from './login/login.component';
 
 
 const routes: Routes = [
@@ -26,6 +27,8 @@ const routes: Routes = [
   { path: 'restoranMapa', component: RestoranLayoutComponent },
   { path: 'restoranMapa/:ime', component: RestoranLayoutComponent },
   { path: "porudzbine", component: PorudzbinaComponent },
+  { path: "login", component: LoginComponent },
+
 ];
 
 @NgModule({

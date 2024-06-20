@@ -1,3 +1,28 @@
+<header class="bg-dark text-light py-4">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+      <h1 class="text-white">Kutak dobre hrane</h1>
+      <nav>
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link text-light" routerLink="/profil">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" routerLink="/rezervacije">Rezervacije</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" routerLink="/porudzbine">Dostava</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" >Statistika</a>
+          </li>
+          <!-- Add more navigation links as needed -->
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
 <header>
     <h1>Narudžbine</h1>
   </header>
@@ -9,4 +34,9 @@
       <button class="reject" (click)="rejectOrder(order)">Odbij</button>
     </div>
   </main>
-  
+  <footer class="bg-dark text-light py-3 mt-5">
+    <div class="container text-center">
+      <hr class="mb-4">
+      <p>&copy; {{ currentYear }} Kutak dobre hrane. All rights reserved.</p>
+    </div>
+  </footer>

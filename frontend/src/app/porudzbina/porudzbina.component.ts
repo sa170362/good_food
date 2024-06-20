@@ -9,7 +9,7 @@ import { PorudzbinaService } from '../porudzbina.service';
 })
 export class PorudzbinaComponent implements OnInit {
   orders: Porudzbina[] = [];
-
+  currentYear: number = new Date().getFullYear();
   constructor(private porudzbinaService: PorudzbinaService) {}
 
   ngOnInit(): void {

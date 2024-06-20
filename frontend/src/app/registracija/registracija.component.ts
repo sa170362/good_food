@@ -10,7 +10,7 @@ import { Korisnik } from '../models/korisnik';
 })
 export class RegisterComponent {
   constructor(private servis: UsersService){}
-
+  currentYear: number = new Date().getFullYear();
   user: Korisnik = new Korisnik()
   formErrors: any = {};
   usernameExists: boolean = false;
