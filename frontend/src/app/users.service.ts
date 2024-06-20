@@ -81,10 +81,6 @@ import { Observable } from 'rxjs';
       return this.http.put<Message>(`${this.uri}/unblockUser/${korisnickoIme}`, {});
     }
 
-    getAllGuests() {
-      return this.http.get<Korisnik[]>(`${this.uri}/tip/gost`);
-    }
-
     getTotalRegisteredGuests(): Observable<{ totalGuests: number }> {
       return this.http.get<{ totalGuests: number }>(`${this.uri}/ukupanBrojRegistrovanihGostiju`);
     }
