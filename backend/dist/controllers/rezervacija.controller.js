@@ -60,6 +60,33 @@ class RezervacijaController {
             }
         });
     }
+    getBrojGostijuPoDanima(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { korisnickoIme } = req.params;
+            try {
+                const data = yield rezervacija_1.default.aggregate([
+                    {
+                        $match: { korisnickoIme, statusRezervacije: 'obradjena' }
+                    },
+                    {
+                        $group: {
+                            _id: { $dateToString: { format: '%Y-%m-%d', date: '$datumVremeRezervacije' } },
+                            brojGostiju: { $sum: '$brojGostiju' }
+                        }
+                    },
+                    {
+                        $sort: { _id: 1 }
+                    }
+                ]);
+                res.json(data);
+                console.log(data);
+            }
+            catch (err) {
+                console.error(err);
+                res.status(500).json({ message: 'Greška prilikom dobijanja statističkih podataka.' });
+            }
+        });
+    }
 }
 exports.RezervacijaController = RezervacijaController;
 ;

@@ -4,7 +4,7 @@ export class Restoran {
     tip: string = '';
     kratakOpis:string='';
     kontaktOsoba: string='';
-    workingHoursFrom: string='';
-    workingHoursTo: string='';
+    workingHoursFrom?: string='';
+    workingHoursTo?: string='';
   }
   
