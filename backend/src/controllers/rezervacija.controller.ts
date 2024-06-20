@@ -57,5 +57,30 @@ export class RezervacijaController {
     }
   };
 
+  public async getBrojGostijuPoDanima(req: Request, res: Response): Promise<void> {
+    const { korisnickoIme } = req.params;
+    
+    try {
+        const data = await Rezervacija.aggregate([
+            { 
+                $match: { korisnickoIme, statusRezervacije: 'obradjena' }
+            },
+            {
+                $group: {
+                    _id: { $dateToString: { format: '%Y-%m-%d', date: '$datumVremeRezervacije' } },
+                    brojGostiju: { $sum: '$brojGostiju' }
+                }
+            },
+            { 
+                $sort: { _id: 1 }
+            }
+        ]);
+        res.json(data);
+        console.log(data);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Greška prilikom dobijanja statističkih podataka.' });
+    }
+}
 };
 

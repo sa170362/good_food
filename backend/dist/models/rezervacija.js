@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const Schema = mongoose_1.default.Schema;
 const reservationSchema = new Schema({
+    korisnickoIme: { type: String, required: true },
     imeGosta: { type: String, required: true },
     datumVremeRezervacije: { type: Date, required: true },
     brojGostiju: { type: Number, required: true },

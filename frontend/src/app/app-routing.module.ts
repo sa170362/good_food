@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: "", component: PocetnaComponent },
   { path: "profil", component: ProfilComponent },
   { path: "rezervacije", component: ReservationsComponent },
-  { path: "porudzbine", component: PorudzbinaComponent }
+  { path: "porudzbine", component: PorudzbinaComponent },
 ];
 
 @NgModule({
