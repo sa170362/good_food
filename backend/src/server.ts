@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import userRouter from "./routers/user.router";
 import restoranRouter from "./routers/restoran.router";
 import rezervacijaRouter from "./routers/rezervacija.router";
+import NarudzbinaRouter from "./routers/narudzbina.router";
 
 const app = express();
 app.use(cors());
@@ -19,6 +20,7 @@ const router = express.Router();
 router.use("/users", userRouter);
 router.use("/restorani", restoranRouter);
 router.use("/rezervacije", rezervacijaRouter);
+router.use("/porudzbine", NarudzbinaRouter);
 
 app.use("/", router);
 

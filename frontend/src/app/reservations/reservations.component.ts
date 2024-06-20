@@ -10,53 +10,139 @@ import { Rezervacija } from '../models/rezervacija';
 export class ReservationsComponent implements OnInit {
 
   neobradjeneRezervacije: Rezervacija[] = [];
+  canvas!: HTMLCanvasElement;
+  ctx!: CanvasRenderingContext2D;
 
   constructor(private reservationsService: ReservationsService) { }
 
   ngOnInit(): void {
-    this.loadUnprocessedReservations();
+    this.ucitajNeobradjeneRezervacije();
+    this.setupCanvas();
   }
 
-  loadUnprocessedReservations(): void {
-    this.reservationsService.neobradjeneRezervacije().subscribe(
-      (reservations: Rezervacija[]) => {
-        this.neobradjeneRezervacije = reservations;
+  setupCanvas(): void {
+    this.canvas = document.getElementById('canvas') as HTMLCanvasElement;
+    this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D;
+    this.drawTables();
+  }
+
+  drawTables(): void {
+    const tables = [
+      { id: 1, x: 50, y: 50 },
+      { id: 2, x: 150, y: 50 },
+      { id: 3, x: 250, y: 50 },
+      { id: 4, x: 350, y: 50 },
+      { id: 5, x: 450, y: 50 }
+    ];
+
+    tables.forEach(table => {
+      this.ctx.fillStyle = 'white';
+      this.ctx.fillRect(table.x, table.y, 50, 50);
+      this.ctx.strokeRect(table.x, table.y, 50, 50);
+      this.ctx.fillStyle = 'black';
+      this.ctx.fillText(table.id.toString(), table.x + 20, table.y + 30);
+    });
+  }
+
+  colorTable(tableId: number, color: string): void {
+    const table = this.getTableById(tableId);
+    if (table) {
+      this.ctx.fillStyle = color;
+      this.ctx.fillRect(table.x, table.y, 50, 50);
+      this.ctx.strokeRect(table.x, table.y, 50, 50);
+      this.ctx.fillStyle = 'black';
+      this.ctx.fillText(table.id.toString(), table.x + 20, table.y + 30);
+    }
+  }
+
+  getTableById(tableId: number): any {
+    const tables = [
+      { id: 1, x: 50, y: 50 },
+      { id: 2, x: 150, y: 50 },
+      { id: 3, x: 250, y: 50 },
+      { id: 4, x: 350, y: 50 },
+      { id: 5, x: 450, y: 50 }
+    ];
+    return tables.find(table => table.id === tableId);
+  }
+
+  ucitajNeobradjeneRezervacije(): void {
+    this.reservationsService.getNeobradjeneRezervacije().subscribe(
+      data => {
+        this.neobradjeneRezervacije = data;
+        this.markUnprocessedReservations();
       },
-      (error) => {
-        console.error('Failed to load unprocessed reservations: ', error);
+      error => {
+        console.error('Failed to load unprocessed reservations:', error);
       }
     );
   }
 
-  confirmReservation(reservation: Rezervacija): void {
-    reservation.potvrdjenaRezervacija = true;
-    this.reservationsService.potvrdiRezervaciju(reservation).subscribe(
-      (updatedReservation: Rezervacija) => {
-        console.log('Reservation confirmed successfully: ', updatedReservation);
-        // Implement additional logic or data refresh on the frontend
-      },
-      (error) => {
-        console.error('Failed to confirm reservation: ', error);
-        // Handle the error and display appropriate message to the user
+  markUnprocessedReservations(): void {
+    this.neobradjeneRezervacije.forEach(reservation => {
+      if (reservation.statusRezervacije === 'neobradjena' && reservation.brojStola) {
+        this.colorTable(reservation.brojStola, 'yellow');
+      } else if (reservation.statusRezervacije === 'obradjena' && reservation.brojStola) {
+        this.colorTable(reservation.brojStola, 'red');
+      } else if (reservation.statusRezervacije === 'obradjena' && reservation.razlogOdbijanja && reservation.brojStola) {
+        this.colorTable(reservation.brojStola, 'white');
       }
-    );
+    });
   }
 
-  rejectReservation(reservation: Rezervacija): void {
-    reservation.potvrdjenaRezervacija = false;
-    reservation.razlogOdbijanja = 'Nedostatak slobodnih stolova'; // Example reason
-
-    this.reservationsService.odbijRezervaciju(reservation).subscribe(
-      (updatedReservation: Rezervacija) => {
-        console.log('Reservation rejected successfully: ', updatedReservation);
-        // Implement additional logic or data refresh on the frontend
-      },
-      (error) => {
-        console.error('Failed to reject reservation: ', error);
-        // Handle the error and display appropriate message to the user
+  potvrdiRezervaciju(reservation: Rezervacija): void {
+    if (reservation.brojStola) {
+      this.reservationsService.potvrdiRezervaciju(reservation.imeGosta, reservation.brojStola).subscribe(
+        () => {
+          reservation.statusRezervacije = 'obradjena';
+          this.colorTable(reservation.brojStola!, 'red');
+          this.ucitajNeobradjeneRezervacije();
+        },
+        error => {
+          console.error('Failed to confirm reservation:', error);
+        }
+      );
+    } else {
+      const selectedTable = prompt("Unesite broj stola:");
+      if (selectedTable && !isNaN(Number(selectedTable))) {
+        this.reservationsService.potvrdiRezervaciju(reservation.imeGosta, Number(selectedTable)).subscribe(
+          () => {
+            reservation.brojStola = Number(selectedTable); 
+            reservation.statusRezervacije = 'obradjena'; 
+            this.colorTable(Number(selectedTable), 'red');
+            this.ucitajNeobradjeneRezervacije();
+          },
+          error => {
+            console.error('Failed to confirm reservation:', error);
+          }
+        );
       }
-    );
+    }
   }
 
+  odbijRezervaciju(reservation: Rezervacija): void {
+    const reason = prompt('Unesite razlog odbijanja:');
+    if (reason) {
+      const brojStola = reservation.brojStola || 0; 
+      this.reservationsService.odbijRezervaciju(reservation.imeGosta, brojStola, reason).subscribe(
+        () => {
+          reservation.statusRezervacije = 'obradjena'; 
+          reservation.razlogOdbijanja = reason; 
+          this.colorTable(brojStola, 'white'); 
+          this.ucitajNeobradjeneRezervacije(); 
+
+          console.log(brojStola);
+          console.log(reservation.statusRezervacije);
+          console.log(reservation.razlogOdbijanja);
+
+        },
+        error => {
+          console.error('Greška pri odbijanju rezervacije:', error);
+        }
+      );
+    }
+  }
+  
   
 }
+

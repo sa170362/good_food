@@ -1,15 +1,12 @@
-// routes/rezervacija.router.ts
-
 import express from "express";
 import { RezervacijaController } from "../controllers/rezervacija.controller";
 
 const rezervacijaRouter = express.Router();
 const controller = new RezervacijaController();
 
-// GET ruta za dohvatanje svih neobrađenih rezervacija
-rezervacijaRouter.get("/neobradjene", controller.getNeobradjeneRezervacije);
-
-// PUT ruta za potvrdu ili odbijanje rezervacije
-rezervacijaRouter.put("/:imeGosta", controller.potvrdiRezervaciju);
+rezervacijaRouter.get('/neobradjene', controller.getAllNeobradjeneRezervacije);
+rezervacijaRouter.post('/potvrdi/:imeGosta', controller.confirmReservation);
+rezervacijaRouter.post('/odbij/:imeGosta', controller.rejectReservation);
+rezervacijaRouter.get('/brojGostijuPoDanima/:korisnickoIme', controller.getBrojGostijuPoDanima);
 
 export default rezervacijaRouter;

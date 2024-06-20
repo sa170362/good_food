@@ -11,17 +11,15 @@ export class ReservationsService {
 
   constructor(private http: HttpClient) { }
 
-  neobradjeneRezervacije() {
-    return this.http.get<Rezervacija[]>(`${this.apiUrl}/neobradjeneRezervacije`);
+  getNeobradjeneRezervacije() {
+    return this.http.get<Rezervacija[]>(`${this.apiUrl}/neobradjene`);
   }
 
-   // Metoda za potvrdu rezervacije
-   potvrdiRezervaciju(reservation: Rezervacija) {
-    return this.http.put<Rezervacija>(`${this.apiUrl}/potvrdiRezervaciju/${reservation.imeGosta}`, reservation);
+  potvrdiRezervaciju(imeGosta: string, brojStola: number) {
+    return this.http.post(`${this.apiUrl}/potvrdi/${encodeURIComponent(imeGosta)}`, { brojStola });
   }
 
-  // Metoda za odbijanje rezervacije
-  odbijRezervaciju(reservation: Rezervacija) {
-    return this.http.put<Rezervacija>(`${this.apiUrl}/odbijRezervaciju/${reservation.imeGosta}`, reservation);
+  odbijRezervaciju(imeGosta: string, brojStola: number, razlogOdbijanja: string) {
+    return this.http.post(`${this.apiUrl}/odbij/${encodeURIComponent(imeGosta)}`, { brojStola, razlogOdbijanja });
   }
 }

@@ -16,6 +16,8 @@ import { EditUserComponent } from './edit-user/edit-user.component';
 import { DodajKonobaraComponent } from './dodaj-konobara/dodaj-konobara.component';
 import { DodajRestoranComponent } from './dodaj-restoran/dodaj-restoran.component';
 import { RestoranLayoutComponent } from './restoran-layout/restoran-layout.component';
+import { PorudzbinaComponent } from './porudzbina/porudzbina.component';
+
 
 @NgModule({
   declarations: [
@@ -31,6 +33,7 @@ import { RestoranLayoutComponent } from './restoran-layout/restoran-layout.compo
     DodajKonobaraComponent,
     DodajRestoranComponent,
     RestoranLayoutComponent,
+    PorudzbinaComponent,
   ],
   imports: [
     BrowserModule,

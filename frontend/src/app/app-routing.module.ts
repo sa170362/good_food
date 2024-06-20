@@ -10,6 +10,8 @@ import { ProfilComponent } from './profil/profil.component';
 import { RegisterComponent } from './registracija/registracija.component';
 import { ReservationsComponent } from './reservations/reservations.component';
 import { RestoranLayoutComponent } from './restoran-layout/restoran-layout.component';
+import { PorudzbinaComponent } from './porudzbina/porudzbina.component';
+
 
 const routes: Routes = [
   { path: "", component: PocetnaComponent },
@@ -23,6 +25,7 @@ const routes: Routes = [
   { path: 'dodajRestoran', component: DodajRestoranComponent },
   { path: 'restoranMapa', component: RestoranLayoutComponent },
   { path: 'restoranMapa/:ime', component: RestoranLayoutComponent },
+  { path: "porudzbine", component: PorudzbinaComponent },
 ];
 
 @NgModule({
