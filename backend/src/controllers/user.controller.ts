@@ -424,4 +424,15 @@ unblockUser = (req: express.Request, res: express.Response) => {
       res.status(500).json({ message: 'Error unblocking user' });
     });
 };
+
+ukupanBrojRegistrovanihGostijui = (req: express.Request, res: express.Response) => {
+  Korisnik.countDocuments({ tip: 'gost' })
+    .then((count: number) => {
+      res.status(200).json({ totalGuests: count });
+    })
+    .catch((err) => {
+      console.error('Error counting guests:', err);
+      res.status(500).json({ message: 'Error counting guests' });
+    });
+};
 }

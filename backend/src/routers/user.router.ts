@@ -71,4 +71,8 @@ userRouter
   userRouter.put('/unblockUser/:korisnickoIme', (req, res) => {
     controller.unblockUser(req, res);
   });
+
+  userRouter
+  .get('/ukupanBrojRegistrovanihGostiju', controller.ukupanBrojRegistrovanihGostijui);
+
 export default userRouter;

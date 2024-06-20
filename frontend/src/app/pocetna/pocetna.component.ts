@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RestoranService } from '../restoran.service';
+import { UsersService } from '../users.service';
+import { Korisnik } from '../models/korisnik';
 
 @Component({
   selector: 'pocetna',
@@ -10,13 +12,15 @@ import { RestoranService } from '../restoran.service';
 export class PocetnaComponent implements OnInit {
   currentYear: number = new Date().getFullYear();
   restorani: any[] = [];
+  totalRegisteredGuests: number = 0;
   sortByOptions = ['name', 'address', 'type'];
   searchQuery: string = '';
 
-  constructor(private restoranService: RestoranService) { }
+  constructor(private restoranService: RestoranService, private usersService: UsersService) {}
 
   ngOnInit(): void {
     this.fetchRestaurants();
+    this.fetchTotalRegisteredGuests();
   }
 
   fetchRestaurants() {
@@ -29,7 +33,6 @@ export class PocetnaComponent implements OnInit {
       }
     );
   }
-
   sortBy(option: string): void {
     this.restorani.sort((a, b) => {
       if (a[option] < b[option]) return -1;
@@ -38,4 +41,11 @@ export class PocetnaComponent implements OnInit {
     });
   }
 
+  fetchTotalRegisteredGuests() {
+    this.usersService.getTotalRegisteredGuests().subscribe(
+      (data: { totalGuests: number }) => {
+        this.totalRegisteredGuests = data.totalGuests;
+      }
+    );
+  }
 }

@@ -1,7 +1,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -391,6 +395,16 @@ class UserController {
                 res.status(500).json({ message: 'Error unblocking user' });
             });
         };
+        this.ukupanBrojRegistrovanihGostiju = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const totalGuests = yield user_1.default.countDocuments({ tip: 'gost' });
+                res.status(200).json({ totalGuests });
+            }
+            catch (error) {
+                console.error('Error fetching total registered guests:', error);
+                res.status(500).json({ message: 'Error fetching total registered guests' });
+            }
+        });
     }
     updateUserByAdmin(req, res) {
         return __awaiter(this, void 0, void 0, function* () {

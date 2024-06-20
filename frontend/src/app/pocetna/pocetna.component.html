@@ -1,4 +1,3 @@
-<!-- src/app/home/home.component.html -->
 <header class="bg-dark text-light py-4">
   <div class="container">
     <div class="d-flex justify-content-between align-items-center">
@@ -26,6 +25,14 @@
       <h4>Informacije o restoranima</h4>
       <ul>
         <li>Ukupan broj restorana: {{ restorani.length }}</li>
+        <!-- Dodajte još informacija po zahtevu -->
+        <li>Ukupan broj registrovanih gostiju: {{ totalRegisteredGuests }}</li>
+      </ul>
+    </div>
+    <div class="col-md-6">
+      <h4>Informacije o gostima</h4>
+      <ul>
+        <li>Ukupan broj registrovanih gostiju: {{ totalRegisteredGuests }}</li>
         <!-- Dodajte još informacija po zahtevu -->
       </ul>
     </div>
