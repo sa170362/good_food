@@ -87,19 +87,18 @@ export class UsersService {
     return this.http.put<Message>(`${this.uri}/unblockUser/${korisnickoIme}`, {});
   }
 
-  changePasswordWithOld(username: string, oldPassword: string, newPassword: string) {
-    return this.http.put<any>(`${this.uri}/api/change-password-with-old`, { username, oldPassword, newPassword });
+  verifyOldPassword(username: string, oldPassword: string){
+    return this.http.post(`${this.uri}/verifyOldPassword`, { username, oldPassword });
   }
 
-  getSecurityQuestion(username: string) {
-    return this.http.get<any>(`${this.uri}/api/security-question/${username}`);
+  verifySecurityAnswer(username: string, securityAnswer: string) {
+    return this.http.post(`${this.uri}/verifySecurityAnswer`, { username, securityAnswer });
   }
 
-  answerSecurityQuestion(username: string, securityAnswer: string) {
-    return this.http.put<any>(`${this.uri}/api/answer-security-question`, { username, securityAnswer });
+  changePassword(username: string, newPassword: string){
+    return this.http.post(`${this.uri}/changePassword`, { username, newPassword });
   }
-
-  changePasswordWithSecurityAnswer(username: string, newPassword: string) {
-    return this.http.put<any>(`${this.uri}/api/change-password-with-security-answer`, { username, newPassword });
+  getBrojRegistrovanihGostiju() {
+    return this.http.get<number>(`${this.uri}/brojRegistrovanihGostiju`);
   }
 }

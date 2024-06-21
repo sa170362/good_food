@@ -38,25 +38,25 @@ const multer_1 = __importDefault(require("multer"));
 const bcrypt = __importStar(require("bcryptjs"));
 const fs_1 = __importDefault(require("fs"));
 const storage = multer_1.default.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads/');
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/'); // Your uploads directory
     },
-    filename: (req, file, cb) => {
+    filename: function (req, file, cb) {
         cb(null, file.fieldname + '-' + Date.now() + path_1.default.extname(file.originalname));
     }
 });
 const upload = (0, multer_1.default)({
     storage: storage,
-    limits: { fileSize: 2 * 1024 * 1024 },
-    fileFilter: (req, file, cb) => {
+    limits: { fileSize: 300 * 1024 },
+    fileFilter: function (req, file, cb) {
         if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-            cb(null, true); // Accept only JPEG and PNG files
+            cb(null, true);
         }
         else {
-            cb(new Error('Only JPEG and PNG images are allowed'));
+            cb(null, false); // reject file
         }
     }
-});
+}).single('profileImage'); // 'profileImage' is the field name
 const clearMulterUploads = () => {
     const directory = 'uploads/';
     fs_1.default.readdir(directory, (err, files) => {
@@ -72,44 +72,67 @@ const clearMulterUploads = () => {
 };
 class UserController {
     constructor() {
+        //   login = (req: express.Request, res: express.Response) => {
+        //   let korisnickoIme = req.body.korisnickoIme;
+        //   let lozinka = req.body.lozinka;
+        //   Korisnik.findOne({ korisnickoIme: korisnickoIme })
+        //       .then(async (user) => {
+        //           if (!user) {
+        //               return res.status(404).json({ message: "Korisnik nije pronađen. Proverite svoje kredencijale." });
+        //           }
+        //           const match = await bcrypt.compare(lozinka, user.lozinka || '');
+        //           if (!match) {
+        //               return res.status(403).json({ message: "Pogrešno korisničko ime ili lozinka" });
+        //           }
+        //           if (user.status !== 'aktivan') {
+        //               return res.status(403).json({ message: "Vaš nalog je deaktiviran" });
+        //           }
+        //           res.json(user);
+        //       })
+        //       .catch((err) => {
+        //           console.error('Greška pri prijavi:', err);
+        //           res.status(500).json({ message: "Greška prilikom prijave korisnika", error: err });
+        //       });
+        // };
         this.login = (req, res) => {
-            //   let korisnickoIme = req.body.korisnickoIme;
-            //   let lozinka = req.body.lozinka;
-            //   Korisnik.findOne({ korisnickoIme: korisnickoIme, lozinka: lozinka })
-            //     .then((user) => {
-            //       if (!user) {
-            //         return res.status(404).json({ message: "Korisnik nije pronađen" });
-            //       }
-            //       if (user.status !== 'aktivan') {
-            //         return res.status(403).json({ message: "Vaš nalog je deaktiviran" });
-            //       }
-            //       res.json(user);
-            //     })
-            //     .catch((err) => {
-            //       console.log(err);
-            //       res.status(500).json({ message: "Greška prilikom prijave korisnika", error: err });
-            //     });
             let korisnickoIme = req.body.korisnickoIme;
             let lozinka = req.body.lozinka;
             user_1.default.findOne({ korisnickoIme: korisnickoIme })
                 .then((user) => __awaiter(this, void 0, void 0, function* () {
                 if (!user) {
-                    return res.status(404).json({ message: "Korisnik nije pronađen. Proverite svoje kredencijale." });
+                    return res.status(404).json({ status: 'not_found', message: "Korisnik nije pronađen. Proverite svoje kredencijale." });
                 }
-                const match = yield bcrypt.compare(lozinka, user.lozinka || ''); // Compare hashed password with login password
+                const match = yield bcrypt.compare(lozinka, user.lozinka || '');
                 if (!match) {
-                    return res.status(403).json({ message: "Pogrešno korisničko ime ili lozinka" });
+                    return res.status(403).json({ status: 'incorrect_credentials', message: "Pogrešna lozinka." });
+                }
+                if (user.status === 'pending') {
+                    return res.status(403).json({ status: 'pending', message: "Korisnik čeka odobrenje administratora." });
+                }
+                if (user.status === 'blocked') {
+                    return res.status(403).json({ status: 'blocked', message: "Nalog je blokiran." });
                 }
                 if (user.status !== 'aktivan') {
-                    return res.status(403).json({ message: "Vaš nalog je deaktiviran" });
+                    return res.status(403).json({ status: 'inactive', message: "Vaš nalog više nije aktivan." });
                 }
-                res.json(user);
+                res.json({ status: 'success', user });
             }))
                 .catch((err) => {
                 console.error('Greška pri prijavi:', err);
-                res.status(500).json({ message: "Greška prilikom prijave korisnika", error: err });
+                res.status(500).json({ status: 'error', message: "Greška prilikom prijave korisnika.", error: err });
             });
         };
+        this.getBrojRegistrovanihGostiju = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            user_1.default.find({ tip: 'gost', status: 'aktivan' })
+                .then((users) => {
+                // console.log(users.length)
+                res.status(200).json(users.length);
+            })
+                .catch((err) => {
+                console.error('Error fetching registered guests:', err);
+                res.status(500).json({ message: 'Error fetching registered guests' });
+            });
+        });
         this.loginAdmin = (req, res) => {
             let korisnickoIme = req.body.korisnickoIme;
             let lozinka = req.body.lozinka;

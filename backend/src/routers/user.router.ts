@@ -77,5 +77,7 @@ userRouter
   userRouter.get('/security-question/:username', controller.getSecurityQuestion);
   userRouter.put('/answer-security-question', controller.answerSecurityQuestion);
   userRouter.put('/change-password-with-security-answer', controller.changePasswordWithSecurityAnswer);
+  userRouter.get('/brojRegistrovanihGostiju', controller.getBrojRegistrovanihGostiju);
+
 
 export default userRouter;

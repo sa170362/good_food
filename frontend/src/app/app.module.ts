@@ -19,6 +19,7 @@ import { RestoranLayoutComponent } from './restoran-layout/restoran-layout.compo
 import { PorudzbinaComponent } from './porudzbina/porudzbina.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { PromenaLozinkeComponent } from './promena-lozinke/promena-lozinke.component';
+import { ProfilGostComponent } from './profil-gost/profil-gost.component';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { PromenaLozinkeComponent } from './promena-lozinke/promena-lozinke.compo
     PorudzbinaComponent,
     AdminLoginComponent,
     PromenaLozinkeComponent,
+    ProfilGostComponent,
   ],
   imports: [
     BrowserModule,

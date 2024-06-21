@@ -1,6 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Korisnik } from '../models/korisnik';
 import { UsersService } from '../users.service';
 
 @Component({
@@ -10,77 +12,56 @@ import { UsersService } from '../users.service';
 })
 export class PromenaLozinkeComponent implements OnInit {
 
-  showOldPasswordForm: boolean = true;
-  showSecurityQuestionForm: boolean = false;
-  showChangePasswordForm: boolean = false;
-  username: string = '';
   oldPassword: string = '';
   newPassword: string = '';
-  confirmPassword: string = '';
-  securityQuestion: string = '';
+  confirmNewPassword: string = '';
+  username: string = '';
   securityAnswer: string = '';
-  passwordChanged: boolean = false;
-  errorMessage: string = '';
-
+  isSecurityQuestionStep: boolean = false;
+  isResetSuccessful: boolean = false;
+  showForgotPasswordLink: boolean = true;
+  korisnik: Korisnik | null = null;
   constructor(private userService: UsersService) { }
-
   ngOnInit(): void {
+    const storedUser = localStorage.getItem('currentUser');
+    this.korisnik = storedUser ? JSON.parse(storedUser) : null;
+    
+  }
+  onSubmitChangePassword() {
+    // Simulate password change logic
+    if (this.oldPassword === 'currentPassword') {
+      if (this.newPassword === this.confirmNewPassword) {
+        // Password change successful
+        this.isResetSuccessful = true;
+        this.isSecurityQuestionStep = false;
+        this.showForgotPasswordLink = false; // Hide forgot password link after successful change
+      } else {
+        alert('New passwords do not match.');
+      }
+    } else {
+      alert('Old password is incorrect.');
+    }
   }
 
-  changePasswordWithOld() {
-    // Implement logic to change password with old password
-    // Example implementation
-    this.userService.changePasswordWithOld(this.username, this.oldPassword, this.newPassword).subscribe(
-      () => {
-        this.passwordChanged = true;
-        this.showOldPasswordForm = false;
-      },
-      error => {
-        this.errorMessage = error.message;
-      }
-    );
+  onSubmitSecurityQuestion() {
+    // Simulate security question validation logic
+    if (this.securityAnswer === 'answer') {
+      // Security question answered correctly, proceed to new password
+      this.isSecurityQuestionStep = false;
+      this.isResetSuccessful = false;
+    } else {
+      alert('Security answer is incorrect.');
+    }
   }
 
-  getSecurityQuestion() {
-    // Implement logic to fetch security question based on username
-    this.userService.getSecurityQuestion(this.username).subscribe(
-      (data: any) => {
-        this.securityQuestion = data.question;
-        this.showSecurityQuestionForm = true;
-      },
-      error => {
-        this.errorMessage = error.message;
-      }
-    );
-  }
-
-  answerSecurityQuestion() {
-    // Implement logic to check security answer and show change password form
-    this.userService.answerSecurityQuestion(this.username, this.securityAnswer).subscribe(
-      (data: any) => {
-        if (data.success) {
-          this.showSecurityQuestionForm = false;
-          this.showChangePasswordForm = true;
-        } else {
-          this.errorMessage = 'Incorrect security answer';
-        }
-      },
-      error => {
-        this.errorMessage = error.message;
-      }
-    );
-  }
-
-  changePasswordWithSecurityAnswer() {
-    // Implement logic to change password after answering security question
-    this.userService.changePasswordWithSecurityAnswer(this.username, this.newPassword).subscribe(
-      () => {
-        this.passwordChanged = true;
-        this.showChangePasswordForm = false;
-      },
-      error => {
-        this.errorMessage = error.message;
-      }
-    );
+  onSubmitNewPassword() {
+    if (this.newPassword === this.confirmNewPassword) {
+      // Password change successful
+      this.isResetSuccessful = true;
+      this.isSecurityQuestionStep = false;
+      this.showForgotPasswordLink = false; // Hide forgot password link after successful change
+    } else {
+      alert('New passwords do not match.');
+    }
   }
 }

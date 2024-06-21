@@ -13,11 +13,14 @@ import { RestoranLayoutComponent } from './restoran-layout/restoran-layout.compo
 import { PorudzbinaComponent } from './porudzbina/porudzbina.component';
 import { LoginComponent } from './login/login.component';
 import { PromenaLozinkeComponent } from './promena-lozinke/promena-lozinke.component';
+import { AdminLoginComponent } from './admin-login/admin-login.component';
+import { ProfilGostComponent } from './profil-gost/profil-gost.component';
 
 
 const routes: Routes = [
   { path: "", component: PocetnaComponent },
   { path: "profil", component: ProfilComponent },
+  { path: "profilGost", component: ProfilGostComponent },
   { path: "rezervacije", component: ReservationsComponent },
   { path: "registracija", component: RegisterComponent },
   { path: "admin", component: AdministratorPocetnaComponent },
@@ -30,6 +33,7 @@ const routes: Routes = [
   { path: "porudzbine", component: PorudzbinaComponent },
   { path: "login", component: LoginComponent },
   { path: "promenaLozinke", component: PromenaLozinkeComponent },
+  { path: "adminLogin", component: AdminLoginComponent },
 
 ];
 

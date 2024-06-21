@@ -20,20 +20,48 @@ export class LoginComponent implements OnInit {
   tip: string = "";
   poruka: string = "";
 
+  // prijavaNaSistem() {
+  //   this.servis.prijavaNaSistem(this.kor_ime, this.lozinka).subscribe(
+  //     (korisnik: Korisnik) => {
+  //       if (!korisnik) {
+  //         this.poruka = 'Pogrešno korisničko ime ili lozinka.';
+  //       } else {
+  //         if(korisnik.tip == 'konobar')
+  //         {localStorage.setItem('currentUser', JSON.stringify(korisnik));
+  //         this.ruter.navigate(['profil']);}
+  //         else{
+  //           if(korisnik.tip == 'gost')
+  //           {localStorage.setItem('currentUser', JSON.stringify(korisnik));
+  //           this.ruter.navigate(['profil']);}
+  //         }
+  //       }
+  //     },
+  //     (error) => {
+  //       console.error('Greška pri prijavi:', error);
+  //       if (error.error && error.error.message) {
+  //         this.poruka = error.error.message;
+  //       } else {
+  //         this.poruka = 'Greška pri prijavi korisnika. Proverite svoje kredencijale.';
+  //       }
+  //     }
+  //   );
+  // }
   prijavaNaSistem() {
     this.servis.prijavaNaSistem(this.kor_ime, this.lozinka).subscribe(
-      (korisnik: Korisnik) => {
-        if (!korisnik) {
-          this.poruka = 'Pogrešno korisničko ime ili lozinka.';
-        } else {
-          if(korisnik.tip == 'konobar')
-          {localStorage.setItem('currentUser', JSON.stringify(korisnik));
-          this.ruter.navigate(['profil']);}
-          else{
-            if(korisnik.tip == 'gost')
-            {localStorage.setItem('currentUser', JSON.stringify(korisnik));
-            this.ruter.navigate(['profil']);}
-          }
+      (response: any) => {
+        if (response.status === 'not_found' || response.status === 'incorrect_credentials') {
+          this.poruka = 'Pogrešna lozinka.';
+        } else if (response.status === 'pending') {
+          this.poruka = 'Korisnik čeka odobrenje administratora.';
+        } else if (response.status === 'blocked') {
+          this.poruka = 'Nalog je blokiran.';
+        } else if (response.status === 'inactive') {
+          this.poruka = 'Vaš nalog više nije aktivan.';
+        } else if (response.status === 'success') {
+          localStorage.setItem('currentUser', JSON.stringify(response.user));
+          
+          this.ruter.navigate(['profil']);
+         
         }
       },
       (error) => {
@@ -44,7 +72,5 @@ export class LoginComponent implements OnInit {
           this.poruka = 'Greška pri prijavi korisnika. Proverite svoje kredencijale.';
         }
       }
-    );
-  }
-
+    );}
 }

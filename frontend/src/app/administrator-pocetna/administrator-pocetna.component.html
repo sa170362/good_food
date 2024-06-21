@@ -1,7 +1,9 @@
-<header class="bg-dark text-light py-4">
+<header class="header-bg text-light py-4">
   <div class="container">
     <div class="d-flex justify-content-between align-items-center">
-      <h1 class="text-white">Kutak dobre hrane</h1>
+      <h1 class="text-white">
+        <i class="fas fa-utensils"></i> Kutak dobre hrane
+      </h1>
       <nav>
         <ul class="nav">
           <li class="nav-item">
@@ -14,125 +16,139 @@
             <a class="nav-link text-light" routerLink="/requests">Zahtevi za registraciju</a>
           </li>
           <li class="nav-item" *ngIf="isLoggedIn()">
-            <a class="nav-link" (click)="logout()">Logout</a>
+            <a class="nav-link text-light" (click)="logout()">Logout</a>
           </li>
-          <!-- Add more navigation links as needed -->
+          
         </ul>
       </nav>
     </div>
   </div>
 </header>
-
-
-
-<h2>Guests</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Username</th>
-      <th>Firstname</th>
-      <th>Lastname</th>
-      <th>Email</th>
-      <th>Akcija</th>
-      <!-- Add more columns as needed -->
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let guest of guests">
-      <td>{{ guest.korisnickoIme }}</td>
-      <td>{{ guest.ime }}</td>
-      <td>{{ guest.prezime }}</td>
-      <td>{{ guest.mejl }}</td>
-      <td>
-        <button (click)="deactivateUserGuest(guest.korisnickoIme)">Deactivate</button>
-        <button (click)="navigateToEditUser(guest)">Edit</button>
-      </td>
-      <!-- Add more columns as needed -->
-    </tr>
-  </tbody>
-</table>
-
-<h2>Waiters</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Username</th>
-      <th>Firstname</th>
-      <th>Lastname</th>
-      <th>Email</th>
-      <th>Akcija</th>
-      <!-- Add more columns as needed -->
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let waiter of waiters">
-      <td>{{ waiter.korisnickoIme }}</td>
-      <td>{{ waiter.ime }}</td>
-      <td>{{ waiter.prezime }}</td>
-      <td>{{ waiter.mejl }}</td>
-      <td>
-        <button (click)="deactivateUserKonobar(waiter.korisnickoIme)">Deactivate</button>
-        <button (click)="navigateToEditUser(waiter)">Edit</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<h2>Restaurants</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Address</th>
-      <th>Phone</th>
-      <th>Akcija</th>
-      <!-- Add more columns as needed -->
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let restaurant of restaurants">
-      <td>{{ restaurant.ime }}</td>
-      <td>{{ restaurant.adresa }}</td>
-      <td>{{ restaurant.tip }}</td>
-      <td>
-        <button (click)="dodajMapu(restaurant.ime)">Dodaj mapu</button>
-       
-      </td>
-      <!-- Add more columns as needed -->
-    </tr>
-  </tbody>
-
-  <h2>Deaktivirani nalozi </h2>
-<table>
-  <thead>
-    <tr>
-      <th>Username</th>
-      <th>Firstname</th>
-      <th>Lastname</th>
-      <th>Email</th>
-      <th>Tip korisnika</th>
-      <th>Akcija</th>
-      <!-- Add more columns as needed -->
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let user of users">
-      <td>{{ user.korisnickoIme }}</td>
-      <td>{{ user.ime }}</td>
-      <td>{{ user.prezime }}</td>
-      <td>{{ user.mejl }}</td>
-      <td>{{ user.tip }}</td>
-      <td>
-        <button (click)="unblockUser(user.korisnickoIme)">Unblock</button>
+<br>
+<div class="main-bg container my-5 p-4 rounded shadow-sm border-primary">
+  <h2 class="text-center mb-4 text-primary">Gosti</h2>
+  <div *ngIf="guests && guests.length === 0">
+    <p class="text-center text-warning">Nema registrovanih gostiju.</p>
+  </div>
+  <table  *ngIf="guests && guests.length > 0" class="table table-striped table-hover">
+    <thead class="bg-primary text-white">
+      <tr>
+        <th>Korisnicko ime</th>
+        <th>Ime</th>
+        <th>Prezime</th>
+        <th>E-mail</th>
+        <th colspan="2">&nbsp;</th>
+    
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let guest of guests">
+        <td>{{ guest.korisnickoIme }}</td>
+        <td>{{ guest.ime }}</td>
+        <td>{{ guest.prezime }}</td>
+        <td>{{ guest.mejl }}</td>
+        <td>
+          <button class="btn btn-warning btn-sm" (click)="deactivateUserGuest(guest.korisnickoIme)">Deaktiviraj</button>
+        </td>
+        <td>
+          <button class="btn btn-info btn-sm" (click)="navigateToEditUser(guest)">Azuriraj</button>
+        </td>
         
-      </td>
-      <!-- Add more columns as needed -->
-    </tr>
-  </tbody>
-</table>
-<footer class="bg-dark text-light py-3 mt-5">
+      </tr>
+    </tbody>
+  </table>
+<br>
+  <h2 class="text-center mb-4 text-primary">Konobari</h2>
+  <div *ngIf="waiters && waiters.length === 0">
+    <p class="text-center text-warning">Nema registrovanih konobara.</p>
+  </div>
+  <table  *ngIf="waiters && waiters.length > 0" class="table table-striped table-hover">
+    <thead class="bg-primary text-white">
+      <tr>
+        <th>Korisnicko ime</th>
+        <th>Ime</th>
+        <th>Prezime</th>
+        <th>E-mail</th>
+        <th>&nbsp;</th>
+  
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let waiter of waiters">
+        <td>{{ waiter.korisnickoIme }}</td>
+        <td>{{ waiter.ime }}</td>
+        <td>{{ waiter.prezime }}</td>
+        <td>{{ waiter.mejl }}</td>
+        <td>
+          <button class="btn btn-warning btn-sm" (click)="deactivateUserKonobar(waiter.korisnickoIme)">Deaktiviraj</button>
+          <button class="btn btn-info btn-sm" (click)="navigateToEditUser(waiter)">Azuriraj</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+  <h2 class="text-center mb-4 text-primary">Restorani</h2>
+  <div *ngIf="restaurants && restaurants.length === 0">
+    <p class="text-center text-warning">Nema restorana.</p>
+  </div>
+  <table *ngIf="restaurants && restaurants.length > 0" class="table table-striped table-hover">
+    <thead class="bg-primary text-white">
+      <tr>
+        <th>Naziv</th>
+        <th>Adresa</th>
+        <th>Broj telefona</th>
+        <th>&nbsp;</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let restaurant of restaurants">
+        <td>{{ restaurant.ime }}</td>
+        <td>{{ restaurant.adresa }}</td>
+        <td>{{ restaurant.tip }}</td>
+        <td>
+          <button class="btn btn-success btn-sm" (click)="dodajMapu(restaurant.ime)">Dodaj mapu</button>
+        </td>
+
+      </tr>
+    </tbody>
+  </table>
+  <br>
+  <h2 class="text-center mb-4 text-primary">Deaktivirani nalozi</h2>
+  <div *ngIf="users && users.length === 0">
+    <p class="text-center text-warning">Nema deaktiviranih naloga.</p>
+  </div>
+  <table *ngIf="users && users.length > 0" class="table table-striped table-hover">
+    <thead class="bg-primary text-white">
+      <tr>
+        <th>Korisnicko ime</th>
+        <th>Ime</th>
+        <th>Prezime</th>
+        <th>E-mail</th>
+        <th>Tip korisnika</th>
+        <th>&nbsp;</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.korisnickoIme }}</td>
+        <td>{{ user.ime }}</td>
+        <td>{{ user.prezime }}</td>
+        <td>{{ user.mejl }}</td>
+        <td>{{ user.tip }}</td>
+        <td>
+          <button class="btn btn-success btn-sm" (click)="unblockUser(user.korisnickoIme)">Odblokiraj</button>
+        </td>
+        
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<footer class="footer-bg text-light py-3 mt-5">
   <div class="container text-center">
-    <hr class="mb-4">
+    <hr class="bg-warning mb-4">
     <p>&copy; {{ currentYear }} Kutak dobre hrane. All rights reserved.</p>
   </div>
 </footer>

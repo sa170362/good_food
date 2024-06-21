@@ -1,66 +1,3 @@
-<!-- src/app/home/home.component.html
-<header class="bg-dark text-light py-4">
-  <div class="container">
-    <div class="d-flex justify-content-between align-items-center">
-      <h1 class="text-white">Kutak dobre hrane</h1>
-      <nav>
-        <ul class="nav">
-          <li class="nav-item">
-            <a class="nav-link text-light" routerLink="/login">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-light" routerLink="/registracija">Registruj se</a>
-          </li>
-
-        </ul>
-      </nav>
-    </div>
-  </div>
-</header>
-<div class="container">
-  <h2>Početna stranica - Kutak dobre hrane</h2>
-
-
-  <div class="row">
-    <div class="col-md-6">
-      <h4>Informacije o restoranima</h4>
-      <ul>
-        <li>Ukupan broj restorana: {{ restorani.length }}</li>
-
-      </ul>
-    </div>
-  </div>
-
-
-  <div class="row">
-    <div class="col-md-12">
-      <h4>Lista restorana</h4>
-      <input type="text" class="form-control mb-2" placeholder="Pretraga..." [(ngModel)]="searchQuery">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th (click)="sortBy('ime')">Naziv</th>
-            <th (click)="sortBy('adresa')">Adresa</th>
-            <th (click)="sortBy('tip')">Tip restorana</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let restoran of restorani">
-            <td>{{ restoran.ime }}</td>
-            <td>{{ restoran.adresa }}</td>
-            <td>{{ restoran.tip }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-<footer class="bg-dark text-light py-3 mt-5">
-  <div class="container text-center">
-    <hr class="mb-4">
-    <p>&copy; {{ currentYear }} Kutak dobre hrane. All rights reserved.</p>
-  </div>
-</footer> -->
 
 <header class="header-bg text-light py-4">
   <div class="container">
@@ -71,7 +8,7 @@
       <nav>
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link text-light" routerLink="/login">Login</a>
+            <a class="nav-link text-light" routerLink="/login">Prijavi se</a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-light" routerLink="/registracija">Registruj se</a>
@@ -93,7 +30,7 @@
           <h4 class="card-title text-warning">Informacije o restoranima</h4>
           <ul class="list-group list-group-flush">
             <li class="list-group-item bg-light">Ukupan broj restorana: {{ restorani.length }}</li>
-
+            <li class="list-group-item bg-light">Ukupan broj registrovanih gostiju: {{ brojRegistrovanihGostiju }}</li>
           </ul>
         </div>
       </div>
@@ -105,17 +42,53 @@
       <div class="card shadow-sm border-primary">
         <div class="card-body">
           <h4 class="card-title text-warning">Lista restorana</h4>
-          <input type="text" class="form-control mb-3" placeholder="Pretraga..." [(ngModel)]="searchQuery">
+          <div class="form-row mb-3">
+            <div class="col">
+             
+              <input type="text" class="form-control" placeholder="Unesite naziv restorana" [(ngModel)]="nazivQuery">
+            </div>
+            <div class="col">
+              
+              <input type="text" class="form-control" placeholder="Unesite adresu restorana" [(ngModel)]="adresaQuery">
+            </div>
+            <div class="col">
+             
+              <input type="text" class="form-control" placeholder="Unesite tip restorana" [(ngModel)]="tipQuery">
+            </div>
+            <div class="col">
+              
+              <button class="btn btn-outline-primary" type="button" (click)="search()">Pretraži</button>
+            </div>
+          </div>
           <table class="table table-striped table-hover">
+       
             <thead class="bg-warning text-dark">
               <tr>
-                <th (click)="sortBy('ime')" class="sortable">Naziv</th>
-                <th (click)="sortBy('adresa')" class="sortable">Adresa</th>
-                <th (click)="sortBy('tip')" class="sortable">Tip restorana</th>
+                <th (click)="sortBy('ime')" class="sortable">
+                  Naziv
+                  <span class="sort-icon">
+                    <i class="fas fa-sort-alpha-down ml-2" *ngIf="sortColumn === 'ime' && sortDirection === 'asc'"></i>
+                    <i class="fas fa-sort-alpha-up ml-1" *ngIf="sortColumn === 'ime' && sortDirection === 'desc'"></i>
+                  </span>
+                </th>
+                <th (click)="sortBy('adresa')" class="sortable">
+                  Adresa
+                  <span class="sort-icon">
+                    <i class="fas fa-sort-alpha-down ml-2" *ngIf="sortColumn === 'adresa' && sortDirection === 'asc'"></i>
+                    <i class="fas fa-sort-alpha-up ml-1" *ngIf="sortColumn === 'adresa' && sortDirection === 'desc'"></i>
+                  </span>
+                </th>
+                <th (click)="sortBy('tip')" class="sortable">
+                  Tip restorana
+                  <span class="sort-icon">
+                    <i class="fas fa-sort-alpha-down ml-2" *ngIf="sortColumn === 'tip' && sortDirection === 'asc'"></i>
+                    <i class="fas fa-sort-alpha-up ml-1" *ngIf="sortColumn === 'tip' && sortDirection === 'desc'"></i>
+                  </span>
+                </th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let restoran of restorani">
+              <tr *ngFor="let restoran of filteredRestaurants">
                 <td>{{ restoran.ime }}</td>
                 <td>{{ restoran.adresa }}</td>
                 <td>{{ restoran.tip }}</td>

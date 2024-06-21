@@ -1,97 +1,95 @@
-<header class="bg-dark text-light py-4">
-  <div class="container">
-    <div class="d-flex justify-content-between align-items-center">
-      <h1 class="text-white">Kutak dobre hrane</h1>
-      <nav>
-        <ul class="nav">
-          <li class="nav-item">
-            <a class="nav-link text-light" routerLink="/dodajRestoran">Dodaj restoran</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-light" routerLink="/dodajKonobara">Dodaj konobara</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-light" routerLink="/requests">Zahtevi za registraciju</a>
-          </li>
-          <!-- Add more navigation links as needed -->
-        </ul>
-      </nav>
+<div class="wrapper">
+  <header class="header-bg text-light py-4">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <h1 class="text-white">
+          <i class="fas fa-utensils"></i> Kutak dobre hrane
+        </h1>
+        <nav>
+          <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link text-light" routerLink="/dodajRestoran">Dodaj restoran</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" routerLink="/dodajKonobara">Dodaj konobara</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" routerLink="/requests">Zahtevi za registraciju</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" routerLink="/admin">Pocetna</a>
+            </li>
+            <!-- Add more navigation links as needed -->
+          </ul>
+        </nav>
+      </div>
     </div>
-  </div>
-</header>
-
-
-<form (ngSubmit)="register()" #registrationForm="ngForm" novalidate>
-    <div>
-      <label for="korisnickoIme">Username:</label>
-      <input type="text" id="korisnickoIme" name="korisnickoIme" [(ngModel)]="waiter.korisnickoIme" required>
-      <div *ngIf="formErrors.korisnickoIme" class="error">{{ formErrors.korisnickoIme }}</div>
-    </div>
-    <br/>
-    <div>
-      <label for="lozinka">Password:</label>
-      <input type="password" id="lozinka" name="lozinka" [(ngModel)]="waiter.lozinka" required>
-      <div *ngIf="formErrors.lozinka" class="error">{{ formErrors.lozinka }}</div>
-    </div>
-    <br/>
-    <div>
-      <label for="ime">Firstname:</label>
-      <input type="text" id="ime" name="ime" [(ngModel)]="waiter.ime" required>
-      <div *ngIf="formErrors.ime" class="error">{{ formErrors.ime }}</div>
-    </div>
-    <br/>
-    <div>
-      <label for="prezime">Lastname:</label>
-      <input type="text" id="prezime" name="prezime" [(ngModel)]="waiter.prezime" required>
-      <div *ngIf="formErrors.prezime" class="error">{{ formErrors.prezime }}</div>
-    </div>
-    <br/>
-    <div>
-      <label for="pol">Gender:</label>
-      <select id="pol" name="pol" [(ngModel)]="waiter.pol" required>
-        <option value="">Select</option>
-        <option value="M">Male</option>
-        <option value="F">Female</option>
-      </select>
-      <div *ngIf="formErrors.pol" class="error">{{ formErrors.pol }}</div>
-    </div>
-    <br/>
-    <div>
-      <label for="adresa">Address:</label>
-      <input type="text" id="adresa" name="adresa" [(ngModel)]="waiter.adresa" required>
-      <div *ngIf="formErrors.adresa" class="error">{{ formErrors.adresa }}</div>
-    </div>
-    <br/>
-    <div>
-        <label for="kontaktTelefon">Contact Phone:</label>
-        <input type="text" id="kontaktTelefon" name="kontaktTelefon" [(ngModel)]="waiter.kontaktTelefon" required>
+  </header>
+  <div class="main-bg container my-5 p-4 rounded shadow-sm border-primary flex-fill">
+    <h2 class="text-center mb-4 text-primary">Registracija konobara</h2>
+    <form (ngSubmit)="register()" #registrationForm="ngForm" novalidate>
+      <div class="form-group">
+        <label for="korisnickoIme">Korisničko ime:</label>
+        <input type="text" id="korisnickoIme" name="korisnickoIme" [(ngModel)]="waiter.korisnickoIme" class="form-control" required>
+        <div *ngIf="formErrors.korisnickoIme" class="error">{{ formErrors.korisnickoIme }}</div>
+      </div>
+      <div class="form-group">
+        <label for="lozinka">Lozinka:</label>
+        <input type="password" id="lozinka" name="lozinka" [(ngModel)]="waiter.lozinka" class="form-control" required>
+        <div *ngIf="formErrors.lozinka" class="error">{{ formErrors.lozinka }}</div>
+      </div>
+      <div class="form-group">
+        <label for="ime">Ime:</label>
+        <input type="text" id="ime" name="ime" [(ngModel)]="waiter.ime" class="form-control" required>
+        <div *ngIf="formErrors.ime" class="error">{{ formErrors.ime }}</div>
+      </div>
+      <div class="form-group">
+        <label for="prezime">Prezime:</label>
+        <input type="text" id="prezime" name="prezime" [(ngModel)]="waiter.prezime" class="form-control" required>
+        <div *ngIf="formErrors.prezime" class="error">{{ formErrors.prezime }}</div>
+      </div>
+      <div class="form-group">
+        <label for="pol">Pol:</label>
+        <select id="pol" name="pol" [(ngModel)]="waiter.pol" class="form-control" required>
+          <option value="">Izaberite</option>
+          <option value="M">Muški</option>
+          <option value="F">Ženski</option>
+        </select>
+        <div *ngIf="formErrors.pol" class="error">{{ formErrors.pol }}</div>
+      </div>
+      <div class="form-group">
+        <label for="adresa">Adresa:</label>
+        <input type="text" id="adresa" name="adresa" [(ngModel)]="waiter.adresa" class="form-control" required>
+        <div *ngIf="formErrors.adresa" class="error">{{ formErrors.adresa }}</div>
+      </div>
+      <div class="form-group">
+        <label for="kontaktTelefon">Kontakt telefon:</label>
+        <input type="text" id="kontaktTelefon" name="kontaktTelefon" [(ngModel)]="waiter.kontaktTelefon" class="form-control" required>
         <div *ngIf="formErrors.kontaktTelefon" class="error">{{ formErrors.kontaktTelefon }}</div>
       </div>
-      <br/>
-      <div>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" [(ngModel)]="waiter.mejl" required>
+      <div class="form-group">
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" name="email" [(ngModel)]="waiter.mejl" class="form-control" required>
         <div *ngIf="formErrors.email" class="error">{{ formErrors.email }}</div>
       </div>
-    <br/>
-    <label>
-      Restaurant:
-      <select [(ngModel)]="waiter.restoran" name="restoran" required>
-        <option *ngFor="let restaurant of restaurants" [value]="restaurant.ime">{{ restaurant.ime }}</option>
-      </select>
-    </label>
-    <br/>
-    <div>
-        <label for="profilnaSlika">Profile Picture:</label>
-        <input type="file" id="profilnaSlika" name="profilnaSlika" accept="image/jpeg,image/png"
-               (change)="onFileSelected($event)" required>
+      <div class="form-group">
+        <label for="restoran">Restoran:</label>
+        <select id="restoran" name="restoran" [(ngModel)]="waiter.restoran" class="form-control" required>
+          <option *ngFor="let restaurant of restaurants" [value]="restaurant.ime">{{ restaurant.ime }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="profilnaSlika">Profilna slika:</label>
+        <input type="file" id="profilnaSlika" name="profilnaSlika" accept="image/jpeg,image/png" (change)="onFileSelected($event)" class="form-control" required>
         <div *ngIf="formErrors.profilnaSlika" class="error">{{ formErrors.profilnaSlika }}</div>
       </div>
-    <button type="submit">Register</button>
-  </form>
-  <footer class="bg-dark text-light py-3 mt-5">
+      <button type="submit" class="btn btn-primary">Registruj se</button>
+    </form>
+  </div>
+  <footer class="footer-bg text-light py-3 mt-5">
     <div class="container text-center">
-      <hr class="mb-4">
-      <p>&copy; {{ currentYear }} Kutak dobre hrane. All rights reserved.</p>
+      <hr class="bg-warning mb-4">
+      <p>&copy; {{ currentYear }} Kutak dobre hrane. Sva prava zadržana.</p>
     </div>
   </footer>
+</div>

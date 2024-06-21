@@ -1,7 +1,8 @@
-<header class="bg-dark text-light py-4">
+<div class="wrapper">
+  <header class="header-bg text-light py-4">
     <div class="container">
       <div class="d-flex justify-content-between align-items-center">
-        <h1 class="text-white">Kutak dobre hrane</h1>
+        <h1 class="text-white"><i class="fas fa-utensils"></i> Kutak dobre hrane</h1>
         <nav>
           <ul class="nav">
             <li class="nav-item">
@@ -13,54 +14,54 @@
             <li class="nav-item">
               <a class="nav-link text-light" routerLink="/requests">Zahtevi za registraciju</a>
             </li>
-            <!-- Add more navigation links as needed -->
+            <li class="nav-item">
+              <a class="nav-link text-light" routerLink="/admin">Pocetna</a>
+            </li>
           </ul>
         </nav>
       </div>
     </div>
   </header>
-
-<h2>Add New Restaurant</h2>
-<form (ngSubmit)="onSubmit()">
-  <label>
-    Name:
-    <input type="text" [(ngModel)]="restaurant.ime" name="ime" required>
-  </label>
-  <br>
-  <label>
-    Address:
-    <input type="text" [(ngModel)]="restaurant.adresa" name="adresa" required>
-  </label>
-  <br>
-  <label>
-    Type:
-    <select [(ngModel)]="restaurant.tip" name="tip" required>
-      <option *ngFor="let type of types" [value]="type">{{ type }}</option>
-    </select>
-  </label>
-  <label>
-    Short Description:
-    <textarea [(ngModel)]="restaurant.kratakOpis" name="kratakOpis" required></textarea>
-  </label>
-  <label>
-    Contact Person:
-    <input type="text" [(ngModel)]="restaurant.kontaktOsoba" name="kontaktOsoba" required>
-  </label>
-  <label>
-    Working Hours From:
-    <input type="time" [(ngModel)]="restaurant.workingHoursFrom" name="workingHoursFrom" required>
-  </label>
-  <label>
-    Working Hours To:
-    <input type="time" [(ngModel)]="restaurant.workingHoursTo" name="workingHoursTo" required>
-  </label>
-
-  <br>
-  <button type="submit">Add Restaurant</button>
-</form>
-<footer class="bg-dark text-light py-3 mt-5">
+  <div class="main-bg container my-5 p-4 rounded shadow-sm border-primary flex-fill">
+    <h2 class="text-center mb-4 text-primary">Dodaj novi restoran</h2>
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="ime">Ime:</label>
+        <input type="text" id="ime" [(ngModel)]="restaurant.ime" name="ime" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="adresa">Adresa:</label>
+        <input type="text" id="adresa" [(ngModel)]="restaurant.adresa" name="adresa" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="tip">Tip:</label>
+        <select id="tip" [(ngModel)]="restaurant.tip" name="tip" class="form-control" required>
+          <option *ngFor="let type of types" [value]="type">{{ type }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="kratakOpis">Kratak opis:</label>
+        <textarea id="kratakOpis" [(ngModel)]="restaurant.kratakOpis" name="kratakOpis" class="form-control" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="kontaktOsoba">Kontakt osoba:</label>
+        <input type="text" id="kontaktOsoba" [(ngModel)]="restaurant.kontaktOsoba" name="kontaktOsoba" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="workingHoursFrom">Radno vreme od:</label>
+        <input type="time" id="workingHoursFrom" [(ngModel)]="restaurant.workingHoursFrom" name="workingHoursFrom" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="workingHoursTo">Radno vreme do:</label>
+        <input type="time" id="workingHoursTo" [(ngModel)]="restaurant.workingHoursTo" name="workingHoursTo" class="form-control" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Dodaj restoran</button>
+    </form>
+  </div>
+  <footer class="footer-bg text-light py-3 mt-5">
     <div class="container text-center">
-      <hr class="mb-4">
-      <p>&copy; {{ currentYear }} Kutak dobre hrane. All rights reserved.</p>
+      <hr class="bg-warning mb-4">
+      <p>&copy; {{ currentYear }} Kutak dobre hrane. Sva prava zadržana.</p>
     </div>
   </footer>
+</div>
