@@ -1,13 +1,13 @@
-export class Rezervacija {
-    korisnickoIme: string = '';
-    imeGosta: string = '';
-    datumVremeRezervacije: Date | undefined;
-    brojGostiju: number | undefined;
-    komentarGosta: string | undefined;
-    statusRezervacije: string = 'neobradjena';
-    razlogOdbijanja: string | undefined;
-    brojStola: number | undefined;
-    datumKreiranja: Date | undefined;
-
-}
+export interface Rezervacija {
+    _id: string;
+    korisnickoIme: string;
+    imeGosta: string;
+    datumVremeRezervacije: Date;
+    brojGostiju: number;
+    komentarGosta?: string;
+    statusRezervacije?: string;
+    razlogOdbijanja?: string;
+    brojStola?: number;
+    datumKreiranja: Date;
+  }
   

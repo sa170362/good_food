@@ -7,8 +7,9 @@ exports.RestoranController = void 0;
 const restoran_1 = __importDefault(require("../models/restoran"));
 class RestoranController {
     constructor() {
+        // dohvatanje svih restorana sa ocenama
         this.getAllRestorani = (req, res) => {
-            restoran_1.default.find()
+            restoran_1.default.find().populate('komentari')
                 .then((restorani) => {
                 res.json(restorani);
             })
@@ -75,7 +76,20 @@ class RestoranController {
                 }
             });
         };
-        // Dodajte ostale metode za dodavanje, izmenu i brisanje restorana ako je potrebno
+        this.detaljiRestorana = (req, res) => {
+            const ime = req.params.ime;
+            try {
+                const restoran = restoran_1.default.findOne({ ime }); // Pronalazak restorana po imenu
+                if (!restoran) {
+                    return res.status(404).json({ error: 'Restoran nije pronađen' });
+                }
+                res.json(restoran); // Vraćanje pronađenog restorana
+            }
+            catch (err) {
+                console.error(err);
+                res.status(500).json({ error: 'Greška prilikom dohvatanja restorana' });
+            }
+        };
     }
 }
 exports.RestoranController = RestoranController;

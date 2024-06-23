@@ -82,5 +82,46 @@ export class RezervacijaController {
         res.status(500).json({ message: 'Greška prilikom dobijanja statističkih podataka.' });
     }
 }
+
+// Kreiranje rezervacije
+kreirajRezervaciju = async (req: Request, res: Response) => {
+  const { korisnickoIme, imeGosta, datumVremeRezervacije, brojGostiju, komentarGosta, brojStola } = req.body;
+
+  const novaRezervacija = new Rezervacija({
+    korisnickoIme,
+    imeGosta,
+    datumVremeRezervacije: new Date(datumVremeRezervacije),
+    brojGostiju,
+    komentarGosta,
+    brojStola,
+    statusRezervacije: 'pending'
+  });
+
+  try {
+    const savedReservation = await novaRezervacija.save();
+    res.status(201).json(savedReservation);
+  } catch (err) {
+    res.status(400).json();
+  }
+};
+
+// Otkazivanje rezervacije
+otkaziRezervaciju = async (req: Request, res: Response) => {
+  const { imeGosta, datumVremeRezervacije } = req.body;
+
+  try {
+    const datum = new Date(datumVremeRezervacije);
+    const rezervacija = await Rezervacija.findOneAndDelete({ imeGosta, datumVremeRezervacije: datum });
+
+    if (!rezervacija) {
+      return res.status(404).json({ message: 'Rezervacija nije pronađena' });
+    }
+
+    res.json({ message: 'Rezervacija otkazana' });
+  } catch (err) {
+    res.status(500).json();
+  }
+};
+
 };
 

@@ -17,6 +17,9 @@ import { DodajKonobaraComponent } from './dodaj-konobara/dodaj-konobara.componen
 import { DodajRestoranComponent } from './dodaj-restoran/dodaj-restoran.component';
 import { RestoranLayoutComponent } from './restoran-layout/restoran-layout.component';
 import { PorudzbinaComponent } from './porudzbina/porudzbina.component';
+import { RestaurantListComponent } from './restaurant-list/restaurant-list.component';
+import { RestaurantDetailComponent } from './restaurant-detail/restaurant-detail.component';
+import { ReservationFormComponent } from './reservation-form/reservation-form.component';
 
 
 @NgModule({
@@ -34,12 +37,16 @@ import { PorudzbinaComponent } from './porudzbina/porudzbina.component';
     DodajRestoranComponent,
     RestoranLayoutComponent,
     PorudzbinaComponent,
+    RestaurantListComponent,
+    RestaurantDetailComponent,
+    ReservationFormComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

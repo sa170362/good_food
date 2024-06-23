@@ -26,6 +26,7 @@ const RestoranSchema = new Schema({
   ime: {
     type: String,
     required: true,
+    unique: true,
   },
   adresa: {
     type: String,
@@ -41,9 +42,12 @@ const RestoranSchema = new Schema({
     type: String
    
   },
+  telefon: { type: String },
   workingHoursFrom: {type:String},
   workingHoursTo: {type:String},
-  layout: LayoutSchema
+  layout: LayoutSchema,
+  ocena: { type: Number, default: 0 },
+  komentari: [{ type: Schema.Types.ObjectId, ref: 'Komentar' }]
 });
 
 const RestoranModel = mongoose.model("Restoran", RestoranSchema, "restorani");

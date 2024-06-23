@@ -12,6 +12,9 @@ import { ReservationsComponent } from './reservations/reservations.component';
 import { RestoranLayoutComponent } from './restoran-layout/restoran-layout.component';
 import { PorudzbinaComponent } from './porudzbina/porudzbina.component';
 import { LoginComponent } from './login/login.component';
+import { ReservationFormComponent } from './reservation-form/reservation-form.component';
+import { RestaurantDetailComponent } from './restaurant-detail/restaurant-detail.component';
+import { RestaurantListComponent } from './restaurant-list/restaurant-list.component';
 
 
 const routes: Routes = [
@@ -28,6 +31,9 @@ const routes: Routes = [
   { path: 'restoranMapa/:ime', component: RestoranLayoutComponent },
   { path: "porudzbine", component: PorudzbinaComponent },
   { path: "login", component: LoginComponent },
+  { path: "rezervacija", component: ReservationFormComponent },
+  { path: "lista-restorana", component: RestaurantListComponent },
+  { path: 'restorani/:ime', component: RestaurantDetailComponent },
 
 ];
 

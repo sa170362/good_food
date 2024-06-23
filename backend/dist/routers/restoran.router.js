@@ -11,5 +11,6 @@ const restoranController = new restoran_controller_1.RestoranController();
 restoranRouter.get('/restorani', restoranController.getAllRestorani);
 restoranRouter.post('/add', restoranController.addRestoran);
 restoranRouter.post('/:ime/save-layout', restoranController.saveLayoutForRestoran);
+restoranRouter.get('/:ime', restoranController.detaljiRestorana);
 // Dodajte ostale rute za dodavanje, brisanje, izmenu restorana ako je potrebno
 exports.default = restoranRouter;

@@ -33,4 +33,23 @@ export class RestoranService {
   saveLayoutForRestoran(ime: string, layout: any) {
     return this.http.post(`${this.apiUrl}/${ime}/save-layout`, { layout });
   }
+
+  createReservation(reservationData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/rezervacije`, reservationData);
+  }
+
+  cancelReservation(reservationData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/otkazi`, reservationData);
+  }
+
+  searchRestaurantsByName(name: string): Observable<Restoran> {
+    return this.http.post<Restoran>(`${this.apiUrl}/ime`, { name })
+      .pipe(
+        catchError((error: any) => {
+          console.error('API Error', error);
+          return throwError(error); // Return an observable error
+        })
+      );
+  }
+
 }

@@ -59,6 +59,41 @@ class RezervacijaController {
                 res.status(500).json({ message: 'Greška pri odbijanju rezervacije' });
             }
         });
+        // Kreiranje rezervacije
+        this.kreirajRezervaciju = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const { korisnickoIme, imeGosta, datumVremeRezervacije, brojGostiju, komentarGosta, brojStola } = req.body;
+            const novaRezervacija = new rezervacija_1.default({
+                korisnickoIme,
+                imeGosta,
+                datumVremeRezervacije: new Date(datumVremeRezervacije),
+                brojGostiju,
+                komentarGosta,
+                brojStola,
+                statusRezervacije: 'pending'
+            });
+            try {
+                const savedReservation = yield novaRezervacija.save();
+                res.status(201).json(savedReservation);
+            }
+            catch (err) {
+                res.status(400).json();
+            }
+        });
+        // Otkazivanje rezervacije
+        this.otkaziRezervaciju = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const { imeGosta, datumVremeRezervacije } = req.body;
+            try {
+                const datum = new Date(datumVremeRezervacije);
+                const rezervacija = yield rezervacija_1.default.findOneAndDelete({ imeGosta, datumVremeRezervacije: datum });
+                if (!rezervacija) {
+                    return res.status(404).json({ message: 'Rezervacija nije pronađena' });
+                }
+                res.json({ message: 'Rezervacija otkazana' });
+            }
+            catch (err) {
+                res.status(500).json();
+            }
+        });
     }
     getBrojGostijuPoDanima(req, res) {
         return __awaiter(this, void 0, void 0, function* () {

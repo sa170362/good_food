@@ -1,0 +1,16 @@
+<div class="container" *ngIf="restaurant">
+    <h2>{{ restaurant.ime }}</h2>
+    <p><strong>Address:</strong> {{ restaurant.adresa }}</p>
+    <p><strong>Type:</strong> {{ restaurant.tip }}</p>
+    <p><strong>Phone:</strong> {{ restaurant.telefon }}</p>
+    <h3>Comments</h3>
+    <ul>
+      <!-- <li *ngFor="let komentar of komentari"> -->
+        <!-- <p><strong>{{ komentar.autor }}:</strong> {{ komentar.tekst }}</p> -->
+        <!-- <p><strong>Rating:</strong> {{ komentar.ocena }}</p> -->
+      <!-- </li> -->
+    </ul>
+    <h3>Make a Reservation</h3>
+    <!-- Implementacija forme za rezervaciju prema vašim zahtevima -->
+  </div>
+  

@@ -10,7 +10,23 @@ import { RestoranService } from '../restoran.service';
 })
 export class DodajRestoranComponent {
   currentYear: number = new Date().getFullYear();
-  restaurant: Restoran = new Restoran();
+  restaurant: Restoran = {
+    _id: '',
+    ime: '',
+    adresa: '',
+    tip: '',
+    kratakOpis: '',
+    kontaktOsoba: '',
+    workingHoursFrom: '',
+    workingHoursTo: '',
+    layout: {
+      tables: [],
+      kitchen: { id: '', x: 0, y: 0, width: 0, height: 0 },
+      restroom: { id: '', x: 0, y: 0, width: 0, height: 0 }
+    },
+    ocena: 0,
+    komentari: []
+  };
   types: string[] = ['kineski', 'indiski', 'japanski', 'domaća kuhinja', 'italijanski', 'francuski'];
   layoutMap: any;
   constructor(

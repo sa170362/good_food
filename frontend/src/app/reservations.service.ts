@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Rezervacija } from './models/rezervacija';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +22,9 @@ export class ReservationsService {
 
   odbijRezervaciju(imeGosta: string, brojStola: number, razlogOdbijanja: string) {
     return this.http.post(`${this.apiUrl}/odbij/${encodeURIComponent(imeGosta)}`, { brojStola, razlogOdbijanja });
+  }
+
+  createReservation(reservationData: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/rezervacije`, reservationData);
   }
 }
