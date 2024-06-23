@@ -509,41 +509,6 @@ unblockUser = (req: express.Request, res: express.Response) => {
     });
 };
 
-
-changePasswordWithOld = async (req: express.Request, res: express.Response) => {
-  const { korisnickoIme, staraLozinka, novaLozinka } = req.body;
-
-  try {
-    const user = await Korisnik.findOne({ korisnickoIme });
-
-    if (!user) {
-      return res.status(404).json({ message: 'Korisnik nije pronađen' });
-    }
-
-    // Check if user.lozinka exists and is a string
-    if (typeof user.lozinka !== 'string') {
-      return res.status(500).json({ message: 'Nevažeći format lozinke za korisnika' });
-    }
-
-    const match = await bcrypt.compare(staraLozinka, user.lozinka);
-
-    if (!match) {
-      return res.status(403).json({ message: 'Pogrešna stara lozinka' });
-    }
-
-    const hashedPassword = await bcrypt.hash(novaLozinka, 10);
-    user.lozinka = hashedPassword;
-
-    await user.save();
-
-    res.json({ message: 'Lozinka uspešno promenjena' });
-  } catch (error) {
-    console.error('Greška pri promeni lozinke:', error);
-    res.status(500).json({ message: 'Greška pri promeni lozinke', error });
-  }
-};
-
-// Method to get security question for a username
 getSecurityQuestion = async (req: express.Request, res: express.Response) => {
   const { username } = req.params;
 
@@ -561,9 +526,13 @@ getSecurityQuestion = async (req: express.Request, res: express.Response) => {
   }
 };
 
-// Method to answer security question and change password
-answerSecurityQuestion = async (req: express.Request, res: express.Response) => {
-  const { korisnickoIme, odgovor, novaLozinka } = req.body;
+
+changePassword = async (req: express.Request, res: express.Response) => {
+  const {  oldPassword, newPassword } = req.body;
+  let korisnickoIme = req.body.username;
+  console.log(korisnickoIme)
+  console.log(oldPassword)
+  console.log(newPassword)
 
   try {
     const user = await Korisnik.findOne({ korisnickoIme });
@@ -577,60 +546,23 @@ answerSecurityQuestion = async (req: express.Request, res: express.Response) => 
       return res.status(500).json({ message: 'Nevažeći format lozinke za korisnika' });
     }
 
-    if (user.sigurnosniOdgovor !== odgovor) {
-      return res.status(403).json({ message: 'Pogrešan odgovor na sigurnosno pitanje' });
-    }
-
-    const hashedPassword = await bcrypt.hash(novaLozinka, 10);
-    user.lozinka = hashedPassword;
-
-    await user.save();
-
-    res.json({ message: 'Lozinka uspešno promenjena' });
-  } catch (error) {
-    console.error('Greška pri promeni lozinke sa sigurnosnim odgovorom:', error);
-    res.status(500).json({ message: 'Greška pri promeni lozinke sa sigurnosnim odgovorom', error });
-  }
-};
-
-// Method to change password with security answer
-changePasswordWithSecurityAnswer = async (req: express.Request, res: express.Response) => {
-  const { korisnickoIme, staraLozinka, novaLozinka, odgovor } = req.body;
-
-  try {
-    const user = await Korisnik.findOne({ korisnickoIme });
-
-    if (!user) {
-      return res.status(404).json({ message: 'Korisnik nije pronađen' });
-    }
-
-    // Check if user.lozinka exists and is a string
-    if (typeof user.lozinka !== 'string') {
-      return res.status(500).json({ message: 'Nevažeći format lozinke za korisnika' });
-    }
-
-    const match = await bcrypt.compare(staraLozinka, user.lozinka);
+    const match = await bcrypt.compare(oldPassword, user.lozinka);
 
     if (!match) {
       return res.status(403).json({ message: 'Pogrešna stara lozinka' });
     }
 
-    if (user.sigurnosniOdgovor !== odgovor) {
-      return res.status(403).json({ message: 'Pogrešan odgovor na sigurnosno pitanje' });
-    }
-
-    const hashedPassword = await bcrypt.hash(novaLozinka, 10);
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
     user.lozinka = hashedPassword;
 
     await user.save();
 
     res.json({ message: 'Lozinka uspešno promenjena' });
   } catch (error) {
-    console.error('Greška pri promeni lozinke sa sigurnosnim odgovorom:', error);
-    res.status(500).json({ message: 'Greška pri promeni lozinke sa sigurnosnim odgovorom', error });
+    console.error('Greška pri promeni lozinke:', error);
+    res.status(500).json({ message: 'Greška pri promeni lozinke', error });
   }
 };
-
 
 
 }

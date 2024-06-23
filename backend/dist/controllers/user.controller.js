@@ -550,6 +550,35 @@ class UserController {
                 res.status(500).json({ message: 'Greška pri promeni lozinke sa sigurnosnim odgovorom', error });
             }
         });
+        this.changePassword = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const { oldPassword, newPassword } = req.body;
+            let korisnickoIme = req.body.username;
+            console.log(korisnickoIme);
+            console.log(oldPassword);
+            console.log(newPassword);
+            try {
+                const user = yield user_1.default.findOne({ korisnickoIme });
+                if (!user) {
+                    return res.status(404).json({ message: 'Korisnik nije pronađen' });
+                }
+                // Check if user.lozinka exists and is a string
+                if (typeof user.lozinka !== 'string') {
+                    return res.status(500).json({ message: 'Nevažeći format lozinke za korisnika' });
+                }
+                const match = yield bcrypt.compare(oldPassword, user.lozinka);
+                if (!match) {
+                    return res.status(403).json({ message: 'Pogrešna stara lozinka' });
+                }
+                const hashedPassword = yield bcrypt.hash(newPassword, 10);
+                user.lozinka = hashedPassword;
+                yield user.save();
+                res.json({ message: 'Lozinka uspešno promenjena' });
+            }
+            catch (error) {
+                console.error('Greška pri promeni lozinke:', error);
+                res.status(500).json({ message: 'Greška pri promeni lozinke', error });
+            }
+        });
     }
     updateUserByAdmin(req, res) {
         return __awaiter(this, void 0, void 0, function* () {

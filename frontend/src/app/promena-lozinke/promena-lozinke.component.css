@@ -1,0 +1,78 @@
+.header-bg {
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
+  }
+  
+  .footer-bg {
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
+  }
+  
+  .main-bg {
+    background: linear-gradient(to right, rgb(223, 220, 220), #848181);
+    border-radius: 0.75rem;
+    padding: 2rem;
+  }
+  
+  .sortable {
+    cursor: pointer;
+  }
+  
+  .sortable:hover {
+    text-decoration: underline;
+    color: #f39c12; /* Hover color */
+  }
+  
+  .card {
+    border-radius: 0.75rem;
+  }
+  
+  .card-body {
+    padding: 1.5rem;
+  }
+  
+  table {
+    margin-bottom: 0;
+  }
+  
+  /* Additional Styling */
+  .bg-primary {
+    background-color: #007bff !important;
+  }
+  
+  .text-primary {
+    color: #007bff !important;
+  }
+  
+  .text-warning {
+    color: #f39c12 !important;
+  }
+  
+  .border-primary {
+    border-color: #007bff !important;
+  }
+  
+  .bg-warning {
+    background-color: #f39c12 !important;
+  }
+  
+  .bg-light {
+    background-color: #f8f9fa !important;
+  }
+  
+  /* Form Specific Styles */
+  .form-control {
+    border-radius: 0.25rem;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+  }
+  
+  .error-message {
+    color: #e74c3c;
+  }

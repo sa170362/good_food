@@ -73,7 +73,7 @@ export class UsersService {
     return this.http.put<Message>(`${this.uri}/rejectUser/${korisnickoIme}`, {});
   }
   updateUserByAdmin(korisnickoIme: string, updatedData: any){
-    // alert("alo1")
+
     return this.http.put<Korisnik>(`${this.uri}/users/${korisnickoIme}`, updatedData);
   }
   getUserByUsername(korisnickoIme: string){
@@ -87,18 +87,16 @@ export class UsersService {
     return this.http.put<Message>(`${this.uri}/unblockUser/${korisnickoIme}`, {});
   }
 
-  verifyOldPassword(username: string, oldPassword: string){
-    return this.http.post(`${this.uri}/verifyOldPassword`, { username, oldPassword });
-  }
-
-  verifySecurityAnswer(username: string, securityAnswer: string) {
-    return this.http.post(`${this.uri}/verifySecurityAnswer`, { username, securityAnswer });
-  }
-
-  changePassword(username: string, newPassword: string){
-    return this.http.post(`${this.uri}/changePassword`, { username, newPassword });
-  }
   getBrojRegistrovanihGostiju() {
     return this.http.get<number>(`${this.uri}/brojRegistrovanihGostiju`);
+  }
+
+  changePassword(username: string, oldPassword: string, newPassword: string){
+
+    return this.http.put<Message>(`${this.uri}/change-password`, {
+      username,
+      oldPassword,
+      newPassword
+    });
   }
 }

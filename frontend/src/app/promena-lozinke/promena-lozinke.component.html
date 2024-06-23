@@ -1,77 +1,61 @@
-<header class="bg-dark text-light py-4">
+<header class="header-bg text-light py-4">
   <div class="container">
     <div class="d-flex justify-content-between align-items-center">
-      <h1 class="text-white">Kutak dobre hrane</h1>
+      <h1 class="text-white"><i class="fas fa-utensils"></i> Kutak dobre hrane</h1>
       <nav>
         <ul class="nav">
           <li class="nav-item">
+            <a class="nav-link text-light" routerLink="/profil">Profil</a>
+          </li>
+        <li class="nav-item">
             <a class="nav-link text-light" routerLink="/login">Login</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-light" routerLink="/registracija">Registracija</a>
+            <a class="nav-link text-light" routerLink="/rezervacije">Rezervacije</a>
           </li>
-          <!-- Add more navigation links as needed -->
+          <li class="nav-item">
+            <a class="nav-link text-light" routerLink="/porudzbine">Dostava</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" >Statistika</a>
+          </li>
         </ul>
       </nav>
     </div>
   </div>
 </header>
 
-<div class="container">
-  <b>Promena lozinke</b>
+<div class="main-bg container my-5 p-4 rounded shadow-sm border-primary flex-fill">
+  <h2>Promena lozinke</h2>
   <hr />
 
-  <!-- Change Password Form -->
-  <div *ngIf="!isSecurityQuestionStep && !isResetSuccessful">
-    <form (ngSubmit)="onSubmitChangePassword()">
-      <label for="oldPassword">Stara lozinka:</label>
-      <input type="password" id="oldPassword" [(ngModel)]="oldPassword" name="oldPassword" required>
-      <br />
-
-      <label for="newPassword">Nova lozinka:</label>
-      <input type="password" id="newPassword" [(ngModel)]="newPassword" name="newPassword" required>
-      <br />
-
-      <label for="confirmNewPassword">Potvrdite novu lozinku:</label>
-      <input type="password" id="confirmNewPassword" [(ngModel)]="confirmNewPassword" name="confirmNewPassword" required>
-      <br />
-
-      <button type="submit">Promeni lozinku</button>
-    </form>
-  </div>
-
-  <!-- Security Question Form -->
-  <div *ngIf="isSecurityQuestionStep && !isResetSuccessful">
-    <form (ngSubmit)="onSubmitSecurityQuestion()">
+  <form (submit)="onSubmit()" class="p-4 rounded shadow-sm border-primary">
+    <div class="form-group">
       <label for="username">Korisničko ime:</label>
-      <input type="text" id="username" [(ngModel)]="username" name="username" required>
-      <br />
-
-      <label for="securityAnswer">Odgovor na bezbednosno pitanje:</label>
-      <input type="text" id="securityAnswer" [(ngModel)]="securityAnswer" name="securityAnswer" required>
-      <br />
-
-      <button type="submit">Potvrdi bezbednosno pitanje</button>
-    </form>
-  </div>
-
-  <!-- New Password Form -->
-  <div *ngIf="!isSecurityQuestionStep && isResetSuccessful">
-    <form (ngSubmit)="onSubmitNewPassword()">
+      <input type="text" id="username" [(ngModel)]="username" name="username" class="form-control mb-3" required>
+    </div>
+    <div class="form-group">
+      <label for="oldPassword">Stara lozinka:</label>
+      <input type="password" id="oldPassword" [(ngModel)]="oldPassword" name="oldPassword" class="form-control mb-3" required>
+    </div>
+    <div class="form-group">
       <label for="newPassword">Nova lozinka:</label>
-      <input type="password" id="newPassword" [(ngModel)]="newPassword" name="newPassword" required>
-      <br />
-
-      <label for="confirmNewPassword">Potvrdite novu lozinku:</label>
-      <input type="password" id="confirmNewPassword" [(ngModel)]="confirmNewPassword" name="confirmNewPassword" required>
-      <br />
-
-      <button type="submit">Sačuvaj novu lozinku</button>
-    </form>
-  </div>
-
-  <!-- Forgot Password Link -->
-  <div *ngIf="showForgotPasswordLink">
-    <p><a href="#">Ne znate staru lozinku?</a></p>
-  </div>
+      <input type="password" id="newPassword" [(ngModel)]="newPassword" name="newPassword" class="form-control mb-3" required>
+    </div>
+    <div class="form-group">
+      <label for="confirmPassword">Potvrdite novu lozinku:</label>
+      <input type="password" id="confirmPassword" [(ngModel)]="confirmPassword" name="confirmPassword" class="form-control mb-3" required>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary w-100">Promeni lozinku</button>
+    </div>
+    <div *ngIf="message" class="error-message text-danger mt-3">{{ message }}</div>
+  </form>
 </div>
+
+<footer class="footer-bg text-light py-3 mt-5">
+  <div class="container text-center">
+    <hr class="bg-warning mb-4">
+    <p>&copy; {{ currentYear }} Kutak dobre hrane. Sva prava zadržana.</p>
+  </div>
+</footer>

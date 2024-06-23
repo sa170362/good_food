@@ -1,4 +1,4 @@
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -11,57 +11,53 @@ import { UsersService } from '../users.service';
   styleUrls: ['./promena-lozinke.component.css']
 })
 export class PromenaLozinkeComponent implements OnInit {
-
+  currentYear: number = new Date().getFullYear();
+  username: string = '';
   oldPassword: string = '';
   newPassword: string = '';
-  confirmNewPassword: string = '';
-  username: string = '';
-  securityAnswer: string = '';
-  isSecurityQuestionStep: boolean = false;
-  isResetSuccessful: boolean = false;
-  showForgotPasswordLink: boolean = true;
-  korisnik: Korisnik | null = null;
-  constructor(private userService: UsersService) { }
+  confirmPassword: string = '';
+  message: string = '';
+
+  constructor(private userService: UsersService, private router: Router) {}
   ngOnInit(): void {
-    const storedUser = localStorage.getItem('currentUser');
-    this.korisnik = storedUser ? JSON.parse(storedUser) : null;
     
   }
-  onSubmitChangePassword() {
-    // Simulate password change logic
-    if (this.oldPassword === 'currentPassword') {
-      if (this.newPassword === this.confirmNewPassword) {
-        // Password change successful
-        this.isResetSuccessful = true;
-        this.isSecurityQuestionStep = false;
-        this.showForgotPasswordLink = false; // Hide forgot password link after successful change
-      } else {
-        alert('New passwords do not match.');
+  validatePassword(password:string):boolean{
+    
+    const pattern =  /^(?=.*[a-z]{3,})(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[\w@$!%*?&]{6,10}$/;
+    return pattern.test(password);
+  }
+  onSubmit() {
+    if (!this.oldPassword || !this.newPassword) {
+      this.message = 'Old password and new password are required fields.';
+      return;
+    }
+
+    if (this.newPassword !== this.confirmPassword) {
+      this.message = 'New password and confirm password do not match';
+      return;
+    }
+
+    if (!this.validatePassword(this.newPassword)) {
+      alert(this.newPassword)
+      this.message ="Invalid password format";
+      return;
+    }
+
+    this.userService.changePassword(this.username, this.oldPassword, this.newPassword).subscribe(
+      (response: any) => {
+        this.message = response.message;
+        this.router.navigate(['/login'], { queryParams: { message: 'Lozinka uspešno promenjena' } });
+      },
+      (error: any) => {
+        if (error.status === 403) {
+          this.message = 'Pogrešna stara lozinka.';
+        } else if (error.status === 404) {
+          this.message = 'Korisnik nije pronađen, proverite unesene kredencijale.';
+        } else {
+          this.message = 'Greška pri promeni lozinke: ' + error.error.message;
+        }
       }
-    } else {
-      alert('Old password is incorrect.');
-    }
-  }
-
-  onSubmitSecurityQuestion() {
-    // Simulate security question validation logic
-    if (this.securityAnswer === 'answer') {
-      // Security question answered correctly, proceed to new password
-      this.isSecurityQuestionStep = false;
-      this.isResetSuccessful = false;
-    } else {
-      alert('Security answer is incorrect.');
-    }
-  }
-
-  onSubmitNewPassword() {
-    if (this.newPassword === this.confirmNewPassword) {
-      // Password change successful
-      this.isResetSuccessful = true;
-      this.isSecurityQuestionStep = false;
-      this.showForgotPasswordLink = false; // Hide forgot password link after successful change
-    } else {
-      alert('New passwords do not match.');
-    }
+    );
   }
 }
