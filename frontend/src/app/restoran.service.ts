@@ -15,15 +15,15 @@ export class RestoranService {
 
   constructor(private http: HttpClient) { }
 
-  getRestaurants(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/restorani`)
-      .pipe(
-        catchError((error: any) => {
-          console.error('API Error', error);
-          return throwError(error); // Return an observable error
-        })
-      );
-  }
+  // getRestaurants(): Observable<any[]> {
+  //   return this.http.get<any[]>(`${this.apiUrl}/restorani`)
+  //     .pipe(
+  //       catchError((error: any) => {
+  //         console.error('API Error', error);
+  //         return throwError(error); // Return an observable error
+  //       })
+  //     );
+  // }
   getAllRestaurants() {
     return this.http.get<Restoran[]>(this.apiUrl);
   }
@@ -42,14 +42,12 @@ export class RestoranService {
     return this.http.post(`${this.apiUrl}/otkazi`, reservationData);
   }
 
-  searchRestaurantsByName(name: string): Observable<Restoran> {
-    return this.http.post<Restoran>(`${this.apiUrl}/ime`, { name })
-      .pipe(
-        catchError((error: any) => {
-          console.error('API Error', error);
-          return throwError(error); // Return an observable error
-        })
-      );
+  getRestaurants(): Observable<Restoran[]> {
+    return this.http.get<Restoran[]>(this.apiUrl);
+  }
+
+  getRestaurantByName(ime: string): Observable<Restoran> {
+    return this.http.get<Restoran>(`${this.apiUrl}/name/${ime}`);
   }
 
 }

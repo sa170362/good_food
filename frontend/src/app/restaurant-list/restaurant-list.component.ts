@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RestoranService } from '../restoran.service';
 import { Restoran } from '../models/restoran';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-restaurant-list',
@@ -10,20 +11,24 @@ import { Restoran } from '../models/restoran';
 export class RestaurantListComponent implements OnInit {
   restaurants: Restoran[] = [];
 
-  constructor(private restaurantService: RestoranService) { }
+  constructor(
+    private restaurantService: RestoranService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
-    this.fetchRestaurants();
-  }
-
-  fetchRestaurants() {
-    this.restaurantService.getRestaurants().subscribe(
+    this.restaurantService.getAllRestaurants().subscribe(
       (data: Restoran[]) => {
         this.restaurants = data;
       },
       (error) => {
-        console.error('Error fetching restaurants', error);
+        console.error('API Error', error);
       }
     );
+  }
+
+  viewDetails(ime: string): void {
+    localStorage.setItem('selectedRestaurantName', ime);
+    this.router.navigate(['/restorani/detalji']);
   }
 }

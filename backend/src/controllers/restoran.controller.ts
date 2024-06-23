@@ -1,35 +1,28 @@
   import * as express from "express";
   import Restoran from "../models/restoran";
+import RestoranModel from "../models/restoran";
 
   export class RestoranController {
     // dohvatanje svih restorana sa ocenama
-    getAllRestorani = (req: express.Request, res: express.Response) => {
-      Restoran.find().populate('komentari')
-        .then((restorani) => {
-          res.json(restorani);
-        })
-        .catch((err) => {
-          console.log(err);
-          res.status(500).json({ message: "Eror pri dovlacenju restorana" });
-        });
+    getAllRestorani = async (req: express.Request, res: express.Response) => {
+      try {
+        const restorani = await RestoranModel.find();
+        res.json(restorani);
+      } catch (error) {
+        res.status(500).json({});
+      }
     };
 
-    getRestoranById = (req: express.Request, res: express.Response) => {
-      const id = req.params.id;
-
-      Restoran.findById(id)
-        .then((restoran) => {
-          if (!restoran) {
-            res.status(404).json({ message: "Restoran nije nadjen" });
-          } else {
-            res.json(restoran);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          res.status(500).json({ message: "Error" });
-        });
+    getRestoranByName = async (req: express.Request, res: express.Response) => {
+      try {
+        const restoran = await RestoranModel.findOne({ ime: req.params.ime });
+        if (!restoran) return res.status(404).json({ message: 'Restoran not found' });
+        res.json(restoran);
+      } catch (error) {
+        res.status(500).json();
+      }
     };
+
     addRestoran = (req: express.Request, res: express.Response) => {
       const { ime, adresa, tip,kratakOpis, kontaktOsoba, workingHoursFrom, workingHoursTo  } = req.body;
 
@@ -76,21 +69,5 @@
         }
       });
     };
-
-    nadjiRestoran = (req: express.Request, res: express.Response) => {
-      const { name } = req.body;
-
-      try {
-        const restoran = Restoran.findOne({ ime: name });
-        if (restoran) {
-          res.json(restoran); // Vrati ceo objekat restorana
-        } else {
-          res.status(404).json({ error: 'Restoran nije pronađen' });
-        }
-      } catch (error) { 
-        console.error('Greška prilikom pretrage restorana po imenu', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-      }
-    }
     
   }

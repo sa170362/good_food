@@ -17,24 +17,18 @@ export class RestaurantDetailComponent implements OnInit{
   ) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      const ime = params['ime'];
-      if (ime) {
-        this.getRestoran(ime);
-      }
-    });
-  }
-
-  getRestoran(ime: string): void {
-    this.restaurantService.searchRestaurantsByName(ime)
-      .subscribe(
-        (restoran) => { 
-          this.restaurant = restoran;
+    const name = localStorage.getItem('selectedRestaurantName');
+    console.error(name);
+    if (name) {
+      this.restaurantService.getRestaurantByName(name).subscribe(
+        (data: Restoran) => {
+          this.restaurant = data;
         },
         (error) => {
           console.error('Greška prilikom dohvatanja restorana', error);
         }
       );
+    }
   }
 
 

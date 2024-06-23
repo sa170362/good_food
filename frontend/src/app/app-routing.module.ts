@@ -32,8 +32,8 @@ const routes: Routes = [
   { path: "porudzbine", component: PorudzbinaComponent },
   { path: "login", component: LoginComponent },
   { path: "rezervacija", component: ReservationFormComponent },
-  { path: "lista-restorana", component: RestaurantListComponent },
-  { path: 'restorani/:ime', component: RestaurantDetailComponent },
+  { path: 'restorani', component: RestaurantListComponent },
+  { path: 'restorani/detalji', component: RestaurantDetailComponent },
 
 ];
 
