@@ -12,6 +12,18 @@ export class RestoranController {
         res.status(500).json({ message: "Eror pri dovlacenju restorana" });
       });
   };
+  getRestoran = (req: express.Request, res: express.Response) => {
+    const ime = req.params.restoran;
+    console.log(ime)
+    Restoran.findOne({ime:ime})
+      .then((restorani) => {
+        res.json(restorani);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json({ message: "Eror pri dovlacenju restorana" });
+      });
+  };
 
   getRestoranById = (req: express.Request, res: express.Response) => {
     const id = req.params.id;

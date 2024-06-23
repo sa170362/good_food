@@ -77,5 +77,5 @@ userRouter
   userRouter.get('/security-question/:username', controller.getSecurityQuestion);
   userRouter.get('/brojRegistrovanihGostiju', controller.getBrojRegistrovanihGostiju);
   userRouter.put('/change-password', (req, res) => controller.changePassword(req, res));
-
+  userRouter.get('/konobari/:imeRestorana', controller.getKonobari);
 export default userRouter;

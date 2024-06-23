@@ -18,8 +18,29 @@ class NarudzbinaController {
     constructor() {
         // GET /narudzbine - Dobavlja sve narudžbine
         this.getOrders = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const { restoran } = req.params;
             try {
-                const orders = yield narudzbina_1.default.find();
+                const orders = yield narudzbina_1.default.find({ status: "pending", restoran: restoran });
+                res.json(orders);
+            }
+            catch (err) {
+                res.status(500).send(err);
+            }
+        });
+        this.getConfirmedOrders = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const { restoran } = req.params;
+            try {
+                const orders = yield narudzbina_1.default.find({ status: "confirmed", restoran: restoran });
+                res.json(orders);
+            }
+            catch (err) {
+                res.status(500).send(err);
+            }
+        });
+        this.getRejectedOrders = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const { restoran } = req.params;
+            try {
+                const orders = yield narudzbina_1.default.find({ status: "rejected", restoran: restoran });
                 res.json(orders);
             }
             catch (err) {
@@ -28,10 +49,10 @@ class NarudzbinaController {
         });
         // PUT /narudzbine/confirm/:customer - Potvrđuje narudžbinu za određenog korisnika
         this.confirmOrder = (req, res) => __awaiter(this, void 0, void 0, function* () {
-            const { customer } = req.params;
+            const { customerkorIme } = req.params;
             const { estimatedDeliveryTime } = req.body;
             try {
-                const orders = yield narudzbina_1.default.find({ customer });
+                const orders = yield narudzbina_1.default.find({ customerkorIme });
                 if (orders.length === 0) {
                     return res.status(404).send('Orders not found for the given customer');
                 }
@@ -48,9 +69,9 @@ class NarudzbinaController {
         });
         // PUT /narudzbine/reject/:customer - Odbija narudžbinu za određenog korisnika
         this.rejectOrder = (req, res) => __awaiter(this, void 0, void 0, function* () {
-            const { customer } = req.params;
+            const { customerkorIme } = req.params;
             try {
-                const orders = yield narudzbina_1.default.find({ customer });
+                const orders = yield narudzbina_1.default.find({ customerkorIme });
                 if (orders.length === 0) {
                     return res.status(404).send('Orders not found for the given customer');
                 }

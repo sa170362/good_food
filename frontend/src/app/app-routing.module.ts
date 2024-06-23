@@ -15,6 +15,7 @@ import { LoginComponent } from './login/login.component';
 import { PromenaLozinkeComponent } from './promena-lozinke/promena-lozinke.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { ProfilGostComponent } from './profil-gost/profil-gost.component';
+import { StatistikaComponent } from './statistika/statistika.component';
 
 
 const routes: Routes = [
@@ -34,6 +35,7 @@ const routes: Routes = [
   { path: "login", component: LoginComponent },
   { path: "promenaLozinke", component: PromenaLozinkeComponent },
   { path: "adminLogin", component: AdminLoginComponent },
+  { path: "statistika", component: StatistikaComponent },
 
 ];
 

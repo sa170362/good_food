@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RestoranService } from '../restoran.service';
 import { UsersService } from '../users.service';
+import { ReservationsService } from '../reservations.service';
 
 @Component({
   selector: 'pocetna',
@@ -21,11 +22,66 @@ export class PocetnaComponent implements OnInit {
   sortByOption: string = '';
   sortColumn: string = '';
   brojRegistrovanihGostiju: number = 0;
-  constructor(private restoranService: RestoranService, private userService: UsersService) { }
 
-  ngOnInit(): void {
+  brojRezervacijaPoslednjih24h: number = 0;
+  brojRezervacijaPoslednjih7Dana: number = 0;
+  brojRezervacijaPoslednjegMeseca: number = 0;
+  rezervacije: any[] = [];
+
+  constructor(private restoranService: RestoranService, private userService: UsersService, private reservationService: ReservationsService) { }
+  konobari: any = {};
+  async ngOnInit(): Promise<void> {
     this.fetchRestaurants();
-    this.fetchBrojRegistrovanihGostiju()
+    this.fetchBrojRegistrovanihGostiju();
+    await new Promise(f => setTimeout(f, 100));
+    this.fetchKonobariForRestaurants()
+    this.fetchRezervacije();
+  }
+
+  fetchRezervacije(): void {
+    this.reservationService.getAllReservations().subscribe(
+      async (data: any[]) => {
+        this.rezervacije = data; 
+
+         this.checkRezervacijePoslednjih24h()
+         this.checkRezervacijePoslednjih7dana()
+         this.checkRezervacijePoslednjihMesecDana()
+      },
+      (error) => {
+        console.error('Greška pri dobijanju rezervacija', error);
+      }
+    );
+  }
+  checkRezervacijePoslednjih24h(): void {
+    const danas = new Date();
+    const pre24h = new Date(danas.getTime() - (24 * 60 * 60 * 1000));
+
+    const rezervacijePoslednjih24h = this.rezervacije.filter(reservacija =>
+      new Date(reservacija.datumKreiranja) >= pre24h && new Date(reservacija.datumKreiranja) <= danas
+    );
+
+    this.brojRezervacijaPoslednjih24h = rezervacijePoslednjih24h.length;
+  }
+  checkRezervacijePoslednjih7dana(): void {
+    const danas = new Date();
+    const pre7dana = new Date(danas.getTime() - (7 * 24 * 60 * 60 * 1000));
+
+    const rezervacijePoslednjih7Dana = this.rezervacije.filter(reservacija =>
+      new Date(reservacija.datumKreiranja) >= pre7dana && new Date(reservacija.datumKreiranja) <= danas
+    );
+
+    this.brojRezervacijaPoslednjih7Dana = rezervacijePoslednjih7Dana.length; 
+  }
+  checkRezervacijePoslednjihMesecDana(): void {
+    const danas = new Date();
+    const preMesecDana = new Date(danas.getTime() - (30 * 24 * 60 * 60 * 1000));
+
+  
+    const rezervacijePoslednjegMeseca = this.rezervacije.filter(reservacija =>
+      new Date(reservacija.datumKreiranja) >= preMesecDana && new Date(reservacija.datumKreiranja) <= danas
+    );
+
+    this.brojRezervacijaPoslednjegMeseca = rezervacijePoslednjegMeseca.length;
   }
 
   fetchRestaurants() {
@@ -39,6 +95,22 @@ export class PocetnaComponent implements OnInit {
       }
     );
   }
+
+  fetchKonobariForRestaurants() {
+
+    this.restorani.forEach(restoran => {
+
+      this.userService.getKonobari(restoran.ime).subscribe(
+        (konobari: any) => {
+          this.konobari[restoran.ime] = konobari; 
+        },
+        (error:any) => {
+          console.error(`Error fetching waiters for restaurant ${restoran.ime}`, error);
+        }
+      );
+    });
+
+  }
   fetchBrojRegistrovanihGostiju() {
     this.userService.getBrojRegistrovanihGostiju().subscribe(
       (broj: number) => {
@@ -49,6 +121,7 @@ export class PocetnaComponent implements OnInit {
       }
     );
   }
+ 
   sortBy(column: string): void {
 
     if (this.sortColumn === column) {

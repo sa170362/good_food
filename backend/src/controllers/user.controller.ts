@@ -541,5 +541,16 @@ changePassword = async (req: express.Request, res: express.Response) => {
   }
 };
 
+getKonobari = async (req: express.Request, res: express.Response) => {
+  const restaurantName = req.params.imeRestorana;
 
+  try {
+    const users = await Korisnik.find({ restoran: restaurantName });
+
+    res.status(200).json(users);
+  } catch (error) {
+    console.error('Error fetching users by restaurant:', error);
+    res.status(500).json({ message: 'Error fetching users by restaurant', error });
+  }
+};
 }

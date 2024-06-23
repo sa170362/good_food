@@ -94,4 +94,9 @@ export class UsersService {
       newPassword
     });
   }
+
+  getKonobari(imeRestorana: string) {
+    // alert("servis za" + imeRestorana)
+    return this.http.get(`${this.uri}/konobari/${imeRestorana}`);
+  }
 }

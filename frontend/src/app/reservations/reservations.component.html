@@ -1,7 +1,9 @@
-<header class="bg-dark text-light py-4">
+<header class="header-bg text-light py-4">
   <div class="container">
     <div class="d-flex justify-content-between align-items-center">
-      <h1 class="text-white">Kutak dobre hrane</h1>
+      <h1 class="text-white">
+        <i class="fas fa-utensils"></i> Kutak dobre hrane
+      </h1>
       <nav>
         <ul class="nav">
           <li class="nav-item">
@@ -14,29 +16,37 @@
             <a class="nav-link text-light" routerLink="/porudzbine">Dostava</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-light" >Statistika</a>
+            <a class="nav-link text-light">Statistika</a>
           </li>
-          <!-- Add more navigation links as needed -->
         </ul>
       </nav>
     </div>
   </div>
 </header>
 
-<div>
-  <h2>Neobrađene Rezervacije</h2>
-  <ul>
-    <li *ngFor="let reservation of neobradjeneRezervacije">
-      Ime gosta: {{ reservation.imeGosta }}, Broj stola: {{ reservation.brojStola }}
-      <button (click)="potvrdiRezervaciju(reservation)">Potvrdi</button>
-      <button (click)="odbijRezervaciju(reservation)">Odbij</button>
-    </li>
-  </ul>
-  <canvas id="canvas" width="600" height="200"></canvas>
+<div class="main-bg container my-5">
+  <h2 class="text-center mb-4 text-primary">Neobrađene rezervacije</h2>
+  <hr />
+  <div class="p-4 rounded shadow-sm border-primary">
+    <ul>
+      <li *ngFor="let reservation of neobradjeneRezervacije" class="reservation mb-3 p-3 border rounded">
+        <p><strong>Ime gosta:</strong> {{ reservation.imeGosta }}</p>
+        <p><strong>Broj gostiju:</strong> {{ reservation.brojGostiju }}</p>
+        <select class="form-select mb-3" [(ngModel)]="selectedTable">
+          <option *ngFor="let table of availableTables" [value]="table.id">Sto {{ table.id }}</option>
+        </select>
+        <button class="btn btn-success btn-sm me-2" (click)="potvrdiRezervaciju(reservation)">Potvrdi</button>
+        <button class="btn btn-danger btn-sm" (click)="odbijRezervaciju(reservation)">Odbij</button>
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="neobradjeneRezervacije.length == 0"> Nema neobradjenih rezervacija.</div>
+  <canvas id="canvas" width="800" height="600"></canvas>
 </div>
-<footer class="bg-dark text-light py-3 mt-5">
+
+<footer class="footer-bg text-light py-3 mt-5">
   <div class="container text-center">
-    <hr class="mb-4">
+    <hr class="bg-warning mb-4">
     <p>&copy; {{ currentYear }} Kutak dobre hrane. All rights reserved.</p>
   </div>
 </footer>

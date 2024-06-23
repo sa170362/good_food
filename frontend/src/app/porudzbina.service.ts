@@ -11,15 +11,22 @@ export class PorudzbinaService {
 
   constructor(private http: HttpClient) {}
 
-  getOrders() {
-    return this.http.get<Porudzbina[]>(this.apiUrl);
+  getOrders(restoran: string) {
+    return this.http.get<Porudzbina[]>(`${this.apiUrl}/${restoran}`, {});
+  }
+  getConfirmedOrders(restoran: string) {
+    return this.http.get<Porudzbina[]>(`${this.apiUrl}/confirmed/${restoran}`,  {});
+  }
+  getRejectedOrders(restoran: string) {
+    return this.http.get<Porudzbina[]>(`${this.apiUrl}/rejected/${restoran}`, {});
   }
 
-  confirmOrder(customer: string, estimatedDeliveryTime: string): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/confirm/${customer}`, { estimatedDeliveryTime });
+  confirmOrder(customerkorIme: string, estimatedDeliveryTime: string): Observable<any> {
+  
+    return this.http.put<any>(`${this.apiUrl}/confirm/${customerkorIme}`, { estimatedDeliveryTime });
   }
 
-  rejectOrder(customer: string): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/reject/${customer}`, {});
+  rejectOrder(customerkorIme: string): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/reject/${customerkorIme}`, {});
   }
 }

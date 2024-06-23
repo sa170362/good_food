@@ -1,11 +1,7 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -49,18 +45,21 @@ const storage = multer_1.default.diskStorage({
         cb(null, file.fieldname + '-' + Date.now() + path_1.default.extname(file.originalname));
     }
 });
+const fileFilter = (req, file, cb) => {
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+        cb(null, true);
+    }
+    else {
+        cb(null, false);
+    }
+};
 const upload = (0, multer_1.default)({
     storage: storage,
-    limits: { fileSize: 300 * 1024 },
-    fileFilter: function (req, file, cb) {
-        if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-            cb(null, true);
-        }
-        else {
-            cb(null, false); // reject file
-        }
-    }
-}).single('profileImage'); // 'profileImage' is the field name
+    limits: {
+        fileSize: 300 * 1024 // 300KB
+    },
+    fileFilter: fileFilter
+});
 const clearMulterUploads = () => {
     const directory = 'uploads/';
     fs_1.default.readdir(directory, (err, files) => {
@@ -76,28 +75,6 @@ const clearMulterUploads = () => {
 };
 class UserController {
     constructor() {
-        //   login = (req: express.Request, res: express.Response) => {
-        //   let korisnickoIme = req.body.korisnickoIme;
-        //   let lozinka = req.body.lozinka;
-        //   Korisnik.findOne({ korisnickoIme: korisnickoIme })
-        //       .then(async (user) => {
-        //           if (!user) {
-        //               return res.status(404).json({ message: "Korisnik nije pronađen. Proverite svoje kredencijale." });
-        //           }
-        //           const match = await bcrypt.compare(lozinka, user.lozinka || '');
-        //           if (!match) {
-        //               return res.status(403).json({ message: "Pogrešno korisničko ime ili lozinka" });
-        //           }
-        //           if (user.status !== 'aktivan') {
-        //               return res.status(403).json({ message: "Vaš nalog je deaktiviran" });
-        //           }
-        //           res.json(user);
-        //       })
-        //       .catch((err) => {
-        //           console.error('Greška pri prijavi:', err);
-        //           res.status(500).json({ message: "Greška prilikom prijave korisnika", error: err });
-        //       });
-        // };
         this.login = (req, res) => {
             let korisnickoIme = req.body.korisnickoIme;
             let lozinka = req.body.lozinka;
@@ -460,42 +437,6 @@ class UserController {
                 res.status(500).json({ message: 'Error unblocking user' });
             });
         };
-        this.ukupanBrojRegistrovanihGostijui = (req, res) => {
-            user_1.default.countDocuments({ tip: 'gost' })
-                .then((count) => {
-                res.status(200).json({ totalGuests: count });
-            })
-                .catch((err) => {
-                console.error('Error counting guests:', err);
-                res.status(500).json({ message: 'Error counting guests' });
-            });
-        };
-        this.changePasswordWithOld = (req, res) => __awaiter(this, void 0, void 0, function* () {
-            const { korisnickoIme, staraLozinka, novaLozinka } = req.body;
-            try {
-                const user = yield user_1.default.findOne({ korisnickoIme });
-                if (!user) {
-                    return res.status(404).json({ message: 'Korisnik nije pronađen' });
-                }
-                // Check if user.lozinka exists and is a string
-                if (typeof user.lozinka !== 'string') {
-                    return res.status(500).json({ message: 'Nevažeći format lozinke za korisnika' });
-                }
-                const match = yield bcrypt.compare(staraLozinka, user.lozinka);
-                if (!match) {
-                    return res.status(403).json({ message: 'Pogrešna stara lozinka' });
-                }
-                const hashedPassword = yield bcrypt.hash(novaLozinka, 10);
-                user.lozinka = hashedPassword;
-                yield user.save();
-                res.json({ message: 'Lozinka uspešno promenjena' });
-            }
-            catch (error) {
-                console.error('Greška pri promeni lozinke:', error);
-                res.status(500).json({ message: 'Greška pri promeni lozinke', error });
-            }
-        });
-        // Method to get security question for a username
         this.getSecurityQuestion = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const { username } = req.params;
             try {
@@ -508,60 +449,6 @@ class UserController {
             catch (error) {
                 console.error('Greška pri dobijanju sigurnosnog pitanja:', error);
                 res.status(500).json({ message: 'Greška pri dobijanju sigurnosnog pitanja', error });
-            }
-        });
-        // Method to answer security question and change password
-        this.answerSecurityQuestion = (req, res) => __awaiter(this, void 0, void 0, function* () {
-            const { korisnickoIme, odgovor, novaLozinka } = req.body;
-            try {
-                const user = yield user_1.default.findOne({ korisnickoIme });
-                if (!user) {
-                    return res.status(404).json({ message: 'Korisnik nije pronađen' });
-                }
-                // Check if user.lozinka exists and is a string
-                if (typeof user.lozinka !== 'string') {
-                    return res.status(500).json({ message: 'Nevažeći format lozinke za korisnika' });
-                }
-                if (user.sigurnosniOdgovor !== odgovor) {
-                    return res.status(403).json({ message: 'Pogrešan odgovor na sigurnosno pitanje' });
-                }
-                const hashedPassword = yield bcrypt.hash(novaLozinka, 10);
-                user.lozinka = hashedPassword;
-                yield user.save();
-                res.json({ message: 'Lozinka uspešno promenjena' });
-            }
-            catch (error) {
-                console.error('Greška pri promeni lozinke sa sigurnosnim odgovorom:', error);
-                res.status(500).json({ message: 'Greška pri promeni lozinke sa sigurnosnim odgovorom', error });
-            }
-        });
-        // Method to change password with security answer
-        this.changePasswordWithSecurityAnswer = (req, res) => __awaiter(this, void 0, void 0, function* () {
-            const { korisnickoIme, staraLozinka, novaLozinka, odgovor } = req.body;
-            try {
-                const user = yield user_1.default.findOne({ korisnickoIme });
-                if (!user) {
-                    return res.status(404).json({ message: 'Korisnik nije pronađen' });
-                }
-                // Check if user.lozinka exists and is a string
-                if (typeof user.lozinka !== 'string') {
-                    return res.status(500).json({ message: 'Nevažeći format lozinke za korisnika' });
-                }
-                const match = yield bcrypt.compare(staraLozinka, user.lozinka);
-                if (!match) {
-                    return res.status(403).json({ message: 'Pogrešna stara lozinka' });
-                }
-                if (user.sigurnosniOdgovor !== odgovor) {
-                    return res.status(403).json({ message: 'Pogrešan odgovor na sigurnosno pitanje' });
-                }
-                const hashedPassword = yield bcrypt.hash(novaLozinka, 10);
-                user.lozinka = hashedPassword;
-                yield user.save();
-                res.json({ message: 'Lozinka uspešno promenjena' });
-            }
-            catch (error) {
-                console.error('Greška pri promeni lozinke sa sigurnosnim odgovorom:', error);
-                res.status(500).json({ message: 'Greška pri promeni lozinke sa sigurnosnim odgovorom', error });
             }
         });
         this.changePassword = (req, res) => __awaiter(this, void 0, void 0, function* () {
@@ -591,6 +478,17 @@ class UserController {
             catch (error) {
                 console.error('Greška pri promeni lozinke:', error);
                 res.status(500).json({ message: 'Greška pri promeni lozinke', error });
+            }
+        });
+        this.getKonobari = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const restaurantName = req.params.imeRestorana;
+            try {
+                const users = yield user_1.default.find({ restoran: restaurantName });
+                res.status(200).json(users);
+            }
+            catch (error) {
+                console.error('Error fetching users by restaurant:', error);
+                res.status(500).json({ message: 'Error fetching users by restaurant', error });
             }
         });
     }

@@ -27,10 +27,13 @@
     <div class="col-md-6 mb-4">
       <div class="card shadow-sm border-primary">
         <div class="card-body">
-          <h4 class="card-title text-warning">Informacije o restoranima</h4>
+          <h4 class="card-title text-warning"> Opste informacije</h4>
           <ul class="list-group list-group-flush">
             <li class="list-group-item bg-light">Ukupan broj restorana: {{ restorani.length }}</li>
             <li class="list-group-item bg-light">Ukupan broj registrovanih gostiju: {{ brojRegistrovanihGostiju }}</li>
+            <li class="list-group-item bg-light">Ukupan broj rezervacija u poslednjih 24h: {{ brojRezervacijaPoslednjih24h }}</li>
+            <li class="list-group-item bg-light">Ukupan broj rezervacija u poslednjih 7 dana: {{ brojRezervacijaPoslednjih7Dana }}</li>
+            <li class="list-group-item bg-light">Ukupan broj rezervacija u poslednjih mesec dana: {{ brojRezervacijaPoslednjegMeseca }}</li>
           </ul>
         </div>
       </div>
@@ -85,6 +88,9 @@
                     <i class="fas fa-sort-alpha-up ml-1" *ngIf="sortColumn === 'tip' && sortDirection === 'desc'"></i>
                   </span>
                 </th>
+                <th>
+                  Konobari
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -92,6 +98,14 @@
                 <td>{{ restoran.ime }}</td>
                 <td>{{ restoran.adresa }}</td>
                 <td>{{ restoran.tip }}</td>
+                <td>
+                  <!-- Pozivamo getKonobari metodu za prikaz konobara -->
+                  <ul>
+                    <li *ngFor="let konobar of konobari[restoran.ime]">
+                      {{ konobar.ime }} {{konobar.prezime}}
+                    </li>
+                  </ul>
+                </td>
               </tr>
             </tbody>
           </table>

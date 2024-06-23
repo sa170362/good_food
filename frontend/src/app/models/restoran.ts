@@ -6,5 +6,6 @@ export class Restoran {
     kontaktOsoba: string='';
     workingHoursFrom?: string='';
     workingHoursTo?: string='';
+    layout?:any;
   }
   

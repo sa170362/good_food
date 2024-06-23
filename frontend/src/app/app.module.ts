@@ -20,6 +20,7 @@ import { PorudzbinaComponent } from './porudzbina/porudzbina.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { PromenaLozinkeComponent } from './promena-lozinke/promena-lozinke.component';
 import { ProfilGostComponent } from './profil-gost/profil-gost.component';
+import { StatistikaComponent } from './statistika/statistika.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { ProfilGostComponent } from './profil-gost/profil-gost.component';
     AdminLoginComponent,
     PromenaLozinkeComponent,
     ProfilGostComponent,
+    StatistikaComponent,
   ],
   imports: [
     BrowserModule,

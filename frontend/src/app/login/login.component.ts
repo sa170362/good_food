@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
         } else if (response.status === 'inactive') {
           this.poruka = 'Vaš nalog više nije aktivan.';
         } else if (response.status === 'success') {
-          localStorage.setItem('currentUser', JSON.stringify(response.user));
+          localStorage.setItem('selectedUser', JSON.stringify(response.user));
           
           this.ruter.navigate(['profil']);
          

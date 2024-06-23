@@ -8,6 +8,8 @@ export class Rezervacija {
     razlogOdbijanja: string | undefined;
     brojStola: number | undefined;
     datumKreiranja: Date | undefined;
+    restoran:string = '';
+    konobar?:string = '';
 
 }
   

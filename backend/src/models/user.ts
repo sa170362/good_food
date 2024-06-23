@@ -50,6 +50,9 @@ let KorisnikSchema = new Schema({
   status: {
     type: String,
   },
+  restoran: {
+    type: String,
+  },
 });
 
 export default mongoose.model("Korisnik", KorisnikSchema, "korisnici");
