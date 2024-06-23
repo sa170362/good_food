@@ -19,7 +19,6 @@ import { RestoranLayoutComponent } from './restoran-layout/restoran-layout.compo
 import { PorudzbinaComponent } from './porudzbina/porudzbina.component';
 import { RestaurantListComponent } from './restaurant-list/restaurant-list.component';
 import { RestaurantDetailComponent } from './restaurant-detail/restaurant-detail.component';
-import { ReservationFormComponent } from './reservation-form/reservation-form.component';
 
 
 @NgModule({
@@ -39,7 +38,6 @@ import { ReservationFormComponent } from './reservation-form/reservation-form.co
     PorudzbinaComponent,
     RestaurantListComponent,
     RestaurantDetailComponent,
-    ReservationFormComponent,
   ],
   imports: [
     BrowserModule,

@@ -9,5 +9,6 @@ export interface Rezervacija {
     razlogOdbijanja?: string;
     brojStola?: number;
     datumKreiranja: Date;
+    imeRestorana: string;
   }
   

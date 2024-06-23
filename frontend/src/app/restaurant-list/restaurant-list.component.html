@@ -1,5 +1,5 @@
 <div class="container">
-  <h2>Restaurants List</h2>
+  <h2>Lista restorana</h2>
   <table class="table table-striped">
     <thead>
       <tr>
@@ -17,7 +17,7 @@
         <td>{{ restaurant.tip }}</td>
         <td>{{ restaurant.ocena }}</td>
         <td>
-          <button (click)="viewDetails(restaurant.ime)">Details</button>
+          <button (click)="viewDetails(restaurant.ime)">{{restaurant.ime}}</button>
         </td>
       </tr>
     </tbody>
