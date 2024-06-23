@@ -73,10 +73,8 @@ userRouter
   userRouter.put('/unblockUser/:korisnickoIme', (req, res) => {
     controller.unblockUser(req, res);
   });
-  userRouter.put('/change-password-with-old', controller.changePasswordWithOld);
+
   userRouter.get('/security-question/:username', controller.getSecurityQuestion);
-  userRouter.put('/answer-security-question', controller.answerSecurityQuestion);
-  userRouter.put('/change-password-with-security-answer', controller.changePasswordWithSecurityAnswer);
   userRouter.get('/brojRegistrovanihGostiju', controller.getBrojRegistrovanihGostiju);
   userRouter.put('/change-password', (req, res) => controller.changePassword(req, res));
 
