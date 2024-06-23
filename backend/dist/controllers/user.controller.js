@@ -395,16 +395,16 @@ class UserController {
                 res.status(500).json({ message: 'Error unblocking user' });
             });
         };
-        this.ukupanBrojRegistrovanihGostiju = (req, res) => __awaiter(this, void 0, void 0, function* () {
-            try {
-                const totalGuests = yield user_1.default.countDocuments({ tip: 'gost' });
-                res.status(200).json({ totalGuests });
-            }
-            catch (error) {
-                console.error('Error fetching total registered guests:', error);
-                res.status(500).json({ message: 'Error fetching total registered guests' });
-            }
-        });
+        this.ukupanBrojRegistrovanihGostijui = (req, res) => {
+            user_1.default.countDocuments({ tip: 'gost' })
+                .then((count) => {
+                res.status(200).json({ totalGuests: count });
+            })
+                .catch((err) => {
+                console.error('Error counting guests:', err);
+                res.status(500).json({ message: 'Error counting guests' });
+            });
+        };
     }
     updateUserByAdmin(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
