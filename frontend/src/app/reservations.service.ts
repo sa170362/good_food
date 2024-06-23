@@ -24,7 +24,7 @@ export class ReservationsService {
     return this.http.post(`${this.apiUrl}/odbij/${encodeURIComponent(imeGosta)}`, { brojStola, razlogOdbijanja });
   }
 
-  createReservation(reservationData: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/rezervacije`, reservationData);
+  kreirajRezervaciju(reservation: Rezervacija) {
+    return this.http.post<Rezervacija>(`${this.apiUrl}/kreiraj`, reservation);
   }
 }

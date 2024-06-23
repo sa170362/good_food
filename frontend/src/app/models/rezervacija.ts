@@ -1,13 +1,12 @@
 export interface Rezervacija {
-    _id: string;
-    korisnickoIme: string;
+    korisnickoIme?: string;
     imeGosta: string;
-    datumVremeRezervacije: Date;
+    datumVremeRezervacije?: Date;
     brojGostiju: number;
     komentarGosta?: string;
     statusRezervacije?: string;
     razlogOdbijanja?: string;
-    brojStola?: number;
+    brojStola: number;
     datumKreiranja: Date;
     imeRestorana: string;
   }

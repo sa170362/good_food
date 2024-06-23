@@ -83,9 +83,11 @@ export class RezervacijaController {
     }
 }
 
-// Kreiranje rezervacije
-kreirajRezervaciju = async (req: Request, res: Response) => {
-  const { korisnickoIme, imeGosta, datumVremeRezervacije, brojGostiju, komentarGosta, brojStola } = req.body;
+ // Metod za kreiranje nove rezervacije
+ kreirajRezervaciju = async (req: Request, res: Response): Promise<void> => {
+  console.log(req.body);
+  
+  const { korisnickoIme, imeGosta, datumVremeRezervacije, brojGostiju, komentarGosta, brojStola, imeRestorana } = req.body;
 
   const novaRezervacija = new Rezervacija({
     korisnickoIme,
@@ -94,14 +96,18 @@ kreirajRezervaciju = async (req: Request, res: Response) => {
     brojGostiju,
     komentarGosta,
     brojStola,
-    statusRezervacije: 'pending'
+    statusRezervacije: 'pending',
+    imeRestorana
   });
 
   try {
+  
     const savedReservation = await novaRezervacija.save();
     res.status(201).json(savedReservation);
+    
   } catch (err) {
-    res.status(400).json();
+    console.error(err);
+    res.status(400).json({ message: 'Greška prilikom čuvanja rezervacije' });
   }
 };
 

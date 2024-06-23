@@ -65,4 +65,15 @@
       font-size: 20px;
     }
   }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .invalid-feedback {
+    color: #dc3545;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  
   

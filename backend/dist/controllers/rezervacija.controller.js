@@ -59,9 +59,10 @@ class RezervacijaController {
                 res.status(500).json({ message: 'Greška pri odbijanju rezervacije' });
             }
         });
-        // Kreiranje rezervacije
+        // Metod za kreiranje nove rezervacije
         this.kreirajRezervaciju = (req, res) => __awaiter(this, void 0, void 0, function* () {
-            const { korisnickoIme, imeGosta, datumVremeRezervacije, brojGostiju, komentarGosta, brojStola } = req.body;
+            console.log(req.body);
+            const { korisnickoIme, imeGosta, datumVremeRezervacije, brojGostiju, komentarGosta, brojStola, imeRestorana } = req.body;
             const novaRezervacija = new rezervacija_1.default({
                 korisnickoIme,
                 imeGosta,
@@ -69,14 +70,16 @@ class RezervacijaController {
                 brojGostiju,
                 komentarGosta,
                 brojStola,
-                statusRezervacije: 'pending'
+                statusRezervacije: 'pending',
+                imeRestorana
             });
             try {
                 const savedReservation = yield novaRezervacija.save();
                 res.status(201).json(savedReservation);
             }
             catch (err) {
-                res.status(400).json();
+                console.error(err);
+                res.status(400).json({ message: 'Greška prilikom čuvanja rezervacije' });
             }
         });
         // Otkazivanje rezervacije

@@ -5,7 +5,6 @@ import userRouter from "./routers/user.router";
 import restoranRouter from "./routers/restoran.router";
 import rezervacijaRouter from "./routers/rezervacija.router";
 import NarudzbinaRouter from "./routers/narudzbina.router";
-import komentarRouter from "./routers/komentar.router";
 
 const app = express();
 app.use(cors());
@@ -22,7 +21,6 @@ router.use("/users", userRouter);
 router.use("/restorani", restoranRouter);
 router.use("/rezervacije", rezervacijaRouter);
 router.use("/porudzbine", NarudzbinaRouter);
-router.use('/komentari', komentarRouter);
 
 app.use("/", router);
 

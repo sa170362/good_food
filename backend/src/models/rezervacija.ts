@@ -12,7 +12,7 @@ const reservationSchema = new Schema({
     razlogOdbijanja: { type: String },
     brojStola: { type: Number },
     datumKreiranja: { type: Date, default: Date.now },
-    imeRestorana: { type: String, required: true }
-});
+    imeRestorana: { type: String }
+}, { versionKey: false });
 
 export default mongoose.model('Rezervacija', reservationSchema, "rezervacije");
