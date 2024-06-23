@@ -21,19 +21,19 @@ export class RegisterComponent {
   // selectedFile: File = null;
   defaultImage: string = 'path/to/default/image.png';
 
-  onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
+  // onFileSelected(event: any) {
+  //   this.selectedFile = event.target.files[0];
 
-    if (this.selectedFile && (this.selectedFile.type === 'image/png' || this.selectedFile.type === 'image/jpeg')) {
-      if (this.selectedFile.size > 100 * 1024 && this.selectedFile.size < 300 * 1024) {
-        // Valid file selected
-        this.user.profilnaSlika= this.selectedFile || this.defaultImage;
-      } else {
-        // File size not within range, handle error
-      }
-    } else {
-      // Invalid file type, handle error
-    }}
+  //   if (this.selectedFile && (this.selectedFile.type === 'image/png' || this.selectedFile.type === 'image/jpeg')) {
+  //     if (this.selectedFile.size > 100 * 1024 && this.selectedFile.size < 300 * 1024) {
+  //       // Valid file selected
+  //       this.user.profilnaSlika= this.selectedFile || this.defaultImage;
+  //     } else {
+  //       // File size not within range, handle error
+  //     }
+  //   } else {
+  //     // Invalid file type, handle error
+  //   }}
 
   // register(){
   //   this.servis.register(this.user).subscribe(
@@ -162,6 +162,10 @@ export class RegisterComponent {
 
     if (!this.user.sigurnosniOdgovor) {
       this.formErrors.bezbednosniOdgovor = "Security answer is required";
+      isValid = false;
+    }
+    if (!this.user.brojKreditneKartice) {
+      this.formErrors.brojKreditneKartice = "Broj kreditne kartice is required";
       isValid = false;
     }
 

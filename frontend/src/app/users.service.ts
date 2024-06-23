@@ -19,11 +19,6 @@ export class UsersService {
     return this.http.put<any>(`${this.uri}/profile`, updatedUser);
   }
 
-  uploadProfilePicture(file: File) {
-    const formData = new FormData();
-    formData.append('image', file);
-    return this.http.post<any>(`${this.uri}/profile-picture`, formData);
-  }
 
   prijavaNaSistem(korisnickoIme: string, lozinka: string) {
     const data = {

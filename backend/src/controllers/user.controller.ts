@@ -14,17 +14,21 @@ const storage = multer.diskStorage({
   }
 });
 
+const fileFilter = (req: any, file: any, cb: any) => {
+  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
 const upload = multer({
   storage: storage,
-  limits: { fileSize: 300 * 1024 },
-  fileFilter: function (req, file, cb) {
-    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-      cb(null, true);
-    } else {
-      cb(null, false); // reject file
-    }
-  }
-}).single('profileImage'); // 'profileImage' is the field name
+  limits: {
+    fileSize: 300 * 1024 // 300KB
+  },
+  fileFilter: fileFilter
+});
 
 const clearMulterUploads = () => {
   const directory = 'uploads/';
@@ -39,34 +43,7 @@ const clearMulterUploads = () => {
   });
 };
 export class UserController {
-//   login = (req: express.Request, res: express.Response) => {
 
-//   let korisnickoIme = req.body.korisnickoIme;
-//   let lozinka = req.body.lozinka;
-
-//   Korisnik.findOne({ korisnickoIme: korisnickoIme })
-//       .then(async (user) => {
-//           if (!user) {
-//               return res.status(404).json({ message: "Korisnik nije pronađen. Proverite svoje kredencijale." });
-//           }
-
-//           const match = await bcrypt.compare(lozinka, user.lozinka || '');
-
-//           if (!match) {
-//               return res.status(403).json({ message: "Pogrešno korisničko ime ili lozinka" });
-//           }
-
-//           if (user.status !== 'aktivan') {
-//               return res.status(403).json({ message: "Vaš nalog je deaktiviran" });
-//           }
-
-//           res.json(user);
-//       })
-//       .catch((err) => {
-//           console.error('Greška pri prijavi:', err);
-//           res.status(500).json({ message: "Greška prilikom prijave korisnika", error: err });
-//       });
-// };
 login = (req: express.Request, res: express.Response) => {
   let korisnickoIme = req.body.korisnickoIme;
   let lozinka = req.body.lozinka;
