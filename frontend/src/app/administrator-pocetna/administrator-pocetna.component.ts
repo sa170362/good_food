@@ -15,10 +15,12 @@ export class AdministratorPocetnaComponent implements OnInit  {
   waiters: Korisnik[] = [];
   restaurants: Restoran[] = [];
   users: Korisnik[] = [];
-
+  private currentUser: Korisnik | null = null;
   currentYear: number = new Date().getFullYear();
   constructor(private usersService: UsersService, private restaurantsService: RestoranService, private router: Router) {}
   ngOnInit(): void {
+    const storedUser = localStorage.getItem('currentUser');
+    this.currentUser = storedUser ? JSON.parse(storedUser) : null;
     this.fetchGuests();
     this.fetchWaiters();
     this.fetchRestaurants();
@@ -85,5 +87,12 @@ export class AdministratorPocetnaComponent implements OnInit  {
         
         // this.router.navigate([this.router.url]);
       });
+    }
+    logout(): void {
+      this.currentUser = null;
+      localStorage.removeItem('currentUser');
+    }
+    isLoggedIn(): boolean {
+      return this.currentUser !== null;
     }
 }

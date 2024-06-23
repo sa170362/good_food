@@ -13,6 +13,9 @@ userRouter
     .route("/login")
     .post((req, res) => new user_controller_1.UserController().login(req, res));
 userRouter
+    .route("/loginAdmin")
+    .post((req, res) => new user_controller_1.UserController().loginAdmin(req, res));
+userRouter
     .route("/profile")
     .get((req, res) => new user_controller_1.UserController().getProfile(req, res)) // Nova ruta za dohvat profila
     .put((req, res) => new user_controller_1.UserController().updateUser(req, res)); // Ruta za ažuriranje profila
@@ -65,6 +68,10 @@ userRouter.route("/registerKonobar").post(upload.single('profilnaSlika'), (req, 
 userRouter.put('/unblockUser/:korisnickoIme', (req, res) => {
     controller.unblockUser(req, res);
 });
-userRouter
-    .get('/ukupanBrojRegistrovanihGostiju', controller.ukupanBrojRegistrovanihGostijui);
+userRouter.put('/change-password-with-old', controller.changePasswordWithOld);
+userRouter.get('/security-question/:username', controller.getSecurityQuestion);
+userRouter.put('/answer-security-question', controller.answerSecurityQuestion);
+userRouter.put('/change-password-with-security-answer', controller.changePasswordWithSecurityAnswer);
+userRouter.get('/brojRegistrovanihGostiju', controller.getBrojRegistrovanihGostiju);
+userRouter.put('/change-password', (req, res) => controller.changePassword(req, res));
 exports.default = userRouter;

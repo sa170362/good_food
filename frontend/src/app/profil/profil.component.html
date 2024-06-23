@@ -1,74 +1,73 @@
+<div class="wrapper">
+  <header class="header-bg text-light py-4">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <h1 class="text-white"><i class="fas fa-utensils"></i> Kutak dobre hrane</h1>
+        <nav>
+          <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link text-light" routerLink="/profil">Profil</a>
+            </li>
+          <li class="nav-item">
+              <a class="nav-link text-light" routerLink="/login">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" routerLink="/rezervacije">Rezervacije</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" routerLink="/porudzbine">Dostava</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" >Statistika</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
 
-<header class="bg-dark text-light py-4">
-  <div class="container">
-    <div class="d-flex justify-content-between align-items-center">
-      <h1 class="text-white">Kutak dobre hrane</h1>
-      <nav>
-        <ul class="nav">
-          <li class="nav-item">
-            <a class="nav-link text-light" routerLink="/profil">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-light" routerLink="/rezervacije">Rezervacije</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-light" routerLink="/porudzbine">Dostava</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-light" >Statistika</a>
-          </li>
-          <!-- Add more navigation links as needed -->
-        </ul>
-      </nav>
+  <div class="main-bg container my-5 p-4 rounded shadow-sm border-primary flex-fill">
+    <h2 class="text-center mb-4 text-primary">Edit User</h2>
+    <div *ngIf="user">
+      <form (ngSubmit)="onSubmit()">
+      
+       
+        <div class="form-group">
+          <label for="ime">Ime:</label>
+          <input type="text" id="ime" [(ngModel)]="user.ime" name="ime" class="form-control" required>
+          <div *ngIf="formErrors.ime" class="error text-danger">{{ formErrors.ime }}</div>
+        </div>
+        <div class="form-group">
+          <label for="prezime">Prezime:</label>
+          <input type="text" id="prezime" [(ngModel)]="user.prezime" name="prezime" class="form-control" required>
+          <div *ngIf="formErrors.prezime" class="error text-danger">{{ formErrors.prezime }}</div>
+        </div>
+    
+        <div class="form-group">
+          <label for="adresa">Adresa:</label>
+          <input type="text" id="adresa" [(ngModel)]="user.adresa" name="adresa" class="form-control" required>
+          <div *ngIf="formErrors.adresa" class="error text-danger">{{ formErrors.adresa }}</div>
+        </div>
+        <div class="form-group">
+          <label for="kontaktTelefon">Kontakt telefon:</label>
+          <input type="text" id="kontaktTelefon" [(ngModel)]="user.kontaktTelefon" name="kontaktTelefon" class="form-control" required>
+          <div *ngIf="formErrors.kontaktTelefon" class="error text-danger">{{ formErrors.kontaktTelefon }}</div>
+        </div>
+        <div class="form-group">
+          <label for="mejl">E-mail:</label>
+          <input type="email" id="mejl" [(ngModel)]="user.mejl" name="mejl" class="form-control" required>
+          <div *ngIf="formErrors.email" class="error text-danger">{{ formErrors.email }}</div>
+        </div>
+        
+     
+        <button type="submit" class="btn btn-primary">Update</button>
+      </form>
     </div>
   </div>
-</header>
-<div *ngIf="korisnik">
-    <h2>Profil</h2>
-    <form (ngSubmit)="updateProfile()">
-      <label>Korisničko ime:</label>
-      <input type="text" [(ngModel)]="korisnik.korisnickoIme" name="korisnickoIme" disabled>
-  
-      <label>Lozinka:</label>
-      <input type="password" [(ngModel)]="korisnik.lozinka" name="lozinka">
-  
-      <label>Ime:</label>
-      <input type="text" [(ngModel)]="korisnik.ime" name="ime">
-  
-      <label>Prezime:</label>
-      <input type="text" [(ngModel)]="korisnik.prezime" name="prezime">
-  
-      <label>Pol:</label>
-      <select [(ngModel)]="korisnik.pol" name="pol">
-        <option value="M">Muški</option>
-        <option value="Ž">Ženski</option>
-      </select>
-  
-      <label>Adresa:</label>
-      <input type="text" [(ngModel)]="korisnik.adresa" name="adresa">
-  
-      <label>Kontakt telefon:</label>
-      <input type="text" [(ngModel)]="korisnik.kontaktTelefon" name="kontaktTelefon">
-  
-      <label>Email:</label>
-      <input type="email" [(ngModel)]="korisnik.mejl" name="email" disabled>
-  
-      <label>Broj kreditne kartice:</label>
-      <input type="text" [(ngModel)]="korisnik.brojKreditneKartice" name="brojKreditneKartice">
-  
-      <button type="submit">Ažuriraj profil</button>
-    </form>
-  
-    <h3>Ažuriranje profilne slike</h3>
-    <input type="file" accept="image/jpeg,image/png" (change)="onFileSelected($event)">
-    <button (click)="uploadProfilePicture()">Ubaci profilnu sliku</button>
-  </div>
-  <div *ngIf="!korisnik">
-    <p>Učitavanje korisničkih podataka...</p>
-  </div>
-  <footer class="bg-dark text-light py-3 mt-5">
+  <footer class="footer-bg text-light py-3 mt-5">
     <div class="container text-center">
-      <hr class="mb-4">
+      <hr class="bg-warning mb-4">
       <p>&copy; {{ currentYear }} Kutak dobre hrane. All rights reserved.</p>
     </div>
   </footer>
+</div>

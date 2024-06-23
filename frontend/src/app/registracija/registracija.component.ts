@@ -17,6 +17,24 @@ export class RegisterComponent {
   emailExists: boolean = false;
   userFound: Korisnik = new Korisnik()
   selectedFile: File | null = null;
+
+  // selectedFile: File = null;
+  defaultImage: string = 'path/to/default/image.png';
+
+  // onFileSelected(event: any) {
+  //   this.selectedFile = event.target.files[0];
+
+  //   if (this.selectedFile && (this.selectedFile.type === 'image/png' || this.selectedFile.type === 'image/jpeg')) {
+  //     if (this.selectedFile.size > 100 * 1024 && this.selectedFile.size < 300 * 1024) {
+  //       // Valid file selected
+  //       this.user.profilnaSlika= this.selectedFile || this.defaultImage;
+  //     } else {
+  //       // File size not within range, handle error
+  //     }
+  //   } else {
+  //     // Invalid file type, handle error
+  //   }}
+
   // register(){
   //   this.servis.register(this.user).subscribe(
   //     data=>{
@@ -146,34 +164,38 @@ export class RegisterComponent {
       this.formErrors.bezbednosniOdgovor = "Security answer is required";
       isValid = false;
     }
-
-    if (!this.user.profilnaSlika) {
-      this.formErrors.profilnaSlika = "Profile picture is required";
+    if (!this.user.brojKreditneKartice) {
+      this.formErrors.brojKreditneKartice = "Broj kreditne kartice is required";
       isValid = false;
     }
+
+    // if (!this.user.profilnaSlika) {
+    //   this.formErrors.profilnaSlika = "Profile picture is required";
+    //   isValid = false;
+    // }
 
     return isValid;
   }
 
   
-  onFileSelected(event: any): void {
-    const file: File = event.target.files[0];
+  // onFileSelected(event: any): void {
+  //   const file: File = event.target.files[0];
 
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        const img = new Image();
-        img.onload = () => {
-          if (img.width >= 100 && img.width <= 300 && img.height >= 100 && img.height <= 300) {
-            this.user.profilnaSlika = file; // Store the file in a separate variable
-          } else {
-            this.formErrors.profilnaSlika = 'Profile picture must be between 100x100 px and 300x300 px.';
-          }
-        };
-        img.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
-    alert(this.selectedFile?.name);
-  }
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onload = (e: any) => {
+  //       const img = new Image();
+  //       img.onload = () => {
+  //         if (img.width >= 100 && img.width <= 300 && img.height >= 100 && img.height <= 300) {
+  //           this.user.profilnaSlika = file; // Store the file in a separate variable
+  //         } else {
+  //           this.formErrors.profilnaSlika = 'Profile picture must be between 100x100 px and 300x300 px.';
+  //         }
+  //       };
+  //       img.src = e.target.result;
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  //   alert(this.selectedFile?.name);
+  // }
 }

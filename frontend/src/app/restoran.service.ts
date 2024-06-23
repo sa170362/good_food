@@ -33,4 +33,5 @@ export class RestoranService {
   saveLayoutForRestoran(ime: string, layout: any) {
     return this.http.post(`${this.apiUrl}/${ime}/save-layout`, { layout });
   }
+  
 }

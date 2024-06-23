@@ -1,0 +1,43 @@
+<header class="bg-dark text-light py-4">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+      <h1 class="text-white">Kutak dobre hrane</h1>
+      <nav>
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link text-light" routerLink="/login">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" routerLink="/registracija">Registracija</a>
+          </li>
+          <!-- Add more navigation links as needed -->
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<div class="container mt-5">
+  <h2 class="mb-4">Ulogujte se</h2>
+  <hr />
+  <form (ngSubmit)="prijavaNaSistem()">
+    <div class="form-group">
+      <label for="korisnickoIme">Korisničko ime:</label>
+      <input type="text" id="korisnickoIme" name="korisnickoIme" [(ngModel)]="kor_ime" class="form-control" placeholder="Unesite korisničko ime" required>
+    </div>
+    <div class="form-group">
+      <label for="lozinka">Lozinka:</label>
+      <input type="password" id="lozinka" name="lozinka" [(ngModel)]="lozinka" class="form-control" placeholder="Unesite lozinku" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Prijavi se</button>
+  </form>
+
+  <p *ngIf="poruka" class="error-message mt-3">{{ poruka }}</p>
+</div>
+
+<footer class="bg-dark text-light py-3 mt-5">
+  <div class="container text-center">
+    <hr class="mb-4">
+    <p>&copy; {{ currentYear }} Kutak dobre hrane. Sva prava zadržana.</p>
+  </div>
+</footer>

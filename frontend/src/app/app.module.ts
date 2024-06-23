@@ -17,6 +17,9 @@ import { DodajKonobaraComponent } from './dodaj-konobara/dodaj-konobara.componen
 import { DodajRestoranComponent } from './dodaj-restoran/dodaj-restoran.component';
 import { RestoranLayoutComponent } from './restoran-layout/restoran-layout.component';
 import { PorudzbinaComponent } from './porudzbina/porudzbina.component';
+import { AdminLoginComponent } from './admin-login/admin-login.component';
+import { PromenaLozinkeComponent } from './promena-lozinke/promena-lozinke.component';
+import { ProfilGostComponent } from './profil-gost/profil-gost.component';
 
 
 @NgModule({
@@ -34,6 +37,9 @@ import { PorudzbinaComponent } from './porudzbina/porudzbina.component';
     DodajRestoranComponent,
     RestoranLayoutComponent,
     PorudzbinaComponent,
+    AdminLoginComponent,
+    PromenaLozinkeComponent,
+    ProfilGostComponent,
   ],
   imports: [
     BrowserModule,

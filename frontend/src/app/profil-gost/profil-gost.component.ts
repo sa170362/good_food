@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Korisnik } from '../models/korisnik';
-import { Router , ActivatedRoute} from '@angular/router';
 import { UsersService } from '../users.service';
+
 @Component({
-  selector: 'app-edit-user',
-  templateUrl: './edit-user.component.html',
-  styleUrls: ['./edit-user.component.css']
+  selector: 'app-profil-gost',
+  templateUrl: './profil-gost.component.html',
+  styleUrls: ['./profil-gost.component.css']
 })
-export class EditUserComponent implements OnInit {
+export class ProfilGostComponent  implements OnInit{
   user: Korisnik = new Korisnik();
   currentYear: number = new Date().getFullYear();
   oldUsername:string =''
@@ -16,6 +17,7 @@ export class EditUserComponent implements OnInit {
   emailExists: boolean = false;
   userFound: Korisnik = new Korisnik()
   selectedFile: File | null = null;
+  originalEmail: string ='';
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -29,6 +31,7 @@ export class EditUserComponent implements OnInit {
     if (storedUserJson) {
       this.user = JSON.parse(storedUserJson);
       this.oldUsername = this.user.korisnickoIme;
+      this.originalEmail = this.user.mejl;
     } else {
       const korisnickoIme = this.route.snapshot.paramMap.get('korisnickoIme');
       if (korisnickoIme) {
@@ -42,40 +45,47 @@ export class EditUserComponent implements OnInit {
    
   }
   onSubmit(): void {
-
-    // this.userService.updateUserByAdmin(this.oldUsername, this.user).subscribe(
-    //   () => {
-    //     this.router.navigate(['/admin']);
-    //   }
-    // );
-
     if (this.validateForm()) {
-      this.userService.checkUsernameExists(this.user.korisnickoIme).subscribe(
-        exists => {
-          this.usernameExists = exists;
-          if (exists) {
-            this.formErrors.korisnickoIme = "Username already exists";
-          } else {
-            this.userService.checkEmailExists(this.user.mejl).subscribe(
-              emailExists => {
-                this.emailExists = emailExists;
-                if (emailExists) {
-                  this.formErrors.email = "Email already exists";
-                } else {
-                  
-                 this.userService.updateUserByAdmin(this.oldUsername, this.user).subscribe(
-      () => {
-        this.router.navigate(['/admin']);
-      }
-    );
+
+      if (this.user.mejl !== this.originalEmail) {
+        this.userService.checkEmailExists(this.user.mejl).subscribe(
+          emailExists => {
+            this.emailExists = emailExists;
+            if (emailExists) {
+              
+              this.formErrors.email = "Email already exists";
+            } else {
+
+              this.userService.updateUserByAdmin(this.oldUsername, this.user).subscribe(
+                (updatedUser: Korisnik) => {
+                  this.user = updatedUser;
+                  this.originalEmail = updatedUser.mejl;
+                  localStorage.setItem('selectedUser', JSON.stringify(updatedUser));
+                  this.router.navigate(['/profilGost']);
+                },
+                error => {
+                  console.error('Error updating user:', error);
                 }
-              }
-        
-            );
+              );
+            }
+          },
+          error => {
+            console.error('Error checking email:', error);
           }
-        }
-    
-      );
+        );
+      } else {
+        this.userService.updateUserByAdmin(this.oldUsername, this.user).subscribe(
+          (updatedUser: Korisnik) => {
+            this.user = updatedUser;
+            this.originalEmail = updatedUser.mejl;
+            localStorage.setItem('selectedUser', JSON.stringify(updatedUser));
+            this.router.navigate(['/profilGost']);
+          },
+          error => {
+            console.error('Error updating user:', error);
+          }
+        );
+      }
     }
   }
 
@@ -88,16 +98,12 @@ export class EditUserComponent implements OnInit {
     const pattern = /^[0-9]{9}$/;
     return pattern.test(phone);
   }
-
   validateForm(): boolean {
     this.formErrors = {};
     let isValid = true;
 
 
-    if (!this.user.korisnickoIme) {
-      this.formErrors.korisnickoIme = "Username is required";
-      isValid = false;
-    }
+  
 
     if (!this.user.ime) {
       this.formErrors.ime = "Firstname is required";
@@ -108,11 +114,12 @@ export class EditUserComponent implements OnInit {
       this.formErrors.prezime = "Lastname is required";
       isValid = false;
     }
-
-    if (!this.user.pol) {
-      this.formErrors.pol = "Gender is required";
+    if (!this.user.brojKreditneKartice) {
+      this.formErrors.brojKreditneKartice = "Broj kreditne kartice is required";
       isValid = false;
     }
+
+   
 
     if (!this.user.adresa) {
       this.formErrors.adresa = "Address is required";
@@ -142,4 +149,5 @@ export class EditUserComponent implements OnInit {
 
     return isValid;
   }
+
 }

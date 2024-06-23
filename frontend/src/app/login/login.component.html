@@ -1,59 +1,44 @@
-<header class="bg-dark text-light py-4">
-    <div class="container">
-      <div class="d-flex justify-content-between align-items-center">
-        <h1 class="text-white">Kutak dobre hrane</h1>
-        <nav>
-          <ul class="nav">
-            <li class="nav-item">
-              <a class="nav-link text-light" routerLink="/login">Login</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-light" routerLink="/registracija">Registracija</a>
-              </li>
-            <!-- Add more navigation links as needed -->
-          </ul>
-        </nav>
-      </div>
+<header class="header-bg text-light py-4">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+      <h1 class="text-white">
+        <i class="fas fa-utensils"></i> Kutak dobre hrane
+      </h1>
+      <nav>
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link text-light" routerLink="/login">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" routerLink="/registracija">Registracija</a>
+          </li>
+          <!-- Add more navigation links as needed -->
+        </ul>
+      </nav>
     </div>
-  </header>
-<div class="container">
-    <b>Ulogujte se</b>
-    <hr />
-    <form>
-        <table>
-            <tr>
-                <td>Korisnicko ime:</td>
-                <td>
-                    <input type='text' name='kor_ime' [(ngModel)]='kor_ime'>
-                </td>
-            </tr>
-            <tr>
-                <td>Lozinka:</td>
-                <td>
-                    <input type='password' name='lozinka' [(ngModel)]='lozinka'>
-                </td>
-            </tr>
-            <tr>
-                <td>Tip:</td>
-                <td>
-                    <select name="tip" [(ngModel)]='tip'>
-                        <option value="kupac">Kupac</option>
-                        <option value="radnik">Radnik</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td colspan='2'>
-                    <input type='button' value='Prijava' (click)='prijavaNaSistem()'>
-                </td>
-            </tr>
-        </table>
-    </form>
-    <span class='greska'>{{poruka}}</span>
+  </div>
+</header>
+
+<div class="main-bg container my-5">
+  <h2 class="text-center mb-4 text-primary">Ulogujte se</h2>
+  <hr />
+  <form (ngSubmit)="prijavaNaSistem()" class="p-4 rounded shadow-sm border-primary">
+    <div class="form-group">
+      <label for="korisnickoIme">Korisničko ime</label>
+      <input type="text" class="form-control mb-3" id="korisnickoIme" [(ngModel)]="kor_ime" name="korisnickoIme" placeholder="Korisničko ime" required>
+    </div>
+    <div class="form-group">
+      <label for="lozinka">Lozinka</label>
+      <input type="password" class="form-control mb-3" id="lozinka" [(ngModel)]="lozinka" name="lozinka" placeholder="Lozinka" required>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Prijavi se</button>
+  </form>
+  <p *ngIf="poruka" class="error-message text-danger mt-3">{{ poruka }}</p>
 </div>
-<footer class="bg-dark text-light py-3 mt-5">
-    <div class="container text-center">
-      <hr class="mb-4">
-      <p>&copy; {{ currentYear }} Kutak dobre hrane. All rights reserved.</p>
-    </div>
-  </footer>
+
+<footer class="footer-bg text-light py-3 mt-5">
+  <div class="container text-center">
+    <hr class="bg-warning mb-4">
+    <p>&copy; {{ currentYear }} Kutak dobre hrane. All rights reserved.</p>
+  </div>
+</footer>

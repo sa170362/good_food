@@ -9,8 +9,7 @@ export class Korisnik {
   adresa: string = '';
   kontaktTelefon: string = '';
   mejl: string = '';
-  profilnaSlika?: File;
-  profilnaSlikaUrl?: string;
+  profilnaSlika?:File;
   brojKreditneKartice: string = '';
   tip:string = '';
   status?:string ='';
