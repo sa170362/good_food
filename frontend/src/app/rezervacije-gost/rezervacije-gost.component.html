@@ -1,0 +1,44 @@
+<div class="container">
+    <h2>Aktuelne rezervacije</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Datum rezervacije</th>
+          <th>Restoran</th>
+          <th>Akcija</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let rezervacija of aktuelneRezervacije">
+          <td>{{ rezervacija.datumVremeRezervacije | date:'yyyy-MM-dd HH:mm' }}</td>
+          <td>{{ rezervacija.restoran }}</td>
+          <td>
+            <!-- <button class="btn btn-danger"
+                    [disabled]="!canCancelReservation(rezervacija)"
+                    (click)="cancelReservation(rezervacija.imeGosta, rezervacija.datumVremeRezervacije)">
+              Otkaži rezervaciju
+            </button> -->
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <h2>Istekle rezervacije</h2>
+    <table class="table" *ngIf="istekleRezervacije.length>0">
+      <thead>
+        <tr>
+          <th>Datum rezervacije</th>
+          <th>Restoran</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let rezervacija of istekleRezervacije">
+          <td>{{ rezervacija.datumVremeRezervacije | date:'yyyy-MM-dd HH:mm' }}</td>
+          <td>{{ rezervacija.restoran }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="istekleRezervacije.length ==0">
+        <p>Nema isteklih rezervacija.</p>
+    </div>
+  </div>

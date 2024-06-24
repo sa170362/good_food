@@ -21,6 +21,9 @@ import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { PromenaLozinkeComponent } from './promena-lozinke/promena-lozinke.component';
 import { ProfilGostComponent } from './profil-gost/profil-gost.component';
 import { StatistikaComponent } from './statistika/statistika.component';
+import { RestoraniGostComponent } from './restorani-gost/restorani-gost.component';
+import { RestoranDetaljiComponent } from './restoran-detalji/restoran-detalji.component';
+import { RezervacijeGostComponent } from './rezervacije-gost/rezervacije-gost.component';
 
 
 @NgModule({
@@ -42,6 +45,9 @@ import { StatistikaComponent } from './statistika/statistika.component';
     PromenaLozinkeComponent,
     ProfilGostComponent,
     StatistikaComponent,
+    RestoraniGostComponent,
+    RestoranDetaljiComponent,
+    RezervacijeGostComponent,
   ],
   imports: [
     BrowserModule,

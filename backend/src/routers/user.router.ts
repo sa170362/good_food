@@ -26,6 +26,7 @@ userRouter
     
 // )
 userRouter.route("/register").post(upload.single('profilnaSlika'), (req, res) => controller.register(req, res));
+// userRouter.route("/register").post(upload, (req, res) => controller.register(req, res));
 
 userRouter
   .route("/check-username/:korisnickoIme")
@@ -67,7 +68,7 @@ userRouter
     controller.rejectUser(req, res);
   });
 
-  userRouter.put('/users/:korisnickoIme', (req, res) => controller.updateUserByAdmin(req, res));
+  userRouter.route('/users/:korisnickoIme').put(upload.single('profilnaSlika'),(req, res) => controller.updateUserByAdmin(req, res));
   userRouter.get('/getusers/:korisnickoIme', (req, res) => controller.getUserByUsername(req, res));
   userRouter.route("/registerKonobar").post(upload.single('profilnaSlika'), (req, res) => controller.registerKonobar(req, res));
   userRouter.put('/unblockUser/:korisnickoIme', (req, res) => {

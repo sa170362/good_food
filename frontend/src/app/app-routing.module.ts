@@ -16,6 +16,9 @@ import { PromenaLozinkeComponent } from './promena-lozinke/promena-lozinke.compo
 import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { ProfilGostComponent } from './profil-gost/profil-gost.component';
 import { StatistikaComponent } from './statistika/statistika.component';
+import { RestoraniGostComponent } from './restorani-gost/restorani-gost.component';
+import { RestoranDetaljiComponent } from './restoran-detalji/restoran-detalji.component';
+import { RezervacijeGostComponent } from './rezervacije-gost/rezervacije-gost.component';
 
 
 const routes: Routes = [
@@ -36,6 +39,9 @@ const routes: Routes = [
   { path: "promenaLozinke", component: PromenaLozinkeComponent },
   { path: "adminLogin", component: AdminLoginComponent },
   { path: "statistika", component: StatistikaComponent },
+  { path: "restoraniGost", component: RestoraniGostComponent },
+  { path: "restoranDetalji/:ime", component: RestoranDetaljiComponent },
+  { path: "rezervacijeGost", component: RezervacijeGostComponent },
 
 ];
 

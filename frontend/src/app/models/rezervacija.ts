@@ -1,7 +1,7 @@
 export class Rezervacija {
     korisnickoIme: string = '';
     imeGosta: string = '';
-    datumVremeRezervacije: Date | undefined;
+    datumVremeRezervacije: Date =  new Date(); ;
     brojGostiju: number | undefined;
     komentarGosta: string | undefined;
     statusRezervacije: string = 'neobradjena';

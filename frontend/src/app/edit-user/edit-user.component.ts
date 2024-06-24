@@ -62,8 +62,15 @@ export class EditUserComponent implements OnInit {
                 if (emailExists) {
                   this.formErrors.email = "Email already exists";
                 } else {
+                  const formData = new FormData();
+                  formData.append('kontaktTelefon', this.user.kontaktTelefon);
+                  formData.append('ime', this.user.ime);
+                  formData.append('prezime', this.user.prezime);
+                  formData.append('mejl', this.user.mejl);
+                  formData.append('brojKreditneKartice', this.user.brojKreditneKartice);
+                  formData.append('profilnaSlika', this.selectedFile!);
                   
-                 this.userService.updateUserByAdmin(this.oldUsername, this.user).subscribe(
+                 this.userService.updateUserByAdmin(this.oldUsername, formData).subscribe(
       () => {
         this.router.navigate(['/admin']);
       }

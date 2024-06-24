@@ -152,6 +152,76 @@ getAll = (req: express.Request, res: express.Response) => {
       res.status(500).json({ message: "Greška pri dohvatanju rezervacija" });
     });
 };
+getRezervacijeR = (req: express.Request, res: express.Response) => {
+  const restoran = decodeURIComponent(req.params.restoran);
+  Rezervacija.find({ statusRezervacije: 'obradjena' , restoran: restoran})
+    .then(rezervacije => res.json(rezervacije))
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({ message: "Greška pri dohvatanju rezervacija" });
+    });
+};
+
+addRezervacija = (req: express.Request, res: express.Response) => {
+  const { imeGosta, komentarGosta, brojGostiju,datumKreiranja, datumVremeRezervacije, statusRezervacije, korisnickoIme, brojStola , restoran } = req.body;
+
+  const newRez = new Rezervacija({
+    imeGosta,
+    komentarGosta,
+    brojGostiju,
+    datumKreiranja,
+    datumVremeRezervacije,
+    statusRezervacije,
+    korisnickoIme, brojStola,
+    restoran
+  });
+
+  newRez.save()
+    .then((rezervacija) => {
+      res.status(201).json(rezervacija);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ message: "Error adding reservation", error: err });
+    });
+};
+cancelReservation = async (req: Request, res: Response): Promise<void> => {
+  const { imeGosta } = req.params;
+  const { datumVremeRezervacije } = req.body;
+
+  try {
+    // Find and update the reservation with the given guest name and reservation date
+    const canceledReservation = await Rezervacija.findOneAndUpdate(
+      { imeGosta, datumVremeRezervacije, statusRezervacije: 'neobradjena' },
+      { statusRezervacije: 'otkazana' },
+      { new: true }
+    );
+
+    if (canceledReservation) {
+      res.json(canceledReservation);
+    } else {
+      res.status(404).json({ message: 'Rezervacija nije pronađena ili već obrađena/otkazana.' });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Greška pri otkazivanju rezervacije' });
+  }
+};
+getGuestReservations = async (req: Request, res: Response): Promise<void> => {
+  const korisnickoIme = decodeURIComponent(req.params.korisnickoIme);
+
+  try {
+    // Find all reservations for the given guest username
+    const reservations = await Rezervacija.find({ korisnickoIme })
+      .sort({ datumVremeRezervacije: 1 }); // Sort by date ascending
+
+    res.status(200).json(reservations);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Greška pri dohvatanju rezervacija gosta' });
+  }
+};
+
 
 };
 

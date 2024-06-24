@@ -6,13 +6,13 @@
           <nav>
             <ul class="nav">
               <li class="nav-item">
-                <a class="nav-link text-light" routerLink="/profil">Profil</a>
+                <a class="nav-link text-light" routerLink="/profilGost">Profil</a>
               </li>
             <li class="nav-item">
                 <a class="nav-link text-light" routerLink="/login">Login</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-light" routerLink="/rezervacije">Rezervacije</a>
+                <a class="nav-link text-light" routerLink="/restoraniGost">Restorani</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link text-light" routerLink="/porudzbine">Dostava</a>
@@ -63,10 +63,27 @@
             <input type="text" id="brojKreditneKartice" [(ngModel)]="user.brojKreditneKartice" name="brojKreditneKartice" class="form-control" required>
             <div *ngIf="formErrors.brojKreditneKartice" class="error text-danger">{{ formErrors.brojKreditneKartice }}</div>
           </div>
-       
+
+          <div *ngIf="user.profilnaSlika">
+            <label for="profilnaSlika">Profilna slika: &nbsp;</label>
+            <img *ngIf="user.profilnaSlika" [src]="imageBaseUrl + user.profilnaSlika" alt="Profile Picture">
+            <br>
+            <br>
+            <div class="form-group">
+                <label for="profilnaSlika">Azuriraj profilnu sliku: &nbsp;</label>
+                <input type="file" id="profilePicture" (change)="onFileSelected($event)" accept="image/png, image/jpeg">
+                <div *ngIf="formErrors.profilnaSlika" class="error text-danger">{{ formErrors.profilnaSlika }}</div>
+            </div>
+           
+         
+           
+          </div>
+         
           <button type="submit" class="btn btn-primary">Update</button>
         </form>
       </div>
+
+     
     </div>
     <footer class="footer-bg text-light py-3 mt-5">
       <div class="container text-center">

@@ -105,6 +105,67 @@ class RezervacijaController {
                 res.status(500).json({ message: "Greška pri dohvatanju rezervacija" });
             });
         };
+        this.getRezervacijeR = (req, res) => {
+            const restoran = decodeURIComponent(req.params.restoran);
+            rezervacija_1.default.find({ statusRezervacije: 'obradjena', restoran: restoran })
+                .then(rezervacije => res.json(rezervacije))
+                .catch(err => {
+                console.error(err);
+                res.status(500).json({ message: "Greška pri dohvatanju rezervacija" });
+            });
+        };
+        this.addRezervacija = (req, res) => {
+            const { imeGosta, komentarGosta, brojGostiju, datumKreiranja, datumVremeRezervacije, statusRezervacije, korisnickoIme, brojStola, restoran } = req.body;
+            const newRez = new rezervacija_1.default({
+                imeGosta,
+                komentarGosta,
+                brojGostiju,
+                datumKreiranja,
+                datumVremeRezervacije,
+                statusRezervacije,
+                korisnickoIme, brojStola,
+                restoran
+            });
+            newRez.save()
+                .then((rezervacija) => {
+                res.status(201).json(rezervacija);
+            })
+                .catch((err) => {
+                console.log(err);
+                res.status(500).json({ message: "Error adding reservation", error: err });
+            });
+        };
+        this.cancelReservation = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const { imeGosta } = req.params;
+            const { datumVremeRezervacije } = req.body;
+            try {
+                // Find and update the reservation with the given guest name and reservation date
+                const canceledReservation = yield rezervacija_1.default.findOneAndUpdate({ imeGosta, datumVremeRezervacije, statusRezervacije: 'neobradjena' }, { statusRezervacije: 'otkazana' }, { new: true });
+                if (canceledReservation) {
+                    res.json(canceledReservation);
+                }
+                else {
+                    res.status(404).json({ message: 'Rezervacija nije pronađena ili već obrađena/otkazana.' });
+                }
+            }
+            catch (err) {
+                console.error(err);
+                res.status(500).json({ message: 'Greška pri otkazivanju rezervacije' });
+            }
+        });
+        this.getGuestReservations = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const korisnickoIme = decodeURIComponent(req.params.korisnickoIme);
+            try {
+                // Find all reservations for the given guest username
+                const reservations = yield rezervacija_1.default.find({ korisnickoIme })
+                    .sort({ datumVremeRezervacije: 1 }); // Sort by date ascending
+                res.status(200).json(reservations);
+            }
+            catch (err) {
+                console.error(err);
+                res.status(500).json({ message: 'Greška pri dohvatanju rezervacija gosta' });
+            }
+        });
     }
     getBrojGostijuPoDanima(req, res) {
         return __awaiter(this, void 0, void 0, function* () {

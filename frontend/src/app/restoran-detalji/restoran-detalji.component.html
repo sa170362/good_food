@@ -1,0 +1,112 @@
+
+<header class="header-bg text-light py-4">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <h1 class="text-white">
+          <i class="fas fa-utensils"></i> Kutak dobre hrane
+        </h1>
+        <nav>
+          <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link text-light" routerLink="/login">Prijavi se</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" routerLink="/registracija">Registruj se</a>
+            </li>
+  
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+  
+  <!-- <div class="main-bg container my-5">
+    <h2 class="text-center mb-4 text-primary">Početna stranica - Kutak dobre hrane</h2>
+    <div class="row">
+        <div class="col-md-6 mb-4">
+          <div class="card shadow-sm border-primary">
+            <div class="card-body">
+              <h4 class="card-title text-warning"> Opste informacije o restoranu </h4>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item bg-light">Naziv: {{ restoran.ime }}</li>
+                <li class="list-group-item bg-light">Adresa: {{ restoran.adresa }}</li>
+                <li class="list-group-item bg-light">Tip: {{ restoran.tip }}</li>
+                <li class="list-group-item bg-light">Kontakt: {{ restoran.kontaktOsoba }}</li>
+                <li class="list-group-item bg-light">Konobari:
+                    <ul>
+                    <li *ngFor="let konobar of konobari">
+                      {{ konobar.ime }} {{konobar.prezime}}
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+  </div> -->
+  <div class="main-bg container my-5">
+    <h2 class="text-center mb-4 text-primary">Detalji o restoranu - {{ restoran.ime }}</h2>
+    <div class="row">
+      <div class="col-md-6 mb-4">
+        <div class="card shadow-sm border-primary">
+          <div class="card-body">
+            <h4 class="card-title text-warning">Opšte informacije o restoranu</h4>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item bg-light">Naziv: {{ restoran.ime }}</li>
+              <li class="list-group-item bg-light">Adresa: {{ restoran.adresa }}</li>
+              <li class="list-group-item bg-light">Tip: {{ restoran.tip }}</li>
+              <li class="list-group-item bg-light">Kontakt: {{ restoran.kontaktOsoba }}</li>
+              <li class="list-group-item bg-light">Konobari:
+                <ul>
+                  <li *ngFor="let konobar of konobari">
+                    {{ konobar.ime }} {{ konobar.prezime }}
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 mb-4">
+        <div class="card shadow-sm border-primary">
+          <div class="card-body">
+            <h4 class="card-title text-warning">Rezervacija stola</h4>
+            <form (ngSubmit)="submitReservation()">
+              <div class="form-group">
+                <label for="datumVreme">Datum i vreme</label>
+                <input type="datetime-local" id="datumVreme" class="form-control" [(ngModel)]="rezervacija.datumVremeRezervacije" name="datumVreme" required>
+                <small *ngIf="!datumVremeValid" class="text-danger">Unesite validan datum i vreme.</small>
+              </div>
+              <div class="form-group">
+                <label for="brojOsoba">Broj osoba</label>
+                <input type="number" id="brojOsoba" class="form-control" [(ngModel)]="rezervacija.brojGostiju" name="brojGostiju" required>
+                <small *ngIf="!brojOsobaValid" class="text-danger">Unesite validan broj osoba.</small>
+              </div>
+              <div class="form-group">
+                <label for="opis">Dodatni zahtevi</label>
+                <textarea id="opis" class="form-control" [(ngModel)]="rezervacija.komentarGosta" name="komentarGosta"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Rezerviši</button>
+              <!-- <div *ngIf="rezervacijaUspesna" class="alert alert-success mt-2" role="alert">
+                Uspešno ste rezervisali sto!
+              </div> -->
+              <!-- <div *ngIf="rezervacijaNeuspesna" class="alert alert-danger mt-2" role="alert">
+                {{ porukaOdbijanja }}
+              </div> -->
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <footer class="footer-bg text-light py-3 mt-5">
+    <div class="container text-center">
+      <hr class="bg-warning mb-4">
+      <p>&copy; {{ currentYear }} Kutak dobre hrane. All rights reserved.</p>
+    </div>
+  </footer>
+  
+  

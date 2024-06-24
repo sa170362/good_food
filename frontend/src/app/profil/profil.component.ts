@@ -30,6 +30,7 @@ export class ProfilComponent implements OnInit {
   ngOnInit(): void {
     const storedUserJson = localStorage.getItem('selectedUser');
     if (storedUserJson) {
+  
       this.user = JSON.parse(storedUserJson);
       this.oldUsername = this.user.korisnickoIme;
       this.originalEmail = this.user.mejl;
@@ -45,6 +46,12 @@ export class ProfilComponent implements OnInit {
     }
    
   }
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+    if (this.selectedFile) {
+      this.validateImage(this.selectedFile);
+    }
+  }
   onSubmit(): void {
     if (this.validateForm()) {
     
@@ -58,8 +65,15 @@ export class ProfilComponent implements OnInit {
               
               this.formErrors.email = "Email already exists";
             } else {
+              const formData = new FormData();
+              formData.append('kontaktTelefon', this.user.kontaktTelefon);
+              formData.append('ime', this.user.ime);
+              formData.append('prezime', this.user.prezime);
+              formData.append('mejl', this.user.mejl);
+              // formData.append('brojKreditneKartice', this.user.brojKreditneKartice);
+              formData.append('profilnaSlika', this.selectedFile!);
               // Proceed to update user if email does not exist and it has been changed
-              this.userService.updateUserByAdmin(this.oldUsername, this.user).subscribe(
+              this.userService.updateUserByAdmin(this.oldUsername, formData).subscribe(
                 (updatedUser: Korisnik) => {
                   // Update user object with new values
                   this.user = updatedUser;
@@ -83,8 +97,15 @@ export class ProfilComponent implements OnInit {
           }
         );
       } else {
+        const formData = new FormData();
+        formData.append('kontaktTelefon', this.user.kontaktTelefon);
+        formData.append('ime', this.user.ime);
+        formData.append('prezime', this.user.prezime);
+        formData.append('mejl', this.user.mejl);
+        // formData.append('brojKreditneKartice', this.user.brojKreditneKartice);
+        formData.append('profilnaSlika', this.selectedFile!);
         // Email has not been changed, proceed directly to update user
-        this.userService.updateUserByAdmin(this.oldUsername, this.user).subscribe(
+        this.userService.updateUserByAdmin(this.oldUsername, formData).subscribe(
           (updatedUser: Korisnik) => {
             // Update user object with new values
             this.user = updatedUser;
@@ -102,6 +123,23 @@ export class ProfilComponent implements OnInit {
         );
       }
     }
+  }
+  validateImage(file: File): void {
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      const img = new Image();
+      img.onload = () => {
+        if (img.width >= 100 && img.height >= 100 && img.width <= 300 && img.height <= 300) {
+          this.formErrors.profilnaSlika = '';
+          this.selectedFile = file;
+        } else {
+          this.formErrors.profilnaSlika = 'Image dimensions must be between 100x100 and 300x300 pixels';
+          this.selectedFile = null;
+        }
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
   }
 
   validateEmail(email: string): boolean {

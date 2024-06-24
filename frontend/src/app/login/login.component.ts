@@ -59,8 +59,9 @@ export class LoginComponent implements OnInit {
           this.poruka = 'Vaš nalog više nije aktivan.';
         } else if (response.status === 'success') {
           localStorage.setItem('selectedUser', JSON.stringify(response.user));
+          if(response.user.tip == 'gost'){this.ruter.navigate(['profilGost']);}
           
-          this.ruter.navigate(['profil']);
+          else{this.ruter.navigate(['profil']);}
          
         }
       },

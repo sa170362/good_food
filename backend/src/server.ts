@@ -7,9 +7,14 @@ import rezervacijaRouter from "./routers/rezervacija.router";
 import NarudzbinaRouter from "./routers/narudzbina.router";
 
 const app = express();
+const path = require('path');
+
 app.use(cors());
 app.use(express.json());
-
+// app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+app.use(express.static('uploads'));
+app.use('/uploads', express.static('uploads'));
+// app.use(express.static('uploads'));
 mongoose.connect("mongodb://127.0.0.1:27017/lego");
 const connection = mongoose.connection;
 connection.once("open", () => {

@@ -142,24 +142,24 @@ export class DodajKonobaraComponent implements OnInit{
   }
 
   
-  onFileSelected(event: any): void {
-    const file: File = event.target.files[0];
+  // onFileSelected(event: any): void {
+  //   const file: File = event.target.files[0];
 
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        const img = new Image();
-        img.onload = () => {
-          if (img.width >= 100 && img.width <= 300 && img.height >= 100 && img.height <= 300) {
-            this.waiter.profilnaSlika = file;
-          } else {
-            this.formErrors.profilnaSlika = 'Profile picture must be between 100x100 px and 300x300 px.';
-          }
-        };
-        img.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
-    alert(this.selectedFile?.name);
-  }
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onload = (e: any) => {
+  //       const img = new Image();
+  //       img.onload = () => {
+  //         if (img.width >= 100 && img.width <= 300 && img.height >= 100 && img.height <= 300) {
+  //           this.waiter.profilnaSlika = file;
+  //         } else {
+  //           this.formErrors.profilnaSlika = 'Profile picture must be between 100x100 px and 300x300 px.';
+  //         }
+  //       };
+  //       img.src = e.target.result;
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  //   alert(this.selectedFile?.name);
+  // }
 }

@@ -34,5 +34,23 @@ export class ReservationsService {
   getAllReservations() {
     return this.http.get<Rezervacija[]>(`${this.apiUrl}/all`);
   }
+
+  getRezervacijeR(restoran:string) {
+    return this.http.get<Rezervacija[]>(`${this.apiUrl}/reservations/${encodeURIComponent(restoran)}`);
+  }
+  addReservation(rezervacija: Rezervacija) {
+    return this.http.post<Rezervacija>(`${this.apiUrl}/create`, rezervacija);
+  }
+
+   // Metoda za dobijanje svih rezervacija gosta, sortiranih prema statusu (aktuelne ili istekle)
+   getGuestReservations(korisnickoIme: string) {
+    return this.http.get<Rezervacija[]>(`${this.apiUrl}/guest/${encodeURIComponent(korisnickoIme)}`);
+  }
+
+  // Metoda za otkazivanje rezervacije
+  cancelReservation(imeGosta: string, datumVremeRezervacije: Date) {
+    const url = `${this.apiUrl}/cancel/${encodeURIComponent(imeGosta)}`;
+    return this.http.post(url, { datumVremeRezervacije });
+  }
  
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {  UsersService} from '../users.service';
 import { Korisnik } from '../models/korisnik';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -9,7 +10,7 @@ import { Korisnik } from '../models/korisnik';
   styleUrls: ['./registracija.component.css']
 })
 export class RegisterComponent {
-  constructor(private servis: UsersService){}
+  constructor(private servis: UsersService, private ruter: Router){}
   currentYear: number = new Date().getFullYear();
   user: Korisnik = new Korisnik()
   formErrors: any = {};
@@ -42,6 +43,14 @@ export class RegisterComponent {
   //     }
   //   )
   // }
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+    if (this.selectedFile) {
+      this.validateImage(this.selectedFile);
+    }
+  }
+
   register(): void {
     if (this.validateForm()) {
       this.servis.checkUsernameExists(this.user.korisnickoIme).subscribe(
@@ -56,13 +65,31 @@ export class RegisterComponent {
                 if (emailExists) {
                   this.formErrors.email = "Email already exists";
                 } else {
-                  // Proceed with registration
-                  // this.user.profilnaSlika = this.selectedFile;
-                  this.servis.register(this.user).subscribe(
+                  // // Proceed with registration
+                  // if(!this.selectedFile){
+                  //   this.selectedFile=new File([],'assets/default_profile.jpg');
+                  // }
+                  // this.user.profilnaSlika = this.selectedFile.name;
+                  const formData = new FormData();
+                  formData.append('korisnickoIme', this.user.korisnickoIme);
+                  formData.append('lozinka', this.user.lozinka);
+                  formData.append('ime', this.user.ime);
+                  formData.append('prezime', this.user.prezime);
+                  formData.append('mejl', this.user.mejl);
+                  formData.append('sigurnosnoPitanje', this.user.sigurnosnoPitanje);
+                  formData.append('sigurnosniOdgovor', this.user.sigurnosniOdgovor);
+                  formData.append('adresa', this.user.adresa);
+                  formData.append('pol', this.user.pol);
+                  formData.append('kontaktTelefon', this.user.kontaktTelefon);
+                  formData.append('brojKreditneKartice', this.user.brojKreditneKartice);
+                  formData.append('profilnaSlika', this.selectedFile ? this.selectedFile : new File([], 'assets/default_profile.jpg'));
+                  this.servis.register(formData).subscribe(
                     data => {
                       if (data.message === "ok") {
                         alert("Successfully registered");
-                        this.user = new Korisnik(); // Reset form after successful registration
+                        this.user = new Korisnik();
+                        this.ruter.navigate(['/login'])
+                  
                       }
                     }
                     // ,
@@ -101,6 +128,23 @@ export class RegisterComponent {
   validatePassword(password:string):boolean{
     const pattern =  /^(?=.*[a-z]{3,})(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[\w@$!%*?&]{6,10}$/;
     return pattern.test(password);
+  }
+  validateImage(file: File): void {
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      const img = new Image();
+      img.onload = () => {
+        if (img.width >= 100 && img.height >= 100 && img.width <= 300 && img.height <= 300) {
+          this.formErrors.profilnaSlika = '';
+          this.selectedFile = file;
+        } else {
+          this.formErrors.profilnaSlika = 'Image dimensions must be between 100x100 and 300x300 pixels';
+          this.selectedFile = null;
+        }
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
   }
   validateForm(): boolean {
     this.formErrors = {};

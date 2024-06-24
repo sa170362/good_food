@@ -34,10 +34,10 @@ export class UsersService {
     };
     return this.http.post<Korisnik>(`${this.uri}/loginAdmin`, data);
   }
-  register(user: Korisnik){
-    // alert(user.profilnaSlika)
+  register(data:FormData){
+    // alert(data.get('profilnaSlika'))
     return this.http.post<Message>(`${this.uri}/register`,
-     user)
+     data)
   }
   checkUsernameExists(username: string) {
     return this.http.get<boolean>(`${this.uri}/check-username/${username}`);
@@ -67,10 +67,12 @@ export class UsersService {
   rejectUser(korisnickoIme: string) {
     return this.http.put<Message>(`${this.uri}/rejectUser/${korisnickoIme}`, {});
   }
-  updateUserByAdmin(korisnickoIme: string, updatedData: any){
 
-    return this.http.put<Korisnik>(`${this.uri}/users/${korisnickoIme}`, updatedData);
+  updateUserByAdmin(korisnickoIme: string, data:FormData){
+
+    return this.http.put<Korisnik>(`${this.uri}/users/${korisnickoIme}`, data);
   }
+
   getUserByUsername(korisnickoIme: string){
     return this.http.get<Korisnik>(`${this.uri}/users/${korisnickoIme}`);
   }
@@ -96,7 +98,7 @@ export class UsersService {
   }
 
   getKonobari(imeRestorana: string) {
-    // alert("servis za" + imeRestorana)
+
     return this.http.get(`${this.uri}/konobari/${imeRestorana}`);
   }
 }

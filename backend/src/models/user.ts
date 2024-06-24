@@ -38,9 +38,6 @@ let KorisnikSchema = new Schema({
   kontaktTelefon: {
     type: String,
   },
-  profilnaSlikaUrl: {
-    type: String,
-  },
   profilnaSlika: {
     type: String,
   },

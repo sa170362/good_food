@@ -11,8 +11,13 @@ const restoran_router_1 = __importDefault(require("./routers/restoran.router"));
 const rezervacija_router_1 = __importDefault(require("./routers/rezervacija.router"));
 const narudzbina_router_1 = __importDefault(require("./routers/narudzbina.router"));
 const app = (0, express_1.default)();
+const path = require('path');
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
+// app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+app.use(express_1.default.static('uploads'));
+app.use('/uploads', express_1.default.static('uploads'));
+// app.use(express.static('uploads'));
 mongoose_1.default.connect("mongodb://127.0.0.1:27017/lego");
 const connection = mongoose_1.default.connection;
 connection.once("open", () => {

@@ -4,44 +4,53 @@ import path from "path";
 import multer from "multer";
 import * as bcrypt from 'bcryptjs';
 import fs from 'fs';
+const crypto = require('crypto');
 
+// const storage = multer.diskStorage({
+//   destination: function(req, file, cb) {
+//     cb(null, 'uploads/') // Your uploads directory
+//   },
+//   filename: function(req, file, cb) {
+//     cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+//   }
+// });
+
+
+// const upload = multer({
+//   storage: storage,
+//   limits: {
+//     fileSize: 300 * 1024 // 300KB
+//   },
+//   fileFilter: fileFilter
+// });
+
+// Multer configuration
 const storage = multer.diskStorage({
-  destination: function(req, file, cb) {
-    cb(null, 'uploads/') // Your uploads directory
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/');
   },
-  filename: function(req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+  filename: function (req, file, cb) {
+    const originalName = file.originalname;
+    cb(null, originalName);
   }
 });
-
-const fileFilter = (req: any, file: any, cb: any) => {
-  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-    cb(null, true);
-  } else {
-    cb(null, false);
-  }
-};
 
 const upload = multer({
   storage: storage,
-  limits: {
-    fileSize: 300 * 1024 // 300KB
-  },
-  fileFilter: fileFilter
-});
+  fileFilter: function (req, file, cb) {
+    const fileTypes = /jpg|png/;
+    const extname = fileTypes.test(path.extname(file.originalname).toLowerCase());
+    const mimetype = fileTypes.test(file.mimetype);
 
-const clearMulterUploads = () => {
-  const directory = 'uploads/';
-  fs.readdir(directory, (err, files) => {
-    if (err) throw err;
-
-    for (const file of files) {
-      fs.unlink(path.join(directory, file), err => {
-        if (err) throw err;
-      });
+    if (extname && mimetype) {
+      return cb(null, true);
+    } else {
+      cb(new Error('Error: Images Only!'));
     }
-  });
-};
+  }
+}).single('profilnaSlika');
+
+
 export class UserController {
 
 login = (req: express.Request, res: express.Response) => {
@@ -122,7 +131,7 @@ loginAdmin = (req: express.Request, res: express.Response) => {
   
   
   register = async (req: express.Request, res: express.Response)=>{
-    // console.log(req)
+    console.log(req.file)
     let korisnickoIme = req.body.korisnickoIme;
     const hashedPassword = await bcrypt.hash(req.body.lozinka, 10);
     let lozinka = hashedPassword;
@@ -135,7 +144,7 @@ loginAdmin = (req: express.Request, res: express.Response) => {
     let pol = req.body.pol;
     let kontaktTelefon = req.body.kontaktTelefon;
     let brojKreditneKartice = req.body.brojKreditneKartice;
-    let profilnaSlika = req.body.profilnaSlika ? req.body.profilnaSlika : 'frontend\src\assets\default_profile.jpg'
+    let profilnaSlika = req.file ? req.file.filename : 'default_profile.jpg';
     let tip = "gost";
     let status = "pending"
     console.log(profilnaSlika)
@@ -145,7 +154,6 @@ loginAdmin = (req: express.Request, res: express.Response) => {
       lozinka: lozinka,
       ime: ime,
       prezime: prezime,
-      profilna_slika: profilnaSlika,
       mejl:mejl,
       sigurnosnoPitanje:sigurnosnoPitanje,
       sigurnosniOdgovor:sigurnosniOdgovor,
@@ -154,7 +162,8 @@ loginAdmin = (req: express.Request, res: express.Response) => {
       kontaktTelefon:kontaktTelefon,
       brojKreditneKartice:brojKreditneKartice,
       tip:tip,
-      status:status
+      status:status,
+      profilnaSlika:profilnaSlika
     }
 
     new Korisnik(user).save().then(ok=>{
@@ -162,7 +171,7 @@ loginAdmin = (req: express.Request, res: express.Response) => {
     }).catch(err=>{
         console.log(err)
     })
-    clearMulterUploads();
+   
 }
   getUser = (req: express.Request, res: express.Response) => {
     let korisnickoIme = req.body.korisnickoIme;
@@ -394,8 +403,14 @@ loginAdmin = (req: express.Request, res: express.Response) => {
   async updateUserByAdmin(req: express.Request, res: express.Response) {
     const korisnickoIme = req.params.korisnickoIme;
     const updatedData = req.body;
+    // const profilnaSlika = req.file.filename
+    console.log(req.file?.filename );
 
     try {
+      if (req.file) {
+        updatedData.profilnaSlika = req.file.filename; 
+      }
+  
       const user = await Korisnik.findOneAndUpdate( { korisnickoIme: korisnickoIme }, updatedData, { new: true });
 
       if (!user) {
@@ -460,7 +475,7 @@ loginAdmin = (req: express.Request, res: express.Response) => {
     }).catch(err=>{
         console.log(err)
     })
-    clearMulterUploads();
+   
 }
 unblockUser = (req: express.Request, res: express.Response) => {
   let korisnickoIme = req.params.korisnickoIme;

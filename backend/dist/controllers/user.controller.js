@@ -36,43 +36,46 @@ const user_1 = __importDefault(require("../models/user"));
 const path_1 = __importDefault(require("path"));
 const multer_1 = __importDefault(require("multer"));
 const bcrypt = __importStar(require("bcryptjs"));
-const fs_1 = __importDefault(require("fs"));
+const crypto = require('crypto');
+// const storage = multer.diskStorage({
+//   destination: function(req, file, cb) {
+//     cb(null, 'uploads/') // Your uploads directory
+//   },
+//   filename: function(req, file, cb) {
+//     cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+//   }
+// });
+// const upload = multer({
+//   storage: storage,
+//   limits: {
+//     fileSize: 300 * 1024 // 300KB
+//   },
+//   fileFilter: fileFilter
+// });
+// Multer configuration
 const storage = multer_1.default.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads/'); // Your uploads directory
+        cb(null, 'uploads/');
     },
     filename: function (req, file, cb) {
-        cb(null, file.fieldname + '-' + Date.now() + path_1.default.extname(file.originalname));
+        const originalName = file.originalname;
+        cb(null, originalName);
     }
 });
-const fileFilter = (req, file, cb) => {
-    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-        cb(null, true);
-    }
-    else {
-        cb(null, false);
-    }
-};
 const upload = (0, multer_1.default)({
     storage: storage,
-    limits: {
-        fileSize: 300 * 1024 // 300KB
-    },
-    fileFilter: fileFilter
-});
-const clearMulterUploads = () => {
-    const directory = 'uploads/';
-    fs_1.default.readdir(directory, (err, files) => {
-        if (err)
-            throw err;
-        for (const file of files) {
-            fs_1.default.unlink(path_1.default.join(directory, file), err => {
-                if (err)
-                    throw err;
-            });
+    fileFilter: function (req, file, cb) {
+        const fileTypes = /jpg|png/;
+        const extname = fileTypes.test(path_1.default.extname(file.originalname).toLowerCase());
+        const mimetype = fileTypes.test(file.mimetype);
+        if (extname && mimetype) {
+            return cb(null, true);
         }
-    });
-};
+        else {
+            cb(new Error('Error: Images Only!'));
+        }
+    }
+}).single('profilnaSlika');
 class UserController {
     constructor() {
         this.login = (req, res) => {
@@ -137,7 +140,7 @@ class UserController {
             });
         };
         this.register = (req, res) => __awaiter(this, void 0, void 0, function* () {
-            // console.log(req)
+            console.log(req.file);
             let korisnickoIme = req.body.korisnickoIme;
             const hashedPassword = yield bcrypt.hash(req.body.lozinka, 10);
             let lozinka = hashedPassword;
@@ -150,7 +153,7 @@ class UserController {
             let pol = req.body.pol;
             let kontaktTelefon = req.body.kontaktTelefon;
             let brojKreditneKartice = req.body.brojKreditneKartice;
-            let profilnaSlika = req.body.profilnaSlika ? req.body.profilnaSlika : 'frontend\src\assets\default_profile.jpg';
+            let profilnaSlika = req.file ? req.file.filename : 'default_profile.jpg';
             let tip = "gost";
             let status = "pending";
             console.log(profilnaSlika);
@@ -159,7 +162,6 @@ class UserController {
                 lozinka: lozinka,
                 ime: ime,
                 prezime: prezime,
-                profilna_slika: profilnaSlika,
                 mejl: mejl,
                 sigurnosnoPitanje: sigurnosnoPitanje,
                 sigurnosniOdgovor: sigurnosniOdgovor,
@@ -168,14 +170,14 @@ class UserController {
                 kontaktTelefon: kontaktTelefon,
                 brojKreditneKartice: brojKreditneKartice,
                 tip: tip,
-                status: status
+                status: status,
+                profilnaSlika: profilnaSlika
             };
             new user_1.default(user).save().then(ok => {
                 res.json({ message: "ok" });
             }).catch(err => {
                 console.log(err);
             });
-            clearMulterUploads();
         });
         this.getUser = (req, res) => {
             let korisnickoIme = req.body.korisnickoIme;
@@ -418,7 +420,6 @@ class UserController {
             }).catch(err => {
                 console.log(err);
             });
-            clearMulterUploads();
         });
         this.unblockUser = (req, res) => {
             let korisnickoIme = req.params.korisnickoIme;
@@ -493,10 +494,16 @@ class UserController {
         });
     }
     updateUserByAdmin(req, res) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
             const korisnickoIme = req.params.korisnickoIme;
             const updatedData = req.body;
+            // const profilnaSlika = req.file.filename
+            console.log((_a = req.file) === null || _a === void 0 ? void 0 : _a.filename);
             try {
+                if (req.file) {
+                    updatedData.profilnaSlika = req.file.filename;
+                }
                 const user = yield user_1.default.findOneAndUpdate({ korisnickoIme: korisnickoIme }, updatedData, { new: true });
                 if (!user) {
                     return res.status(404).json({ message: "User not found" });
