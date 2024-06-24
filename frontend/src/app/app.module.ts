@@ -19,6 +19,8 @@ import { RestoranLayoutComponent } from './restoran-layout/restoran-layout.compo
 import { PorudzbinaComponent } from './porudzbina/porudzbina.component';
 import { RestaurantListComponent } from './restaurant-list/restaurant-list.component';
 import { RestaurantDetailComponent } from './restaurant-detail/restaurant-detail.component';
+import { MeniComponent } from './meni/meni.component';
+import { KorpaComponent } from './korpa/korpa.component';
 
 
 @NgModule({
@@ -38,6 +40,8 @@ import { RestaurantDetailComponent } from './restaurant-detail/restaurant-detail
     PorudzbinaComponent,
     RestaurantListComponent,
     RestaurantDetailComponent,
+    MeniComponent,
+    KorpaComponent,
   ],
   imports: [
     BrowserModule,

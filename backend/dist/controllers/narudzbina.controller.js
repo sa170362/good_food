@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.NarudzbinaController = void 0;
 const narudzbina_1 = __importDefault(require("../models/narudzbina"));
+const cartItem_1 = __importDefault(require("../models/cartItem"));
 class NarudzbinaController {
     constructor() {
         // GET /narudzbine - Dobavlja sve narudžbine
@@ -62,6 +63,44 @@ class NarudzbinaController {
             }
             catch (err) {
                 res.status(500).send(err);
+            }
+        });
+        this.kreirajPorudzbinu = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                // Kreiranje i čuvanje stavki korpe
+                const stavke = yield Promise.all(req.body.stavke.map((stavka) => __awaiter(this, void 0, void 0, function* () {
+                    const novaStavka = new cartItem_1.default({
+                        jelo: stavka.jelo._id, // Ovde se koristi samo ID jela
+                        kolicina: stavka.kolicina
+                    });
+                    yield novaStavka.save(); // Čuvanje stavke korpe u bazi
+                    return novaStavka; // Vraćanje sačuvane stavke
+                })));
+                // Kreiranje i čuvanje nove porudžbine
+                const novaPorudzbina = new narudzbina_1.default({
+                    customer: req.body.customer,
+                    stavke: stavke.map(stavka => stavka._id), // Mapiranje samo ID-jeva stavki
+                    ukupnaCena: req.body.ukupnaCena,
+                    adresaDostave: req.body.adresaDostave,
+                    kontaktTelefon: req.body.kontaktTelefon
+                });
+                console.log(novaPorudzbina);
+                yield novaPorudzbina.save(); // Čuvanje porudžbine u bazi
+                res.status(201).send(novaPorudzbina); // Slanje odgovora sa statusom 201 (Created) i podacima nove porudžbine
+            }
+            catch (error) {
+                console.error('Greška prilikom kreiranja porudžbine:', error);
+                res.status(400).send(error); // Slanje greške ako se desi problem pri čuvanju porudžbine
+            }
+        });
+        this.svePorudzbine = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            // Dohvatanje svih porudžbina
+            try {
+                const porudzbine = yield narudzbina_1.default.find().populate('stavke');
+                res.status(200).send(porudzbine);
+            }
+            catch (error) {
+                res.status(500).send(error);
             }
         });
     }

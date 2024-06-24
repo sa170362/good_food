@@ -1,0 +1,10 @@
+<div class="korpa-container">
+    <div *ngIf="stavke.length === 0">Korpa je prazna.</div>
+    <div *ngFor="let stavka of stavke; let i = index" class="stavka-korpe">
+      <h4>{{ stavka.jelo.naziv }} x {{ stavka.kolicina }}</h4>
+      <p>Cena: {{ stavka.jelo.cena }} RSD</p>
+      <button (click)="obrisiStavku(i)">Obriši</button>
+    </div>
+    <button (click)="zavrsiPorudzbinu()" [disabled]="stavke.length === 0">Završi porudžbinu</button>
+  </div>
+  

@@ -10,4 +10,6 @@ const narudzbinaController = new narudzbina_controller_1.NarudzbinaController();
 narudzbinaRouter.get('/', narudzbinaController.getOrders);
 narudzbinaRouter.put('/confirm/:customer', narudzbinaController.confirmOrder);
 narudzbinaRouter.put('/reject/:customer', narudzbinaController.rejectOrder);
+narudzbinaRouter.get('/svePorudzbine', narudzbinaController.svePorudzbine);
+narudzbinaRouter.post('/kreiraj', narudzbinaController.kreirajPorudzbinu);
 exports.default = narudzbinaRouter;

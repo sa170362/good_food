@@ -14,6 +14,8 @@ import { PorudzbinaComponent } from './porudzbina/porudzbina.component';
 import { LoginComponent } from './login/login.component';
 import { RestaurantDetailComponent } from './restaurant-detail/restaurant-detail.component';
 import { RestaurantListComponent } from './restaurant-list/restaurant-list.component';
+import { MeniComponent } from './meni/meni.component';
+import { KorpaComponent } from './korpa/korpa.component';
 
 
 const routes: Routes = [
@@ -32,6 +34,8 @@ const routes: Routes = [
   { path: "login", component: LoginComponent },
   { path: 'restorani', component: RestaurantListComponent },
   { path: 'restorani/detalji', component: RestaurantDetailComponent },
+  { path: 'jelovnik', component: MeniComponent },
+  { path: 'korpa', component: KorpaComponent },
 
 ];
 

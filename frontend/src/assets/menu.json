@@ -1,0 +1,21 @@
+[
+    {
+      "naziv": "Pizza Margherita",
+      "slika": "assets/margarita.jpg",
+      "cena": 500,
+      "sastojci": ["Tomato", "Mozzarella", "Basil"]
+    },
+    {
+      "naziv": "Spaghetti Carbonara",
+      "slika": "assets/karbonara.jpg",
+      "cena": 600,
+      "sastojci": ["Pasta", "Egg", "Pancetta", "Parmesan", "Black Pepper"]
+    },
+    {
+      "naziv": "Caesar Salad",
+      "slika": "assets/cezar-salata.jpg",
+      "cena": 400,
+      "sastojci": ["Lettuce", "Croutons", "Parmesan", "Caesar Dressing"]
+    }
+  ]
+  
