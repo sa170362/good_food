@@ -5,6 +5,6 @@
       <p>Cena: {{ stavka.jelo.cena }} RSD</p>
       <button (click)="obrisiStavku(i)">Obriši</button>
     </div>
-    <button (click)="zavrsiPorudzbinu()" [disabled]="stavke.length === 0">Završi porudžbinu</button>
+    <button (click)="zavrsiPorudzbinu()" [disabled]="stavke.length === 0" class="btn-zavrsi">Završi porudžbinu</button>
   </div>
   
