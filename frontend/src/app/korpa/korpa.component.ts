@@ -136,6 +136,18 @@ prikaziDetaljeZaDostavu(): void {
     }
   }
 
+  incrementQuantity(item: any): void {
+    item.stavka.kolicina++;
+    this.saveCartToLocalStorage();
+  }
+
+  decrementQuantity(item: any): void {
+    if (item.stavka.kolicina > 1) {
+      item.stavka.kolicina--;
+      this.saveCartToLocalStorage();
+    }
+  }
+
 
   // zavrsiPorudzbinu(): void {
   //   const customer = prompt("Unesite vaše ime:", "") || ""; // Ako je null, dodeljuje se prazan string

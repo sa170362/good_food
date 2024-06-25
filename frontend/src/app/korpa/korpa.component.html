@@ -33,6 +33,11 @@
               <p class="small-text">Cena: {{ item.stavka.jelo.cena }} RSD</p>
               <p class="small-text">Količina: {{ item.stavka.kolicina }}</p>
               <p class="small-text">Sastojci: {{ item.stavka.jelo.sastojci.join(', ') }}</p>
+              <div class="d-flex align-items-center justify-content-between">
+                <button class="btn btn-secondary btn-sm" (click)="decrementQuantity(item)">-</button>
+                <input type="number" class="form-control text-center mx-2" [value]="item.stavka.kolicina" readonly>
+                <button class="btn btn-secondary btn-sm" (click)="incrementQuantity(item)">+</button>
+            </div>
               <button class="btn btn-danger btn-sm" (click)="ukloniIzKorpe(item)">Ukloni</button>
             </div>
           </div>
