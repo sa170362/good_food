@@ -49,10 +49,10 @@ class NarudzbinaController {
         });
         // PUT /narudzbine/confirm/:customer - Potvrđuje narudžbinu za određenog korisnika
         this.confirmOrder = (req, res) => __awaiter(this, void 0, void 0, function* () {
-            const { customerkorIme } = req.params;
+            const { customerKorIme } = req.params;
             const { estimatedDeliveryTime } = req.body;
             try {
-                const orders = yield narudzbina_1.default.find({ customerkorIme });
+                const orders = yield narudzbina_1.default.find({ customerKorIme });
                 if (orders.length === 0) {
                     return res.status(404).send('Orders not found for the given customer');
                 }
@@ -69,9 +69,9 @@ class NarudzbinaController {
         });
         // PUT /narudzbine/reject/:customer - Odbija narudžbinu za određenog korisnika
         this.rejectOrder = (req, res) => __awaiter(this, void 0, void 0, function* () {
-            const { customerkorIme } = req.params;
+            const { customerKorIme } = req.params;
             try {
-                const orders = yield narudzbina_1.default.find({ customerkorIme });
+                const orders = yield narudzbina_1.default.find({ customerKorIme });
                 if (orders.length === 0) {
                     return res.status(404).send('Orders not found for the given customer');
                 }
@@ -135,6 +135,7 @@ class NarudzbinaController {
                     createdAt: new Date(),
                     restoran: req.body.restoran
                 });
+                console.log(novaPorudzbina);
                 yield novaPorudzbina.save(); // Čuvanje porudžbine u bazi
                 res.status(201).send(novaPorudzbina); // Slanje odgovora sa statusom 201 i podacima nove porudžbine
             }

@@ -14,7 +14,6 @@ const PorudzbinaSchema = new Schema({
     jelo: JeloSchema,
     kolicina: { type: Number, required: true }
   }],
-  customerkorIme: { type: String},
   restoran: { type: String },
   // items: [{ name: String, quantity: Number }],
   status: { type: String, enum: ['pending', 'confirmed', 'rejected'], default: 'pending' },

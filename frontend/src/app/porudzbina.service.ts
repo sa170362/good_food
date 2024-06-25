@@ -21,13 +21,13 @@ export class PorudzbinaService {
     return this.http.get<Porudzbina[]>(`${this.apiUrl}/rejected/${restoran}`, {});
   }
 
-  confirmOrder(customerkorIme: string, estimatedDeliveryTime: string): Observable<any> {
+  confirmOrder(customerKorIme: string, estimatedDeliveryTime: string): Observable<any> {
   
-    return this.http.put<any>(`${this.apiUrl}/confirm/${customerkorIme}`, { estimatedDeliveryTime });
+    return this.http.put<any>(`${this.apiUrl}/confirm/${customerKorIme}`, { estimatedDeliveryTime });
   }
 
-  rejectOrder(customerkorIme: string): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/reject/${customerkorIme}`, {});
+  rejectOrder(customerKorIme: string): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/reject/${customerKorIme}`, {});
   }
   createOrder(porudzbina: Porudzbina) {
     // console.log(porudzbina)

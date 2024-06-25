@@ -35,7 +35,7 @@
         <p><strong>Items:</strong></p>
         <ul>
           <li *ngFor="let item of order.stavke">
-            {{ item.kolicina }} x {{ item.jelo }}
+            {{ item.kolicina }} x {{ item.jelo.naziv }}
           </li>
         </ul>
       </div>
@@ -59,7 +59,7 @@
         <p><strong>Items:</strong></p>
         <ul>
           <li *ngFor="let item of order.stavke">
-            {{ item.kolicina }} x {{ item.jelo }}
+            {{ item.kolicina }} x {{ item.jelo.naziv }}
           </li>
         </ul>
       </div>
@@ -82,7 +82,7 @@
         <p><strong>Items:</strong></p>
         <ul>
           <li *ngFor="let item of order.stavke">
-            {{ item.kolicina }} x {{ item.jelo }}
+            {{ item.kolicina }} x {{ item.jelo.naziv }}
           </li>
         </ul>
       </div>
