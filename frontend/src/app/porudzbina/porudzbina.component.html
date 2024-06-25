@@ -29,13 +29,13 @@
   <hr />
   <div class="p-4 rounded shadow-sm border-primary">
     <div *ngFor="let order of orders" class="order mb-4 p-3 border rounded">
-      <p><strong>Customer:</strong> {{ order.customer }}</p>
+      <p><strong>Customer:</strong> {{ order.customerKorIme }}</p>
       <p><strong>Status:</strong> {{ order.status }}</p>
       <div>
         <p><strong>Items:</strong></p>
         <ul>
-          <li *ngFor="let item of order.items">
-            {{ item.quantity }} x {{ item.name }}
+          <li *ngFor="let item of order.stavke">
+            {{ item.kolicina }} x {{ item.jelo }}
           </li>
         </ul>
       </div>
@@ -53,13 +53,13 @@
   <hr />
   <div class="p-4 rounded shadow-sm border-primary">
     <div *ngFor="let order of confirmedOrders" class="order mb-4 p-3 border rounded">
-      <p><strong>Customer:</strong> {{ order.customer }}</p>
+      <p><strong>Customer:</strong> {{ order.customerKorIme }}</p>
       <p><strong>Status:</strong> {{ order.status }}</p>
       <div>
         <p><strong>Items:</strong></p>
         <ul>
-          <li *ngFor="let item of order.items">
-            {{ item.quantity }} x {{ item.name }}
+          <li *ngFor="let item of order.stavke">
+            {{ item.kolicina }} x {{ item.jelo }}
           </li>
         </ul>
       </div>
@@ -76,13 +76,13 @@
   <hr />
   <div class="p-4 rounded shadow-sm border-primary">
     <div *ngFor="let order of rejectedOrders" class="order mb-4 p-3 border rounded">
-      <p><strong>Customer:</strong> {{ order.customer }}</p>
+      <p><strong>Customer:</strong> {{ order.customerKorIme }}</p>
       <p><strong>Status:</strong> {{ order.status }}</p>
       <div>
         <p><strong>Items:</strong></p>
         <ul>
-          <li *ngFor="let item of order.items">
-            {{ item.quantity }} x {{ item.name }}
+          <li *ngFor="let item of order.stavke">
+            {{ item.kolicina }} x {{ item.jelo }}
           </li>
         </ul>
       </div>

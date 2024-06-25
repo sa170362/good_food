@@ -1,0 +1,56 @@
+[
+  {
+    "naziv": "Chicken Tikka Masala",
+    "slika": "/assets/chicken-tikka.jpg",
+    "cena": 700,
+    "sastojci": ["Chicken", "Tomato Sauce", "Cream", "Spices"]
+  },
+  {
+    "naziv": "Sushi Combo",
+    "slika": "/assets/sushi-combo.jpg",
+    "cena": 1000,
+    "sastojci": ["Rice", "Fish (Salmon, Tuna, Eel)", "Seaweed", "Soy Sauce"]
+  },
+  {
+    "naziv": "Hamburger",
+    "slika": "/assets/hamburger.jpg",
+    "cena": 450,
+    "sastojci": ["Beef Patty", "Lettuce", "Tomato", "Cheese", "Pickles", "Sesame Seed Bun"]
+  },
+  {
+    "naziv": "Pad Thai",
+    "slika": "/assets/pad-thai.jpg",
+    "cena": 550,
+    "sastojci": ["Rice Noodles", "Shrimp", "Tofu", "Bean Sprouts", "Peanuts", "Egg"]
+  },
+  {
+    "naziv": "Pho",
+    "slika": "/assets/pho.jpg",
+    "cena": 500,
+    "sastojci": ["Rice Noodles", "Beef Broth", "Beef Slices", "Bean Sprouts", "Basil", "Lime"]
+  },
+  {
+    "naziv": "Margherita Pizza",
+    "slika": "/assets/margarita.jpg",
+    "cena": 500,
+    "sastojci": ["Tomato", "Mozzarella", "Basil"]
+  },
+  {
+    "naziv": "Pulled Pork Sandwich",
+    "slika": "/assets/pulled-pork.jpg",
+    "cena": 600,
+    "sastojci": ["Pulled Pork", "BBQ Sauce", "Coleslaw", "Brioche Bun"]
+  },
+  {
+    "naziv": "Shrimp Scampi",
+    "slika": "/assets/shrimp-scampi.jpg",
+    "cena": 750,
+    "sastojci": ["Shrimp", "Garlic", "Butter", "White Wine", "Pasta"]
+  },
+  {
+    "naziv": "Caprese Salad",
+    "slika": "/assets/caprese-salad.jpg",
+    "cena": 400,
+    "sastojci": ["Tomato", "Mozzarella", "Basil", "Olive Oil", "Balsamic Vinegar"]
+  }
+]

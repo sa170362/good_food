@@ -19,6 +19,8 @@ import { StatistikaComponent } from './statistika/statistika.component';
 import { RestoraniGostComponent } from './restorani-gost/restorani-gost.component';
 import { RestoranDetaljiComponent } from './restoran-detalji/restoran-detalji.component';
 import { RezervacijeGostComponent } from './rezervacije-gost/rezervacije-gost.component';
+import { KorpaComponent } from './korpa/korpa.component';
+
 
 
 const routes: Routes = [
@@ -42,6 +44,7 @@ const routes: Routes = [
   { path: "restoraniGost", component: RestoraniGostComponent },
   { path: "restoranDetalji/:ime", component: RestoranDetaljiComponent },
   { path: "rezervacijeGost", component: RezervacijeGostComponent },
+  { path: 'korpa', component: KorpaComponent },
 
 ];
 

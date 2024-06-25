@@ -24,6 +24,7 @@ import { StatistikaComponent } from './statistika/statistika.component';
 import { RestoraniGostComponent } from './restorani-gost/restorani-gost.component';
 import { RestoranDetaljiComponent } from './restoran-detalji/restoran-detalji.component';
 import { RezervacijeGostComponent } from './rezervacije-gost/rezervacije-gost.component';
+import { KorpaComponent } from './korpa/korpa.component';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { RezervacijeGostComponent } from './rezervacije-gost/rezervacije-gost.co
     RestoraniGostComponent,
     RestoranDetaljiComponent,
     RezervacijeGostComponent,
+    KorpaComponent,
   ],
   imports: [
     BrowserModule,

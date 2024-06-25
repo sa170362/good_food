@@ -116,7 +116,7 @@ konobar:Korisnik;
     // alert(selectedDeliveryTime)
     if (order && selectedDeliveryTime) {
       // alert(order.customerkorIme)
-      this.porudzbinaService.confirmOrder(order.customerkorIme, selectedDeliveryTime).subscribe(
+      this.porudzbinaService.confirmOrder(order.customerKorIme, selectedDeliveryTime).subscribe(
         () => {
           this.orders = this.orders.filter(o => o !== order);
           this.closeModal();
@@ -128,7 +128,7 @@ konobar:Korisnik;
   }
 
   rejectOrder(order: Porudzbina): void {
-    this.porudzbinaService.rejectOrder(order.customerkorIme).subscribe(
+    this.porudzbinaService.rejectOrder(order.customerKorIme).subscribe(
       () => {
         this.orders = this.orders.filter(o => o !== order);
         this.getRejectedOrders();

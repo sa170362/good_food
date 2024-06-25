@@ -29,4 +29,8 @@ export class PorudzbinaService {
   rejectOrder(customerkorIme: string): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/reject/${customerkorIme}`, {});
   }
+  createOrder(porudzbina: Porudzbina) {
+    // console.log(porudzbina)
+    return this.http.post<Porudzbina>(`${this.apiUrl}/kreiraj`, porudzbina);
+  }
 }

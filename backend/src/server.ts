@@ -5,6 +5,7 @@ import userRouter from "./routers/user.router";
 import restoranRouter from "./routers/restoran.router";
 import rezervacijaRouter from "./routers/rezervacija.router";
 import NarudzbinaRouter from "./routers/narudzbina.router";
+import jelaRouter from "./routers/jela.router";
 
 const app = express();
 const path = require('path');
@@ -26,6 +27,7 @@ router.use("/users", userRouter);
 router.use("/restorani", restoranRouter);
 router.use("/rezervacije", rezervacijaRouter);
 router.use("/porudzbine", NarudzbinaRouter);
+router.use("/jela", jelaRouter);
 
 app.use("/", router);
 

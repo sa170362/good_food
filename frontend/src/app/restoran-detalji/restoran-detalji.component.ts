@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { JeloService } from '../jelo.service';
+import { KorpaService } from '../korpa.service';
+import { MeniService } from '../meni.service';
+import { StavkaKorpe } from '../models/cartItem';
+import { Jelo } from '../models/jelo';
 import { Korisnik } from '../models/korisnik';
 import { Restoran } from '../models/restoran';
 import { Rezervacija } from '../models/rezervacija';
@@ -18,6 +23,8 @@ export class RestoranDetaljiComponent implements OnInit{
   restoran:Restoran = new Restoran;
   konobari:Korisnik[]=[]
 gost:Korisnik
+jela: Jelo[] = [];
+  jelovnik: any[] = [];
   rezervacija: Rezervacija = new Rezervacija
 
   rezervacijaUspesna: boolean = false;
@@ -26,7 +33,9 @@ gost:Korisnik
   datumVremeValid: boolean = true;
   brojOsobaValid: boolean = true;
 
-  constructor(private route: ActivatedRoute, private servis:RestoranService, private userServis:UsersService, private rezservis:ReservationsService) { 
+  constructor(private route: ActivatedRoute, private servis:RestoranService,
+     private userServis:UsersService, private rezservis:ReservationsService, private mealService: JeloService, private korpaService: KorpaService,
+     private meniService: MeniService, private ruter: Router) { 
     const storedUser = localStorage.getItem('selectedUser');
   this.gost = storedUser ? JSON.parse(storedUser) : null;
   }
@@ -35,6 +44,55 @@ gost:Korisnik
     this.restoranIme = decodeURIComponent(this.route.snapshot.paramMap.get('ime')!);
     this.fetchRestoran();
     this.fetchRKonobari()
+    this.loadMenu();
+    this.mealService.getJela().subscribe((data: Jelo[]) => {
+      this.jela = data;
+    });
+  }
+  loadMenu(): void {
+    this.meniService.getMenu()
+      .subscribe(
+        data => {
+          this.jelovnik = data;
+          // alert(this.jelovnik.length)
+        },
+        error => {
+          console.error('Error loading menu:', error);
+        }
+      );
+  }
+  dodajUKorpu(jelo: Jelo): void {
+    const kolicina = prompt("Unesite količinu:", "1");
+    if (kolicina) {
+      let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      const stavka: StavkaKorpe = {
+        jelo: jelo,
+        kolicina: parseInt(kolicina, 10)
+      };
+      // Provera da li već postoji stavka u korpi sa istim jelom
+    const existingIndex = cart.findIndex((item: any) => item.stavka.jelo === jelo);
+
+    if (existingIndex !== -1) {
+      // Ako već postoji, ažurirajemo samo količinu
+      cart[existingIndex].stavka.kolicina += parseInt(kolicina, 10);
+    } else {
+      // Ako ne postoji, dodajemo novu stavku u korpu
+      cart.push({
+        restoran: this.restoranIme,
+        stavka: stavka,
+        korisnickoIme: this.gost.korisnickoIme
+      });
+    }
+    localStorage.setItem('restoran', JSON.stringify(this.restoranIme));
+      localStorage.setItem('cart', JSON.stringify(cart));
+
+      // this.korpaService.dodajStavku(stavka);
+      alert("Dodato u korpu!");
+    }
+  }
+
+   prikaziKorpu(): void {
+    this.ruter.navigate(['/korpa']); // Preusmeri na /korpa
   }
 
   fetchRestoran(): void{

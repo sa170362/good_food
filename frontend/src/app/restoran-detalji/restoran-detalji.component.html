@@ -89,18 +89,33 @@
                 <textarea id="opis" class="form-control" [(ngModel)]="rezervacija.komentarGosta" name="komentarGosta"></textarea>
               </div>
               <button type="submit" class="btn btn-primary">Rezerviši</button>
-              <!-- <div *ngIf="rezervacijaUspesna" class="alert alert-success mt-2" role="alert">
-                Uspešno ste rezervisali sto!
-              </div> -->
-              <!-- <div *ngIf="rezervacijaNeuspesna" class="alert alert-danger mt-2" role="alert">
-                {{ porukaOdbijanja }}
-              </div> -->
+       
             </form>
           </div>
         </div>
       </div>
+    
+  </div>
+  <div class="col-md-12 mb-4">
+    <div class="card shadow-sm border-primary">
+      <div class="card-body">
+        <h4 class="card-title text-warning text-center">Jelovnik</h4>
+        <div class="menu-container">
+       
+          <div *ngFor="let jelo of jelovnik" class="meal-item">
+              <h3>{{ jelo.naziv }}</h3>
+              <img [src]="jelo.slika" alt="{{ jelo.naziv }}" />
+              <p>Cena: {{ jelo.cena }} RSD</p>
+              <p>Sastojci: {{ jelo.sastojci.join(', ') }}</p>
+              <button (click)="dodajUKorpu(jelo)">Dodaj u korpu</button>
+            </div>
+          </div>
+          <button class="vidi-korpu" (click)="prikaziKorpu()">Vidi korpu</button>
+      </div>
+      </div>
     </div>
   </div>
+ 
   
   <footer class="footer-bg text-light py-3 mt-5">
     <div class="container text-center">

@@ -12,4 +12,6 @@ narudzbinaRouter.get('/rejected/:restoran', narudzbinaController.getRejectedOrde
 narudzbinaRouter.get('/:restoran', narudzbinaController.getOrders);
 narudzbinaRouter.put('/confirm/:customerkorIme', narudzbinaController.confirmOrder);
 narudzbinaRouter.put('/reject/:customerkorIme', narudzbinaController.rejectOrder);
+narudzbinaRouter.get('/svePorudzbine', narudzbinaController.svePorudzbine);
+narudzbinaRouter.post('/kreiraj', narudzbinaController.kreirajPorudzbinu);
 exports.default = narudzbinaRouter;
