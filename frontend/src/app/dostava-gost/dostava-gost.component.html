@@ -1,0 +1,14 @@
+<div class="container my-5">
+    <h2 class="text-center mb-4 text-primary">Aktuelne dostave</h2>
+    <div class="p-4 rounded shadow-sm border-primary">
+      <div *ngFor="let order of aktuelneDostave" class="order mb-4 p-3 border rounded">
+        <p><strong>Restoran:</strong> {{ order.restoran }}</p>
+        <p><strong>Status:</strong> {{ order.status }}</p>
+        <p *ngIf="order.status === 'confirmed'"><strong>Procenjeno vreme dostave:</strong> {{ order.estimatedDeliveryTime }}</p>
+      </div>
+      <div *ngIf="aktuelneDostave.length == 0">
+        <p>Nema aktuelnih dostava.</p>
+      </div>
+    </div>
+  </div>
+  

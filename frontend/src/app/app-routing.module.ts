@@ -20,6 +20,7 @@ import { RestoraniGostComponent } from './restorani-gost/restorani-gost.componen
 import { RestoranDetaljiComponent } from './restoran-detalji/restoran-detalji.component';
 import { RezervacijeGostComponent } from './rezervacije-gost/rezervacije-gost.component';
 import { KorpaComponent } from './korpa/korpa.component';
+import { DostavaGostComponent } from './dostava-gost/dostava-gost.component';
 
 
 
@@ -45,6 +46,7 @@ const routes: Routes = [
   { path: "restoranDetalji/:ime", component: RestoranDetaljiComponent },
   { path: "rezervacijeGost", component: RezervacijeGostComponent },
   { path: 'korpa', component: KorpaComponent },
+  { path: 'dostava', component: DostavaGostComponent },
 
 ];
 

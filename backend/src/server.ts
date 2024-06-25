@@ -6,6 +6,7 @@ import restoranRouter from "./routers/restoran.router";
 import rezervacijaRouter from "./routers/rezervacija.router";
 import NarudzbinaRouter from "./routers/narudzbina.router";
 import jelaRouter from "./routers/jela.router";
+import dostavaRouter from "./routers/dostava.router";
 
 const app = express();
 const path = require('path');
@@ -28,6 +29,7 @@ router.use("/restorani", restoranRouter);
 router.use("/rezervacije", rezervacijaRouter);
 router.use("/porudzbine", NarudzbinaRouter);
 router.use("/jela", jelaRouter);
+router.use("/dostava", dostavaRouter);
 
 app.use("/", router);
 

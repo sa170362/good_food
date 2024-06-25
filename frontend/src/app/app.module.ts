@@ -25,6 +25,7 @@ import { RestoraniGostComponent } from './restorani-gost/restorani-gost.componen
 import { RestoranDetaljiComponent } from './restoran-detalji/restoran-detalji.component';
 import { RezervacijeGostComponent } from './rezervacije-gost/rezervacije-gost.component';
 import { KorpaComponent } from './korpa/korpa.component';
+import { DostavaGostComponent } from './dostava-gost/dostava-gost.component';
 
 
 @NgModule({
@@ -50,6 +51,7 @@ import { KorpaComponent } from './korpa/korpa.component';
     RestoranDetaljiComponent,
     RezervacijeGostComponent,
     KorpaComponent,
+    DostavaGostComponent,
   ],
   imports: [
     BrowserModule,
