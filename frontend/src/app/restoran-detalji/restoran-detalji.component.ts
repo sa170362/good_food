@@ -22,10 +22,12 @@ export class RestoranDetaljiComponent implements OnInit{
   currentYear: number = new Date().getFullYear();
   restoran:Restoran = new Restoran;
   konobari:Korisnik[]=[]
-gost:Korisnik
-jela: Jelo[] = [];
+  gost:Korisnik
+  jela: Jelo[] = [];
   jelovnik: any[] = [];
   rezervacija: Rezervacija = new Rezervacija
+
+  quantityMap: { [key: string]: number } = {};
 
   rezervacijaUspesna: boolean = false;
   rezervacijaNeuspesna: boolean = false;
@@ -55,6 +57,9 @@ jela: Jelo[] = [];
         data => {
           this.jelovnik = data;
           // alert(this.jelovnik.length)
+          this.jelovnik.forEach(jelo => {
+            this.quantityMap[jelo.naziv] = 1;
+          });
         },
         error => {
           console.error('Error loading menu:', error);
@@ -62,19 +67,19 @@ jela: Jelo[] = [];
       );
   }
   dodajUKorpu(jelo: Jelo): void {
-    const kolicina = prompt("Unesite količinu:", "1");
+    const kolicina = this.quantityMap[jelo.naziv];
     if (kolicina) {
       let cart = JSON.parse(localStorage.getItem('cart') || '[]');
       const stavka: StavkaKorpe = {
         jelo: jelo,
-        kolicina: parseInt(kolicina, 10)
+        kolicina: kolicina
       };
       // Provera da li već postoji stavka u korpi sa istim jelom
     const existingIndex = cart.findIndex((item: any) => item.stavka.jelo === jelo);
 
     if (existingIndex !== -1) {
       // Ako već postoji, ažurirajemo samo količinu
-      cart[existingIndex].stavka.kolicina += parseInt(kolicina, 10);
+      cart[existingIndex].stavka.kolicina += kolicina;
     } else {
       // Ako ne postoji, dodajemo novu stavku u korpu
       cart.push({
@@ -159,5 +164,15 @@ jela: Jelo[] = [];
 
     // Validacija broja osoba (minimalni broj osoba može biti 1)
     this.brojOsobaValid = this.rezervacija.brojGostiju !== null && this.rezervacija.brojGostiju! >= 1;
+  }
+
+  incrementQuantity(jelo: Jelo): void {
+    this.quantityMap[jelo.naziv]++;
+  }
+
+  decrementQuantity(jelo: Jelo): void {
+    if (this.quantityMap[jelo.naziv] > 1) {
+      this.quantityMap[jelo.naziv]--;
+    }
   }
 }

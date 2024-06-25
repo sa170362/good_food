@@ -107,6 +107,11 @@
               <img [src]="jelo.slika" alt="{{ jelo.naziv }}" />
               <p>Cena: {{ jelo.cena }} RSD</p>
               <p>Sastojci: {{ jelo.sastojci.join(', ') }}</p>
+              <div class="d-flex align-items-center">
+                <button class="btn btn-secondary me-2" (click)="decrementQuantity(jelo)">-</button>
+                <input type="number" class="form-control text-center" [value]="quantityMap[jelo.naziv]" readonly>
+                <button class="btn btn-secondary ms-2" (click)="incrementQuantity(jelo)">+</button>
+              </div>
               <button (click)="dodajUKorpu(jelo)">Dodaj u korpu</button>
             </div>
           </div>

@@ -17,7 +17,6 @@ const narudzbina_1 = __importDefault(require("../models/narudzbina"));
 class DostavaKontroler {
     aktuelneDostave(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            // router.get('/aktuelne/:korisnik', async (req, res) => {
             try {
                 const dostave = yield narudzbina_1.default.find({ customerKorIme: req.params.korisnik, status: { $in: ['pending', 'confirmed'] } });
                 res.json(dostave);
