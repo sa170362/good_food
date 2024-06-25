@@ -68,11 +68,22 @@ prikaziDetaljeZaDostavu(): void {
     }
   }
 
+  validatePhone(phone: string): boolean {
+    const pattern = /^06[0-9]{7}$/;
+    return pattern.test(phone);
+  }
+
   private saveCartToLocalStorage(): void {
     localStorage.setItem('cart', JSON.stringify(this.cart));
   }
   validacijaForme(): boolean {
-    return this.ime.trim() !== '' && this.prezime.trim() !== '' && this.adresa.trim() !== '' && this.telefon.trim() !== '' && this.cart.length > 0;
+    return (
+      this.ime.trim() !== '' &&
+      this.prezime.trim() !== '' &&
+      this.adresa.trim() !== '' &&
+      this.validatePhone(this.telefon) &&
+      this.cart.length > 0
+    );
   }
   // naruci(): void {
     

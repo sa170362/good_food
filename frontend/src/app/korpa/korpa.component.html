@@ -59,6 +59,7 @@
           <div class="form-group">
             <label for="telefon">Kontakt telefon</label>
             <input type="text" id="telefon" class="form-control" [(ngModel)]="telefon" name="telefon" required>
+            <div *ngIf="telefon && !validatePhone(telefon)" class="text-danger">Nevažeći broj telefona. Unesite broj u formatu 06XXXXXXXX.</div>
           </div>
           <div class="form-group">
             <label for="adresa">Adresa isporuke</label>

@@ -122,9 +122,10 @@ export class RegisterComponent {
   }
 
   validatePhone(phone: string): boolean {
-    const pattern = /^[0-9]{9}$/;
+    const pattern = /^06[0-9]{7}$/;
     return pattern.test(phone);
   }
+  
   validatePassword(password:string):boolean{
     const pattern =  /^(?=.*[a-z]{3,})(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[\w@$!%*?&]{6,10}$/;
     return pattern.test(password);
