@@ -1,44 +1,4 @@
-/* .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  h2 {
-    margin-bottom: 20px;
-  }
-  
-  h4 {
-    margin-bottom: 10px;
-  }
-  
-  .input-group {
-    margin-bottom: 20px;
-  }
-  
-  .table {
-    width: 100%;
-    margin-top: 20px;
-  }
-  
-  th {
-    cursor: pointer;
-  }
-  
-  th:hover {
-    background-color: #f2f2f2;
-  }
-  
-  .form-control {
-    width: 100%;
-    max-width: 300px;
-  }
-  
-  @media (max-width: 768px) {
-    .container {
-      padding: 10px;
-    }
-  } */
+
   .header-bg {
     background: linear-gradient(to right, #ff7e5f, #feb47b);
   }
@@ -74,6 +34,25 @@
     margin-bottom: 0;
   }
 
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 8px;
+  border: 1px solid #ddd;
+}
+
+thead {
+  background-color: #f2f2f2;
+}
+
   /* Additional Styling */
   .bg-primary {
     background-color: #007bff !important;
@@ -98,3 +77,4 @@
   .bg-light {
     background-color: #f8f9fa !important;
   }
+
