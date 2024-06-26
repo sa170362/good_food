@@ -52,5 +52,13 @@ export class ReservationsService {
     const url = `${this.apiUrl}/cancel/${encodeURIComponent(imeGosta)}`;
     return this.http.post(url, { datumVremeRezervacije });
   }
+  searchReservations(restoran: string, datumVremeRezervacije: Date){
+    const isoDateString = datumVremeRezervacije.toISOString();
+    return this.http.get<Rezervacija[]>(`${this.apiUrl}/search`, {
+      params: {
+        restoran: restoran,
+        datumVremeRezervacije: isoDateString
+      }
+    });}
  
 }

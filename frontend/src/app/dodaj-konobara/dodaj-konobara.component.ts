@@ -20,6 +20,8 @@ export class DodajKonobaraComponent implements OnInit{
   userFound: Korisnik = new Korisnik()
   selectedFile: File | null = null;
 
+  defaultImage: string = '/assets/default_profile.jpg';
+
   constructor(
     private usersService: UsersService,
     private restaurantService: RestoranService,
@@ -32,6 +34,12 @@ export class DodajKonobaraComponent implements OnInit{
         this.restaurants = restaurants;
       }
     );
+  }
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+    if (this.selectedFile) {
+      this.validateImage(this.selectedFile);
+    }
   }
 
   onSubmit(): void {
@@ -51,20 +59,75 @@ export class DodajKonobaraComponent implements OnInit{
                 if (emailExists) {
                   this.formErrors.email = "Email already exists";
                 } else {
-                  this.usersService.registerKonobar(this.waiter).subscribe(
-                    () => {
-                      this.waiter= new Korisnik();
-                      this.router.navigate(['/admin']);
+                 
+                  const formData = new FormData();
+                  formData.append('korisnickoIme', this.waiter.korisnickoIme);
+                  formData.append('lozinka', this.waiter.lozinka);
+                  formData.append('ime', this.waiter.ime);
+                  formData.append('prezime', this.waiter.prezime);
+                  formData.append('mejl', this.waiter.mejl);
+                  formData.append('adresa', this.waiter.adresa);
+                  formData.append('pol', this.waiter.pol);
+                  formData.append('kontaktTelefon', this.waiter.kontaktTelefon);
+                  formData.append('restoran', this.waiter.restoran!);
+                  formData.append('profilnaSlika', this.selectedFile! );
+                  this.usersService.registerKonobar(formData).subscribe(
+                    data => {
+                      if (data.message === "ok") {
+                        alert("Successfully registered");
+                        this.waiter = new Korisnik();
+                        this.router.navigate(['/admin'])
+                  
+                      }
                     }
+                    // ,
+                    // error => {
+                    //   console.error('Error registering user:', error);
+                    //   alert("Registration failed. Please try again.");
+                    // }
                   );
                 }
               }
+              // ,
+              // error => {
+              //   console.error('Error checking email:', error);
+              //   alert("Error checking email availability. Please try again.");
+              // }
             );
           }
         }
-      
+        // ,
+        // error => {
+        //   console.error('Error checking username:', error);
+        //   alert("Error checking username availability. Please try again.");
+        // }
       );
     }
+  }
+
+  validateImage(file: File): boolean {
+    if(file){ const reader = new FileReader();
+      let good=true;
+      reader.onload = (e: any) => {
+        const img = new Image();
+        img.onload = () => {
+          if (img.width >= 100 && img.height >= 100 && img.width <= 300 && img.height <= 300) {
+            this.formErrors.profilnaSlika = '';
+            this.selectedFile = file;
+            good=true;
+          } else {
+            this.formErrors.profilnaSlika = 'Image dimensions must be between 100x100 and 300x300 pixels';
+            this.selectedFile = null;
+            // this.enableButton= false;
+            good=false;
+          }
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+      return good;}
+      else{return true}
+   
   }
   validateEmail(email: string): boolean {
     const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -83,7 +146,10 @@ export class DodajKonobaraComponent implements OnInit{
     this.formErrors = {};
     let isValid = true;
 
-
+    if (!this.validateImage(this.selectedFile!)) {
+      this.formErrors.profilnaSlika = 'Image dimensions must be between 100x100 and 300x300 pixels';
+      isValid = false;
+    }
     if (!this.waiter.korisnickoIme) {
       this.formErrors.korisnickoIme = "Username is required";
       isValid = false;
@@ -133,33 +199,8 @@ export class DodajKonobaraComponent implements OnInit{
       isValid = false;
     }
 
-    if (!this.waiter.profilnaSlika) {
-      this.formErrors.profilnaSlika = "Profile picture is required";
-      isValid = false;
-    }
 
     return isValid;
   }
 
-  
-  // onFileSelected(event: any): void {
-  //   const file: File = event.target.files[0];
-
-  //   if (file) {
-  //     const reader = new FileReader();
-  //     reader.onload = (e: any) => {
-  //       const img = new Image();
-  //       img.onload = () => {
-  //         if (img.width >= 100 && img.width <= 300 && img.height >= 100 && img.height <= 300) {
-  //           this.waiter.profilnaSlika = file;
-  //         } else {
-  //           this.formErrors.profilnaSlika = 'Profile picture must be between 100x100 px and 300x300 px.';
-  //         }
-  //       };
-  //       img.src = e.target.result;
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  //   alert(this.selectedFile?.name);
-  // }
 }

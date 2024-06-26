@@ -14,4 +14,7 @@ export class DostavaService {
   getAktuelneDostave(korisnik: string) {
     return this.http.get<Porudzbina[]>(`${this.apiUrl}/aktuelne/${korisnik}`);
   }
+  getDostave(korisnik: string) {
+    return this.http.get<Porudzbina[]>(`${this.apiUrl}/${korisnik}`);
+  }
 }

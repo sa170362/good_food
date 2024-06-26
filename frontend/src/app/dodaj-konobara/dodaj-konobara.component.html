@@ -31,22 +31,22 @@
       <div class="form-group">
         <label for="korisnickoIme">Korisničko ime:</label>
         <input type="text" id="korisnickoIme" name="korisnickoIme" [(ngModel)]="waiter.korisnickoIme" class="form-control" required>
-        <div *ngIf="formErrors.korisnickoIme" class="error">{{ formErrors.korisnickoIme }}</div>
+        <div *ngIf="formErrors.korisnickoIme" class="error text-danger">{{ formErrors.korisnickoIme }}</div>
       </div>
       <div class="form-group">
         <label for="lozinka">Lozinka:</label>
         <input type="password" id="lozinka" name="lozinka" [(ngModel)]="waiter.lozinka" class="form-control" required>
-        <div *ngIf="formErrors.lozinka" class="error">{{ formErrors.lozinka }}</div>
+        <div *ngIf="formErrors.lozinka" class="error text-danger">{{ formErrors.lozinka }}</div>
       </div>
       <div class="form-group">
         <label for="ime">Ime:</label>
         <input type="text" id="ime" name="ime" [(ngModel)]="waiter.ime" class="form-control" required>
-        <div *ngIf="formErrors.ime" class="error">{{ formErrors.ime }}</div>
+        <div *ngIf="formErrors.ime" class="error text-danger">{{ formErrors.ime }}</div>
       </div>
       <div class="form-group">
         <label for="prezime">Prezime:</label>
         <input type="text" id="prezime" name="prezime" [(ngModel)]="waiter.prezime" class="form-control" required>
-        <div *ngIf="formErrors.prezime" class="error">{{ formErrors.prezime }}</div>
+        <div *ngIf="formErrors.prezime" class="error text-danger">{{ formErrors.prezime }}</div>
       </div>
       <div class="form-group">
         <label for="pol">Pol:</label>
@@ -55,22 +55,22 @@
           <option value="M">Muški</option>
           <option value="F">Ženski</option>
         </select>
-        <div *ngIf="formErrors.pol" class="error">{{ formErrors.pol }}</div>
+        <div *ngIf="formErrors.pol" class="error text-danger">{{ formErrors.pol }}</div>
       </div>
       <div class="form-group">
         <label for="adresa">Adresa:</label>
         <input type="text" id="adresa" name="adresa" [(ngModel)]="waiter.adresa" class="form-control" required>
-        <div *ngIf="formErrors.adresa" class="error">{{ formErrors.adresa }}</div>
+        <div *ngIf="formErrors.adresa" class="error text-danger">{{ formErrors.adresa }}</div>
       </div>
       <div class="form-group">
         <label for="kontaktTelefon">Kontakt telefon:</label>
         <input type="text" id="kontaktTelefon" name="kontaktTelefon" [(ngModel)]="waiter.kontaktTelefon" class="form-control" required>
-        <div *ngIf="formErrors.kontaktTelefon" class="error">{{ formErrors.kontaktTelefon }}</div>
+        <div *ngIf="formErrors.kontaktTelefon" class="error text-danger">{{ formErrors.kontaktTelefon }}</div>
       </div>
       <div class="form-group">
         <label for="email">E-mail:</label>
         <input type="email" id="email" name="email" [(ngModel)]="waiter.mejl" class="form-control" required>
-        <div *ngIf="formErrors.email" class="error">{{ formErrors.email }}</div>
+        <div *ngIf="formErrors.email" class="error text-danger">{{ formErrors.email }}</div>
       </div>
       <div class="form-group">
         <label for="restoran">Restoran:</label>
@@ -78,11 +78,11 @@
           <option *ngFor="let restaurant of restaurants" [value]="restaurant.ime">{{ restaurant.ime }}</option>
         </select>
       </div>
-      <!-- <div class="form-group">
-        <label for="profilnaSlika">Profilna slika:</label>
-        <input type="file" id="profilnaSlika" name="profilnaSlika" accept="image/jpeg,image/png" (change)="onFileSelected($event)" class="form-control" required>
-        <div *ngIf="formErrors.profilnaSlika" class="error">{{ formErrors.profilnaSlika }}</div>
-      </div> -->
+      <div class="form-group">
+        <label for="profilnaSlika">Profilna slika: &nbsp;</label>
+        <input type="file" id="profilePicture" (change)="onFileSelected($event)" accept="image/png, image/jpeg">
+        <div *ngIf="formErrors.profilnaSlika" class="error text-danger">{{ formErrors.profilnaSlika }}</div>
+    </div>
       <button type="submit" class="btn btn-primary">Registruj se</button>
     </form>
   </div>

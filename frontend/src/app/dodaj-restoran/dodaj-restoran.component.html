@@ -47,13 +47,22 @@
         <label for="kontaktOsoba">Kontakt osoba:</label>
         <input type="text" id="kontaktOsoba" [(ngModel)]="restaurant.kontaktOsoba" name="kontaktOsoba" class="form-control" required>
       </div>
-      <div class="form-group">
-        <label for="workingHoursFrom">Radno vreme od:</label>
-        <input type="time" id="workingHoursFrom" [(ngModel)]="restaurant.workingHoursFrom" name="workingHoursFrom" class="form-control" required>
-      </div>
-      <div class="form-group">
-        <label for="workingHoursTo">Radno vreme do:</label>
-        <input type="time" id="workingHoursTo" [(ngModel)]="restaurant.workingHoursTo" name="workingHoursTo" class="form-control" required>
+      <div *ngFor="let day of days" class="form-group">
+        <label>{{ day | titlecase }}:</label>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="{{day}}-open" [(ngModel)]="restaurant.workingHours[day].open" name="{{day}}-open">
+          <label class="form-check-label" for="{{day}}-open">Otvoreno</label>
+        </div>
+        <div *ngIf="restaurant.workingHours[day].open" class="d-flex">
+          <div class="form-group mr-2">
+            <label for="{{day}}-from">Od:</label>
+            <input type="time" id="{{day}}-from" [(ngModel)]="restaurant.workingHours[day].from" name="{{day}}-from" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="{{day}}-to">Do:</label>
+            <input type="time" id="{{day}}-to" [(ngModel)]="restaurant.workingHours[day].to" name="{{day}}-to" class="form-control">
+          </div>
+        </div>
       </div>
       <button type="submit" class="btn btn-primary">Dodaj restoran</button>
     </form>

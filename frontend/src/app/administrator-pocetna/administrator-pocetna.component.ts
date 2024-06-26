@@ -74,7 +74,7 @@ export class AdministratorPocetnaComponent implements OnInit  {
       });
     }
     navigateToEditUser(korisnik: Korisnik) {
-      localStorage.setItem('selectedUser', JSON.stringify(korisnik));
+      localStorage.setItem('userToUpdate', JSON.stringify(korisnik));
       this.router.navigate([`/edit-user/${korisnik.korisnickoIme}`]);
     }
     dodajMapu(ime: string) {

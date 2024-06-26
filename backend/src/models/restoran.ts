@@ -22,6 +22,11 @@ const LayoutSchema = new Schema({
   kitchen: RectangleSchema,
   restroom: RectangleSchema,
 });
+const WorkingHoursSchema = new Schema({
+  open: { type: Boolean, default: false },
+  from: { type: String },
+  to: { type: String },
+});
 const RestoranSchema = new Schema({
   ime: {
     type: String,
@@ -41,9 +46,16 @@ const RestoranSchema = new Schema({
     type: String
    
   },
-  workingHoursFrom: {type:String},
-  workingHoursTo: {type:String},
-  layout: LayoutSchema
+  layout: LayoutSchema,
+  workingHours: {
+    ponedeljak: WorkingHoursSchema,
+    utorak: WorkingHoursSchema,
+    sreda: WorkingHoursSchema,
+    cetvrtak: WorkingHoursSchema,
+    petak: WorkingHoursSchema,
+    subota: WorkingHoursSchema,
+    nedelja: WorkingHoursSchema,
+  }
 });
 
 const RestoranModel = mongoose.model("Restoran", RestoranSchema, "restorani");

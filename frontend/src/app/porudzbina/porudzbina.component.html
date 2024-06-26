@@ -25,20 +25,32 @@
 </header>
 
 <div class="main-bg container my-5">
-  <h2 class="text-center mb-4 text-primary">Pending narudžbine</h2>
+  <h2 class="text-center mb-4 text-primary">Narudžbine na cekanju</h2>
   <hr />
   <div class="p-4 rounded shadow-sm border-primary">
-    <div *ngFor="let order of orders" class="order mb-4 p-3 border rounded">
-      <p><strong>Customer:</strong> {{ order.customerKorIme }}</p>
-      <p><strong>Status:</strong> {{ order.status }}</p>
+    <div *ngFor="let order of orders; let i=index" class="order mb-4 p-3 border rounded">
+      <p><strong>Dostava broj: </strong> #{{ i + 1 }} </p>
+      <p><strong>Korisnik:</strong> {{ order.customerKorIme }}</p>
+      <p>
+        <strong>Status:</strong> {{ order.status }}
+        
+      </p>
       <div>
-        <p><strong>Items:</strong></p>
+        <p><strong>Poruceno:</strong></p>
         <ul>
           <li *ngFor="let item of order.stavke">
             {{ item.kolicina }} x {{ item.jelo.naziv }}
+            <br>
+           <b>Cena:</b>  {{ item.jelo.cena }} rsd
+            <br>
+            <b>Sastojci:</b> {{ item.jelo.sastojci }}
           </li>
+          
         </ul>
+        
       </div>
+      <p><strong>Ukupno za naplatu:</strong> {{ order.ukupnaCena }}</p>
+      <p><strong>Porudzbina kreirana:</strong> {{ order.createdAt }}</p>
       <button class="btn btn-success btn-sm me-2" (click)="openModal(order)">Potvrdi</button>
       <button class="btn btn-danger btn-sm" (click)="rejectOrder(order)">Odbij</button>
     </div>
@@ -49,46 +61,56 @@
 </div>
 
 <div class="main-bg container my-5">
-  <h2 class="text-center mb-4 text-primary">Confirmed narudžbine</h2>
+  <h2 class="text-center mb-4 text-primary">Potvrdjene narudžbine</h2>
   <hr />
   <div class="p-4 rounded shadow-sm border-primary">
     <div *ngFor="let order of confirmedOrders" class="order mb-4 p-3 border rounded">
-      <p><strong>Customer:</strong> {{ order.customerKorIme }}</p>
+      <p><strong>Korisnik:</strong> {{ order.customerKorIme }}</p>
       <p><strong>Status:</strong> {{ order.status }}</p>
       <div>
-        <p><strong>Items:</strong></p>
+        <p><strong>Poruceno:</strong></p>
         <ul>
           <li *ngFor="let item of order.stavke">
             {{ item.kolicina }} x {{ item.jelo.naziv }}
+            <br>
+           <b>Cena:</b>  {{ item.jelo.cena }}
+            <br>
+            <b>Sastojci:</b> {{ item.jelo.sastojci }}
           </li>
+          
         </ul>
       </div>
-      <p><strong>Estimated Delivery Time:</strong> {{ order.estimatedDeliveryTime }}</p>
+      <p><strong>Procenjeno vreme dostave:</strong> {{ order.estimatedDeliveryTime }}</p>
     </div>
     <div *ngIf="confirmedOrders.length == 0">
-      <p>Nema confirmed narudzbina.</p>
+      <p>Nema potvrdjenih narudzbina.</p>
     </div>
   </div>
 </div>
 
 <div class="main-bg container my-5">
-  <h2 class="text-center mb-4 text-primary">Rejected narudžbine</h2>
+  <h2 class="text-center mb-4 text-primary">Odbijene narudžbine</h2>
   <hr />
   <div class="p-4 rounded shadow-sm border-primary">
     <div *ngFor="let order of rejectedOrders" class="order mb-4 p-3 border rounded">
-      <p><strong>Customer:</strong> {{ order.customerKorIme }}</p>
+      <p><strong>Korisnik:</strong> {{ order.customerKorIme }}</p>
       <p><strong>Status:</strong> {{ order.status }}</p>
       <div>
-        <p><strong>Items:</strong></p>
+        <p><strong>Poruceno:</strong></p>
         <ul>
           <li *ngFor="let item of order.stavke">
             {{ item.kolicina }} x {{ item.jelo.naziv }}
+            <br>
+           <b>Cena:</b>  {{ item.jelo.cena }}
+            <br>
+            <b>Sastojci:</b> {{ item.jelo.sastojci }}
           </li>
+          
         </ul>
       </div>
     </div>
     <div *ngIf="rejectedOrders.length == 0">
-      <p>Nema rejected narudzbina.</p>
+      <p>Nema odbijenih narudzbina.</p>
     </div>
   </div>
 </div>

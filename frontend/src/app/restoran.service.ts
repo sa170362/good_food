@@ -37,4 +37,5 @@ export class RestoranService {
 
     return this.http.get<Restoran>(`${this.apiUrl}/getRestoran/${encodeURIComponent(restoran)}`);
   }
+  
 }

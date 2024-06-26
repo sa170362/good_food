@@ -11,5 +11,13 @@ async aktuelneDostave(req: Request, res: Response): Promise<void> {
       res.status(500).send(err);
     }
   };
+  async arhivaDostave(req: Request, res: Response): Promise<void> {
+    try {
+      const dostave = await narudzbina.find({ customerKorIme: req.params.korisnik, status: { $in: ['rejected', 'confirmed'] } });
+      res.json(dostave);
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  };
 
 }

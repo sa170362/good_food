@@ -76,9 +76,9 @@ export class UsersService {
   getUserByUsername(korisnickoIme: string){
     return this.http.get<Korisnik>(`${this.uri}/users/${korisnickoIme}`);
   }
-  registerKonobar(user: Korisnik){
+  registerKonobar(data: FormData){
     return this.http.post<Message>(`${this.uri}/registerKonobar`,
-     user)
+     data)
   }
   unblockUser(korisnickoIme: string) {
     return this.http.put<Message>(`${this.uri}/unblockUser/${korisnickoIme}`, {});

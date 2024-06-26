@@ -221,7 +221,26 @@ getGuestReservations = async (req: Request, res: Response): Promise<void> => {
     res.status(500).json({ message: 'Greška pri dohvatanju rezervacija gosta' });
   }
 };
+async searchReservations(req: Request, res: Response): Promise<void> {
+  const { restoran, datumVremeRezervacije } = req.query;
+  const datumVreme = new Date(datumVremeRezervacije as string);
 
+  const startDate = new Date(datumVreme);
+  startDate.setHours(startDate.getHours() - 3);
+  const endDate = new Date(datumVreme);
+  endDate.setHours(endDate.getHours() + 3);
+
+  try {
+    const rezervacije = await Rezervacija.find({
+      restoran: restoran,
+      datumVremeRezervacije: { $gte: startDate, $lte: endDate },
+      statusRezervacije: 'obradjena'
+    });
+    res.json(rezervacije);
+  } catch (error) {
+    res.status(500).json({ message: 'Greška prilikom dobijanja rezervacija', error });
+  }
+}
 
 };
 

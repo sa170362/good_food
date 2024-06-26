@@ -11,6 +11,7 @@ import { RestoranService } from '../restoran.service';
 export class DodajRestoranComponent {
   currentYear: number = new Date().getFullYear();
   restaurant: Restoran = new Restoran();
+  days: string[] = ['ponedeljak', 'utorak', 'sreda', 'cetvrtak', 'petak', 'subota', 'nedelja'];
   types: string[] = ['kineski', 'indiski', 'japanski', 'domaća kuhinja', 'italijanski', 'francuski'];
   layoutMap: any;
   constructor(

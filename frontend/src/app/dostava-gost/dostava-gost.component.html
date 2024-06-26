@@ -1,14 +1,80 @@
-<div class="container my-5">
+<div class="wrapper">
+  <header class="header-bg text-light py-4">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <h1 class="text-white">
+          <i class="fas fa-utensils"></i> Kutak dobre hrane
+        </h1>
+        <nav>
+          <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link text-light" routerLink="/profilGost">Profil</a>
+            </li>
+          <li class="nav-item">
+              <a class="nav-link text-light" routerLink="/login">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" routerLink="/restoraniGost">Restorani</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" routerLink="/dostava">Dostava</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" routerLink="/statistika" >Statistika</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+  <div class="main-bg container my-5 p-4 rounded shadow-sm border-primary flex-fill">
     <h2 class="text-center mb-4 text-primary">Aktuelne dostave</h2>
     <div class="p-4 rounded shadow-sm border-primary">
-      <div *ngFor="let order of aktuelneDostave" class="order mb-4 p-3 border rounded">
+      <div *ngFor="let order of aktuelneDostave; let i = index" class="order mb-4 p-3 border rounded">
+        <p><strong>Dostava broj: </strong> #{{ i + 1 }} </p>
         <p><strong>Restoran:</strong> {{ order.restoran }}</p>
-        <p><strong>Status:</strong> {{ order.status }}</p>
+        <p>
+          <strong>Status:</strong> {{ order.status }}
+          <span *ngIf="order.status === 'pending'"> - Čeka se restoran da potvrdi porudžbinu</span>
+        </p>
+        <div>
+          <p><strong>Poruceno:</strong></p>
+          <ul>
+            <li *ngFor="let item of order.stavke">
+              {{ item.kolicina }} x {{ item.jelo.naziv }}
+              <br>
+             <b>Cena:</b>  {{ item.jelo.cena }} rsd
+              <br>
+              <b>Sastojci:</b> {{ item.jelo.sastojci }}
+            </li>
+            
+          </ul>
+        </div>
         <p *ngIf="order.status === 'confirmed'"><strong>Procenjeno vreme dostave:</strong> {{ order.estimatedDeliveryTime }}</p>
+        <p><strong>Ukupno za naplatu:</strong> {{ order.ukupnaCena }} rsd</p> 
       </div>
       <div *ngIf="aktuelneDostave.length == 0">
-        <p>Nema aktuelnih dostava.</p>
+        <p class="text-center text-warning">Nema aktuelnih dostava.</p>
+      </div>
+    </div>
+<br>
+    <h2 class="text-center mb-4 text-primary">Arhiva dostava</h2>
+    <div class="p-4 rounded shadow-sm border-primary">
+      <div *ngFor="let order of presek; let i = index" class="order mb-4 p-3 border rounded">
+        <p><strong>Dostava broj: </strong> #{{ i + 1 }} </p>
+        <p><strong>Restoran:</strong> {{ order.restoran }}</p>
+        <p><strong>Datum dostave:</strong> {{ order.createdAt }}</p>
+        <p><strong>Ukupno za naplatu:</strong> {{ order.ukupnaCena }} rsd</p> 
+      </div>
+      <div *ngIf="presek.length == 0">
+        <p class="text-center text-warning">Nema arhive dostava.</p>
       </div>
     </div>
   </div>
-  
+  <footer class="footer-bg text-light py-3 mt-5">
+    <div class="container text-center">
+      <hr class="bg-warning mb-4">
+      <p>&copy; {{ currentYear }} Kutak dobre hrane. All rights reserved.</p>
+    </div>
+  </footer>
+</div>

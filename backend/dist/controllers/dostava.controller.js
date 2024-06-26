@@ -27,5 +27,17 @@ class DostavaKontroler {
         });
     }
     ;
+    arhivaDostave(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const dostave = yield narudzbina_1.default.find({ customerKorIme: req.params.korisnik, status: { $in: ['rejected', 'confirmed'] } });
+                res.json(dostave);
+            }
+            catch (err) {
+                res.status(500).send(err);
+            }
+        });
+    }
+    ;
 }
 exports.DostavaKontroler = DostavaKontroler;

@@ -63,3 +63,6 @@
       margin-bottom: 0.5rem;
     }
   }
+  .error-message {
+    color: #e74c3c;
+  }

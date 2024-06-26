@@ -1,11 +1,7 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -41,21 +37,6 @@ const path_1 = __importDefault(require("path"));
 const multer_1 = __importDefault(require("multer"));
 const bcrypt = __importStar(require("bcryptjs"));
 const crypto = require('crypto');
-// const storage = multer.diskStorage({
-//   destination: function(req, file, cb) {
-//     cb(null, 'uploads/') // Your uploads directory
-//   },
-//   filename: function(req, file, cb) {
-//     cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
-//   }
-// });
-// const upload = multer({
-//   storage: storage,
-//   limits: {
-//     fileSize: 300 * 1024 // 300KB
-//   },
-//   fileFilter: fileFilter
-// });
 // Multer configuration
 const storage = multer_1.default.diskStorage({
     destination: function (req, file, cb) {
@@ -390,7 +371,6 @@ class UserController {
             }
         });
         this.registerKonobar = (req, res) => __awaiter(this, void 0, void 0, function* () {
-            // console.log(req)
             let korisnickoIme = req.body.korisnickoIme;
             const hashedPassword = yield bcrypt.hash(req.body.lozinka, 10);
             let lozinka = hashedPassword;
@@ -400,24 +380,24 @@ class UserController {
             let adresa = req.body.adresa;
             let pol = req.body.pol;
             let kontaktTelefon = req.body.kontaktTelefon;
-            let profilnaSlika = req.body.profilnaSlika ? req.body.profilnaSlika : 'frontend\src\assets\default_profile.jpg';
+            let profilnaSlika = req.file ? req.file.filename : 'default_profile.jpg';
             let tip = "konobar";
             let status = "aktivan";
             let restoran = req.body.restoran;
-            // console.log(profilnaSlika)
+            console.log(profilnaSlika);
             let user = {
                 korisnickoIme: korisnickoIme,
                 lozinka: lozinka,
                 ime: ime,
                 prezime: prezime,
-                profilna_slika: profilnaSlika,
                 mejl: mejl,
                 adresa: adresa,
                 pol: pol,
                 kontaktTelefon: kontaktTelefon,
+                restoran: restoran,
                 tip: tip,
                 status: status,
-                restoran: restoran
+                profilnaSlika: profilnaSlika
             };
             new user_1.default(user).save().then(ok => {
                 res.json({ message: "ok" });
@@ -498,8 +478,8 @@ class UserController {
         });
     }
     updateUserByAdmin(req, res) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
-            var _a;
             const korisnickoIme = req.params.korisnickoIme;
             const updatedData = req.body;
             // const profilnaSlika = req.file.filename

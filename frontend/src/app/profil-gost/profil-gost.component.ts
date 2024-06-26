@@ -1,3 +1,5 @@
+import { trigger } from '@angular/animations';
+import { getLocaleDirection } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Korisnik } from '../models/korisnik';
@@ -105,7 +107,7 @@ export class ProfilGostComponent  implements OnInit{
         formData.append('profilnaSlika', this.selectedFile!);
         this.userService.updateUserByAdmin(this.oldUsername, formData).subscribe(
           (updatedUser: Korisnik) => {
-            alert(updatedUser.profilnaSlika)
+      
             this.user = updatedUser;
             this.originalEmail = updatedUser.mejl;
             localStorage.setItem('selectedUser', JSON.stringify(updatedUser));
@@ -129,29 +131,36 @@ export class ProfilGostComponent  implements OnInit{
     const pattern = /^[0-9]{9}$/;
     return pattern.test(phone);
   }
-  validateImage(file: File): void {
+  validateImage(file: File): boolean {
     const reader = new FileReader();
+    let good=true;
     reader.onload = (e: any) => {
       const img = new Image();
       img.onload = () => {
         if (img.width >= 100 && img.height >= 100 && img.width <= 300 && img.height <= 300) {
           this.formErrors.profilnaSlika = '';
           this.selectedFile = file;
+          good=true;
         } else {
           this.formErrors.profilnaSlika = 'Image dimensions must be between 100x100 and 300x300 pixels';
           this.selectedFile = null;
+          // this.enableButton= false;
+          good=false;
         }
       };
       img.src = e.target.result;
     };
     reader.readAsDataURL(file);
+    return good;
   }
   validateForm(): boolean {
     this.formErrors = {};
     let isValid = true;
 
-
-  
+    if (!this.selectedFile ||  !this.validateImage(this.selectedFile)) {
+      this.formErrors.profilnaSlika = 'Image dimensions must be between 100x100 and 300x300 pixels';
+      isValid = false;
+    }
 
     if (!this.user.ime) {
       this.formErrors.ime = "Firstname is required";

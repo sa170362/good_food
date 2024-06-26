@@ -30,12 +30,7 @@
     <h2 class="text-center mb-4 text-primary">Edit User</h2>
     <div *ngIf="user">
       <form (ngSubmit)="onSubmit()">
-        <div class="form-group">
-          <label for="korisnickoIme">Korisnicko ime:</label>
-          <input type="text" id="korisnickoIme" [(ngModel)]="user.korisnickoIme" name="korisnickoIme" class="form-control" required>
-          <div *ngIf="formErrors.korisnickoIme" class="error text-danger">{{ formErrors.korisnickoIme }}</div>
-        </div>
-       
+
         <div class="form-group">
           <label for="ime">Ime:</label>
           <input type="text" id="ime" [(ngModel)]="user.ime" name="ime" class="form-control" required>
@@ -66,20 +61,24 @@
           <input type="email" id="mejl" [(ngModel)]="user.mejl" name="mejl" class="form-control" required>
           <div *ngIf="formErrors.mejl" class="error text-danger">{{ formErrors.mejl }}</div>
         </div>
-        <div class="form-group">
-          <label for="brojKreditneKartice">Broj kreditne kartice:</label>
-          <input type="text" id="brojKreditneKartice" [(ngModel)]="user.brojKreditneKartice" name="brojKreditneKartice" class="form-control" required>
-          <div *ngIf="formErrors.brojKreditneKartice" class="error text-danger">{{ formErrors.brojKreditneKartice }}</div>
-        </div>
-        <div class="form-group">
-          <label for="tip">Tip:</label>
-          <input type="text" id="tip" [(ngModel)]="user.tip" name="tip" class="form-control" required>
-          <div *ngIf="formErrors.tip" class="error text-danger">{{ formErrors.tip }}</div>
-        </div>
-        <div class="form-group">
-          <label for="status">Status:</label>
-          <input type="text" id="status" [(ngModel)]="user.status" name="status" class="form-control">
-          <div *ngIf="formErrors.status" class="error text-danger">{{ formErrors.status }}</div>
+        <div *ngIf="user.profilnaSlika">
+          <!-- <label for="profilnaSlika">Profilna slika: &nbsp;</label>
+          <img *ngIf="user.profilnaSlika" [src]="imageBaseUrl + user.profilnaSlika" alt="Profile Picture"> -->
+          <label for="profilnaSlika">Profilna slika: &nbsp;</label>
+          <img *ngIf="user.profilnaSlika === 'default_profile.jpg'; else customImage" src="/assets/default_profile.jpg" alt="Profile Picture">
+          <ng-template #customImage>
+            <img [src]="imageBaseUrl + user.profilnaSlika" alt="Profile Picture">
+          </ng-template>
+          <br>
+          <br>
+          <div class="form-group">
+              <label for="profilnaSlika">Azuriraj profilnu sliku: &nbsp;</label>
+              <input type="file" id="profilePicture" (change)="onFileSelected($event)" accept="image/png, image/jpeg">
+              <div *ngIf="formErrors.profilnaSlika" class="error text-danger">{{ formErrors.profilnaSlika }}</div>
+          </div>
+         
+       
+         
         </div>
         <button type="submit" class="btn btn-primary">Update</button>
       </form>

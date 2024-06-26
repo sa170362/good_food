@@ -214,6 +214,27 @@ class RezervacijaController {
             }
         });
     }
+    searchReservations(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { restoran, datumVremeRezervacije } = req.query;
+            const datumVreme = new Date(datumVremeRezervacije);
+            const startDate = new Date(datumVreme);
+            startDate.setHours(startDate.getHours() - 3);
+            const endDate = new Date(datumVreme);
+            endDate.setHours(endDate.getHours() + 3);
+            try {
+                const rezervacije = yield rezervacija_1.default.find({
+                    restoran: restoran,
+                    datumVremeRezervacije: { $gte: startDate, $lte: endDate },
+                    statusRezervacije: 'obradjena'
+                });
+                res.json(rezervacije);
+            }
+            catch (error) {
+                res.status(500).json({ message: 'Greška prilikom dobijanja rezervacija', error });
+            }
+        });
+    }
 }
 exports.RezervacijaController = RezervacijaController;
 ;

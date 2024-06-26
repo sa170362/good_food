@@ -6,23 +6,6 @@ import * as bcrypt from 'bcryptjs';
 import fs from 'fs';
 const crypto = require('crypto');
 
-// const storage = multer.diskStorage({
-//   destination: function(req, file, cb) {
-//     cb(null, 'uploads/') // Your uploads directory
-//   },
-//   filename: function(req, file, cb) {
-//     cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
-//   }
-// });
-
-
-// const upload = multer({
-//   storage: storage,
-//   limits: {
-//     fileSize: 300 * 1024 // 300KB
-//   },
-//   fileFilter: fileFilter
-// });
 
 // Multer configuration
 const storage = multer.diskStorage({
@@ -439,7 +422,7 @@ loginAdmin = (req: express.Request, res: express.Response) => {
     }
   };
   registerKonobar = async (req: express.Request, res: express.Response)=>{
-    // console.log(req)
+
     let korisnickoIme = req.body.korisnickoIme;
     const hashedPassword = await bcrypt.hash(req.body.lozinka, 10);
     let lozinka = hashedPassword;
@@ -449,25 +432,25 @@ loginAdmin = (req: express.Request, res: express.Response) => {
     let adresa = req.body.adresa;
     let pol = req.body.pol;
     let kontaktTelefon = req.body.kontaktTelefon;
-    let profilnaSlika = req.body.profilnaSlika ? req.body.profilnaSlika : 'frontend\src\assets\default_profile.jpg'
+    let profilnaSlika = req.file ? req.file.filename : 'default_profile.jpg';
     let tip = "konobar";
-    let status = "aktivan";
+    let status = "aktivan"
     let restoran = req.body.restoran;
-    // console.log(profilnaSlika)
+    console.log(profilnaSlika)
 
     let user = {
       korisnickoIme: korisnickoIme,
       lozinka: lozinka,
       ime: ime,
       prezime: prezime,
-      profilna_slika: profilnaSlika,
       mejl:mejl,
       adresa:adresa,
       pol:pol,
       kontaktTelefon:kontaktTelefon,
+      restoran:restoran,
       tip:tip,
       status:status,
-      restoran:restoran
+      profilnaSlika:profilnaSlika
     }
 
     new Korisnik(user).save().then(ok=>{
@@ -475,6 +458,7 @@ loginAdmin = (req: express.Request, res: express.Response) => {
     }).catch(err=>{
         console.log(err)
     })
+   
    
 }
 unblockUser = (req: express.Request, res: express.Response) => {

@@ -14,6 +14,6 @@ rezervacijaRouter.get('/all', controller.getAll);
 rezervacijaRouter.get('/reservations/:restoran', controller.getRezervacijeR);
 rezervacijaRouter.post('/create', controller.addRezervacija);
 rezervacijaRouter.get('/guest/:korisnickoIme', controller.getGuestReservations);
-
+rezervacijaRouter.get('/search', controller.searchReservations);
 rezervacijaRouter.post('/cancel/:imeGosta', controller.cancelReservation);
 export default rezervacijaRouter;

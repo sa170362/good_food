@@ -4,8 +4,21 @@ export class Restoran {
     tip: string = '';
     kratakOpis:string='';
     kontaktOsoba: string='';
-    workingHoursFrom?: string='';
-    workingHoursTo?: string='';
     layout?:any;
+    workingHours: {
+      [key: string]: {
+          open: boolean;
+          from?: string;
+          to?: string;
+      };
+  } = {
+      ponedeljak: { open: false },
+      utorak: { open: false },
+      sreda: { open: false },
+      cetvrtak: { open: false },
+      petak: { open: false },
+      subota: { open: false },
+      nedelja: { open: false },
+  };
   }
   

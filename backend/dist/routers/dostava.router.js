@@ -8,4 +8,5 @@ const dostava_controller_1 = require("../controllers/dostava.controller");
 const dostavaRouter = express_1.default.Router();
 const dostavaKontroler = new dostava_controller_1.DostavaKontroler();
 dostavaRouter.get('/aktuelne/:korisnik', dostavaKontroler.aktuelneDostave);
+dostavaRouter.get('/:korisnik', dostavaKontroler.arhivaDostave);
 exports.default = dostavaRouter;

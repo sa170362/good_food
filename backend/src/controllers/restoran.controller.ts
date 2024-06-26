@@ -42,7 +42,7 @@ export class RestoranController {
       });
   };
   addRestoran = (req: express.Request, res: express.Response) => {
-    const { ime, adresa, tip,kratakOpis, kontaktOsoba, workingHoursFrom, workingHoursTo  } = req.body;
+    const { ime, adresa, tip,kratakOpis, kontaktOsoba, workingHours  } = req.body;
 
     const newRestoran = new Restoran({
       ime,
@@ -50,8 +50,7 @@ export class RestoranController {
       tip,
       kratakOpis,
       kontaktOsoba,
-      workingHoursFrom,
-      workingHoursTo
+      workingHours
     });
 
     newRestoran.save()

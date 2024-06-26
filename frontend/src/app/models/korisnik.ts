@@ -9,7 +9,7 @@ export class Korisnik {
   adresa: string = '';
   kontaktTelefon: string = '';
   mejl: string = '';
-  profilnaSlika?:File;
+  profilnaSlika?:string | File;
   brojKreditneKartice: string = '';
   tip:string = '';
   status?:string ='';

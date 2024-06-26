@@ -15,10 +15,10 @@
                 <a class="nav-link text-light" routerLink="/restoraniGost">Restorani</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-light" routerLink="/porudzbine">Dostava</a>
+                <a class="nav-link text-light" routerLink="/dostava">Dostava</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-light" >Statistika</a>
+                <a class="nav-link text-light" routerLink="/statistika" >Statistika</a>
               </li>
             </ul>
           </nav>
@@ -66,7 +66,10 @@
 
           <div *ngIf="user.profilnaSlika">
             <label for="profilnaSlika">Profilna slika: &nbsp;</label>
-            <img *ngIf="user.profilnaSlika" [src]="imageBaseUrl + user.profilnaSlika" alt="Profile Picture">
+            <img *ngIf="user.profilnaSlika === 'default_profile.jpg'; else customImage" src="/assets/default_profile.jpg" alt="Profile Picture">
+            <ng-template #customImage>
+              <img [src]="imageBaseUrl + user.profilnaSlika" alt="Profile Picture">
+            </ng-template>
             <br>
             <br>
             <div class="form-group">
@@ -79,7 +82,7 @@
            
           </div>
          
-          <button type="submit" class="btn btn-primary">Update</button>
+          <button type="submit" class="btn btn-primary" >Update</button>
         </form>
       </div>
 

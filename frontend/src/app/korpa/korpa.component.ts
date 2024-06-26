@@ -1,8 +1,4 @@
-// import { Component, OnInit } from '@angular/core';
-// import { KorpaService } from '../korpa.service';
-// import { StavkaKorpe } from '../models/cartItem';
-// import { Porudzbina } from '../models/porudzbina';
-// import { PorudzbinaService } from '../porudzbina.service';
+
 
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
@@ -19,11 +15,12 @@ import { PorudzbinaService } from "../porudzbina.service";
   styleUrls: ['./korpa.component.css']
 })
 export class KorpaComponent implements OnInit {
-//   stavke: StavkaKorpe[] = [];
+
 cart: { restoran: string, stavka: StavkaKorpe, korisnickoIme: string }[] = [];
 restoran:string=''
 gost:Korisnik
 showOrderDetails = false;
+zatvoriDugme = false;
 ime:string=''
 prezime:string=''
 adresa:string=''
@@ -51,7 +48,7 @@ ukloniIzKorpe(item: any): void {
     this.cart.splice(index, 1);
     this.saveCartToLocalStorage();
   }
-  // Možete implementirati dodatnu logiku za ažuriranje baze podataka ili slično ako je potrebno
+
 }
 prikaziDetaljeZaDostavu(): void {
   this.showOrderDetails = true;
@@ -85,35 +82,7 @@ prikaziDetaljeZaDostavu(): void {
       this.cart.length > 0
     );
   }
-  // naruci(): void {
-    
-  //   if (this.validacijaForme()) {
-     
-  //     let ukupnaCena = 0;
-  //   for (const stavka of this.cart) {
-  //     ukupnaCena += stavka.stavka.jelo.cena * stavka.stavka.kolicina;
-  //     const porudzbina: Porudzbina = {
-  //     customerKorIme: this.gost.korisnickoIme,
-  //     stavke: this.cart.map(item => item.stavka),
-  //     ukupnaCena,
-  //     status: 'pending',
-  //     estimatedDeliveryTime: null,
-  //     adresaDostave: this.adresa,
-  //     kontaktTelefon:this.telefon,
-  //     createdAt: new Date()
-  //   };
-
-  //       this.orderService.createOrder(porudzbina).subscribe(response => {
-  //     console.log(porudzbina);
-  //     alert("Porudžbina je uspešno kreirana!");
-  //   localStorage.removeItem('cart');
-  //   this.cart = [];
-  //   });
-    
-  //   this.showOrderDetails = false; // Sakrij formu nakon uspešne narudžbine
-  //   }} else {
-  //     console.log('Molimo Vas da popunite sva polja.');
-  //   }}
+  
   naruci(): void {
     if (this.validacijaForme()) {
       let ukupnaCena = 0;
@@ -121,7 +90,7 @@ prikaziDetaljeZaDostavu(): void {
         ukupnaCena += stavka.stavka.jelo.cena * stavka.stavka.kolicina;
       }
   
-      // Kreiranje porudžbine sa svim stavkama korpe
+    
       const porudzbina: Porudzbina = {
         customerKorIme: this.gost.korisnickoIme,
         stavke: this.cart.map(item => item.stavka), // Mapiramo samo stavke
@@ -134,13 +103,14 @@ prikaziDetaljeZaDostavu(): void {
         restoran: this.restoran
       };
   
-      // Pozivamo servis za kreiranje porudžbine samo jednom
+     
       this.orderService.createOrder(porudzbina).subscribe(response => {
         console.log(porudzbina);
         alert("Porudžbina je uspešno kreirana!");
         localStorage.removeItem('cart');
         this.cart = [];
-        this.showOrderDetails = false; // Sakrij formu nakon uspešne narudžbine
+        this.showOrderDetails = false; 
+        this.zatvoriDugme = true;
       });
     } else {
       console.log('Molimo Vas da popunite sva polja.');
@@ -159,33 +129,5 @@ prikaziDetaljeZaDostavu(): void {
     }
   }
 
-
-  // zavrsiPorudzbinu(): void {
-  //   const customer = prompt("Unesite vaše ime:", "") || ""; // Ako je null, dodeljuje se prazan string
-  //   const adresaDostave = prompt("Unesite adresu dostave:", "") || ""; // Ako je null, dodeljuje se prazan string
-  //   const kontaktTelefon = prompt("Unesite kontakt telefon:", "") || ""; // Ako je null, dodeljuje se prazan string
-  //   // const ukupnaCena = this.stavke.reduce((total, stavka) => total + stavka.jelo.cena * stavka.kolicina, 0);
-
-  //   // const porudzbina: Porudzbina = {
-  //   //   customer: customer,
-  //   //   stavke: this.stavke,
-  //   //   ukupnaCena,
-  //   //   status: 'pending',
-  //   //   estimatedDeliveryTime: null,
-  //   //   adresaDostave,
-  //   //   kontaktTelefon,
-  //   //   createdAt: new Date()
-  //   // };
-
-  //   // console.log(porudzbina);
-    
-
-  //   // this.orderService.createOrder(porudzbina).subscribe(response => {
-  //   //   console.log(porudzbina);
-      
-  //   //   alert("Porudžbina je uspešno kreirana!");
-  //   //   this.korpaService.isprazniKorpu();
-  //   // });
-  // }
 
 }

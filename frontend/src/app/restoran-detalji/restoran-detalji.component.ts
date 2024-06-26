@@ -26,7 +26,7 @@ export class RestoranDetaljiComponent implements OnInit{
   jela: Jelo[] = [];
   jelovnik: any[] = [];
   rezervacija: Rezervacija = new Rezervacija
-
+  konfliktne: Rezervacija[] = []
   quantityMap: { [key: string]: number } = {};
 
   rezervacijaUspesna: boolean = false;
@@ -126,43 +126,48 @@ export class RestoranDetaljiComponent implements OnInit{
   }
 
   submitReservation(): void {
-    alert(this.rezervacija.datumVremeRezervacije)
-    // Validacija forme
-    this.validateForm();
+    // alert(this.rezervacija.datumVremeRezervacije)
+    // // Validacija forme
+    // this.validateForm();
 
-    if (this.datumVremeValid && this.brojOsobaValid) {
-      this.rezervacija.brojStola=undefined;
-      this.rezervacija.statusRezervacije='neobradjena';
-      this.rezervacija.imeGosta= this.gost.ime + this.gost.prezime;
-      this.rezervacija.korisnickoIme = this.gost.korisnickoIme;
-      this.rezervacija.datumKreiranja = new Date();
-      this.rezervacija.restoran= this.restoranIme
-      // this.rezervacija.datumKreiranja = new Date().toISOString();
-      this.rezservis.addReservation(this.rezervacija).subscribe(
-        () => {
-          this.rezervacijaUspesna = true;
-        this.rezervacijaNeuspesna = false;
-        this.porukaOdbijanja = '';
+    // if (this.datumVremeValid && this.brojOsobaValid) {
+    //   this.rezervacija.brojStola=undefined;
+    //   this.rezervacija.statusRezervacije='neobradjena';
+    //   this.rezervacija.imeGosta= this.gost.ime + this.gost.prezime;
+    //   this.rezervacija.korisnickoIme = this.gost.korisnickoIme;
+    //   this.rezervacija.datumKreiranja = new Date();
+    //   this.rezervacija.restoran= this.restoranIme
+    //   // this.rezervacija.datumKreiranja = new Date().toISOString();
+    //   this.rezservis.addReservation(this.rezervacija).subscribe(
+    //     () => {
+    //       this.rezervacijaUspesna = true;
+    //     this.rezervacijaNeuspesna = false;
+    //     this.porukaOdbijanja = '';
 
-        // Resetovanje forme nakon uspešne rezervacije
-        this.rezervacija = new Rezervacija();
-        alert("Uspesno ste rezervisali sto!")
-        }
-      );
-      } else {
-        this.rezervacijaUspesna = false;
-        this.rezervacijaNeuspesna = true;
-        alert('Nažalost, rezervacija nije moguća u zadatom terminu ili za izabrani broj osoba.')
-        // this.porukaOdbijanja = 'Nažalost, rezervacija nije moguća u zadatom terminu ili za izabrani broj osoba.';
-      }
+    //     // Resetovanje forme nakon uspešne rezervacije
+    //     this.rezervacija = new Rezervacija();
+    //     alert("Uspesno ste rezervisali sto!")
+    //     }
+    //   );
+    //   } else {
+    //     this.rezervacijaUspesna = false;
+    //     this.rezervacijaNeuspesna = true;
+    //     alert('Nažalost, rezervacija nije moguća u zadatom terminu ili za izabrani broj osoba.')
+    //     // this.porukaOdbijanja = 'Nažalost, rezervacija nije moguća u zadatom terminu ili za izabrani broj osoba.';
+    //   }
+    this.izvadiKonfliktneRezervacije();
+    alert(this.konfliktne.length)
+
+
+
+
+
+
+
     }
   
 
   validateForm(): void {
-    // Validacija datuma i vremena
-    // this.datumVreme = this.rezervacija.datumVremeRezervacije !== '';
-
-    // Validacija broja osoba (minimalni broj osoba može biti 1)
     this.brojOsobaValid = this.rezervacija.brojGostiju !== null && this.rezervacija.brojGostiju! >= 1;
   }
 
@@ -174,5 +179,19 @@ export class RestoranDetaljiComponent implements OnInit{
     if (this.quantityMap[jelo.naziv] > 1) {
       this.quantityMap[jelo.naziv]--;
     }
+  }
+
+  izvadiKonfliktneRezervacije():void{
+    const datumVremeRezervacijeDate = new Date(this.rezervacija.datumVremeRezervacije);
+
+    // Call service method with Date object
+    this.rezservis.searchReservations(this.restoranIme, datumVremeRezervacijeDate).subscribe(
+      async (data: any) => {
+        this.konfliktne = data; 
+      },
+      (error) => {
+        console.error('Greška pri dobijanju rezervacija', error);
+      }
+    );
   }
 }

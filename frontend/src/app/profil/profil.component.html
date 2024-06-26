@@ -58,7 +58,23 @@
           <input type="email" id="mejl" [(ngModel)]="user.mejl" name="mejl" class="form-control" required>
           <div *ngIf="formErrors.email" class="error text-danger">{{ formErrors.email }}</div>
         </div>
-        
+        <div *ngIf="user.profilnaSlika">
+          <label for="profilnaSlika">Profilna slika: &nbsp;</label>
+          <img *ngIf="user.profilnaSlika === 'default_profile.jpg'; else customImage" src="/assets/default_profile.jpg" alt="Profile Picture">
+          <ng-template #customImage>
+            <img [src]="imageBaseUrl + user.profilnaSlika" alt="Profile Picture">
+          </ng-template>
+          <br>
+          <br>
+          <div class="form-group">
+              <label for="profilnaSlika">Azuriraj profilnu sliku: &nbsp;</label>
+              <input type="file" id="profilePicture" (change)="onFileSelected($event)" accept="image/png, image/jpeg">
+              <div *ngIf="formErrors.profilnaSlika" class="error text-danger">{{ formErrors.profilnaSlika }}</div>
+          </div>
+         
+       
+         
+        </div>
      
         <button type="submit" class="btn btn-primary">Update</button>
       </form>

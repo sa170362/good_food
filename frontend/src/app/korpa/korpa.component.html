@@ -5,15 +5,24 @@
           <i class="fas fa-utensils"></i> Kutak dobre hrane
         </h1>
         <nav>
-          <ul class="nav">
+            <ul class="nav">
+              <li class="nav-item">
+                <a class="nav-link text-light" routerLink="/profilGost">Profil</a>
+              </li>
             <li class="nav-item">
-              <a class="nav-link text-light" routerLink="/login">Prijavi se</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-light" routerLink="/registracija">Registruj se</a>
-            </li>
-          </ul>
-        </nav>
+                <a class="nav-link text-light" routerLink="/login">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-light" routerLink="/restoraniGost">Restorani</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-light" routerLink="/dostava">Dostava</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-light" routerLink="/statistika" >Statistika</a>
+              </li>
+            </ul>
+          </nav>
       </div>
     </div>
   </header>
@@ -69,7 +78,7 @@
         </form>
       </div>
   
-      <div *ngIf="!showOrderDetails" class="text-center mt-3">
+      <div *ngIf="!showOrderDetails && !zatvoriDugme" class="text-center mt-3">
         <button (click)="prikaziDetaljeZaDostavu()" class="btn btn-success">Naruči</button>
       </div>
   </div>

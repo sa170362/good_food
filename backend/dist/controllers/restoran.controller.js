@@ -46,15 +46,14 @@ class RestoranController {
             });
         };
         this.addRestoran = (req, res) => {
-            const { ime, adresa, tip, kratakOpis, kontaktOsoba, workingHoursFrom, workingHoursTo } = req.body;
+            const { ime, adresa, tip, kratakOpis, kontaktOsoba, workingHours } = req.body;
             const newRestoran = new restoran_1.default({
                 ime,
                 adresa,
                 tip,
                 kratakOpis,
                 kontaktOsoba,
-                workingHoursFrom,
-                workingHoursTo
+                workingHours
             });
             newRestoran.save()
                 .then((restoran) => {

@@ -69,7 +69,7 @@
         <th>Ime</th>
         <th>Prezime</th>
         <th>E-mail</th>
-        <th>&nbsp;</th>
+        <th colspan="2">&nbsp;</th>
   
       </tr>
     </thead>
@@ -81,6 +81,8 @@
         <td>{{ waiter.mejl }}</td>
         <td>
           <button class="btn btn-warning btn-sm" (click)="deactivateUserKonobar(waiter.korisnickoIme)">Deaktiviraj</button>
+        </td>
+        <td>
           <button class="btn btn-info btn-sm" (click)="navigateToEditUser(waiter)">Azuriraj</button>
         </td>
       </tr>

@@ -6,7 +6,7 @@ describe('DostavaGostComponent', () => {
   let component: DostavaGostComponent;
   let fixture: ComponentFixture<DostavaGostComponent>;
 
-  beforeEach(() => {
+beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [DostavaGostComponent]
     });

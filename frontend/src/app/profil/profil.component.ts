@@ -19,6 +19,7 @@ export class ProfilComponent implements OnInit {
   userFound: Korisnik = new Korisnik()
   selectedFile: File | null = null;
   originalEmail: string ='';
+  imageBaseUrl: string = 'http://localhost:4000/uploads/';
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -30,10 +31,10 @@ export class ProfilComponent implements OnInit {
   ngOnInit(): void {
     const storedUserJson = localStorage.getItem('selectedUser');
     if (storedUserJson) {
-  
       this.user = JSON.parse(storedUserJson);
       this.oldUsername = this.user.korisnickoIme;
       this.originalEmail = this.user.mejl;
+      // alert(this.user.profilnaSlika)
     } else {
       const korisnickoIme = this.route.snapshot.paramMap.get('korisnickoIme');
       if (korisnickoIme) {
@@ -44,6 +45,7 @@ export class ProfilComponent implements OnInit {
         );
       }
     }
+    
    
   }
   onFileSelected(event: any) {
@@ -54,9 +56,7 @@ export class ProfilComponent implements OnInit {
   }
   onSubmit(): void {
     if (this.validateForm()) {
-    
-  
-      // Check if email field has been changed
+
       if (this.user.mejl !== this.originalEmail) {
         this.userService.checkEmailExists(this.user.mejl).subscribe(
           emailExists => {
@@ -65,81 +65,59 @@ export class ProfilComponent implements OnInit {
               
               this.formErrors.email = "Email already exists";
             } else {
+
+              // this.user.profilnaSlika!= this.selectedFile;
               const formData = new FormData();
               formData.append('kontaktTelefon', this.user.kontaktTelefon);
               formData.append('ime', this.user.ime);
               formData.append('prezime', this.user.prezime);
               formData.append('mejl', this.user.mejl);
-              // formData.append('brojKreditneKartice', this.user.brojKreditneKartice);
+
               formData.append('profilnaSlika', this.selectedFile!);
-              // Proceed to update user if email does not exist and it has been changed
               this.userService.updateUserByAdmin(this.oldUsername, formData).subscribe(
                 (updatedUser: Korisnik) => {
-                  // Update user object with new values
+                 
                   this.user = updatedUser;
-                  // Optionally update originalEmail if needed
                   this.originalEmail = updatedUser.mejl;
-                  // Update localStorage with updated user
                   localStorage.setItem('selectedUser', JSON.stringify(updatedUser));
-                  // Navigate to admin page or any other logic
+                  this.selectedFile=null
                   this.router.navigate(['/profil']);
                 },
                 error => {
                   console.error('Error updating user:', error);
-                  // Handle error if necessary
                 }
               );
             }
           },
           error => {
             console.error('Error checking email:', error);
-            // Handle error if necessary
           }
         );
       } else {
+        // this.user.profilnaSlika!= this.selectedFile;
         const formData = new FormData();
         formData.append('kontaktTelefon', this.user.kontaktTelefon);
         formData.append('ime', this.user.ime);
         formData.append('prezime', this.user.prezime);
         formData.append('mejl', this.user.mejl);
-        // formData.append('brojKreditneKartice', this.user.brojKreditneKartice);
+
+        
         formData.append('profilnaSlika', this.selectedFile!);
-        // Email has not been changed, proceed directly to update user
         this.userService.updateUserByAdmin(this.oldUsername, formData).subscribe(
           (updatedUser: Korisnik) => {
-            // Update user object with new values
+           
             this.user = updatedUser;
-            // Optionally update originalEmail if needed
             this.originalEmail = updatedUser.mejl;
-            // Update localStorage with updated user
             localStorage.setItem('selectedUser', JSON.stringify(updatedUser));
-            // Navigate to admin page or any other logic
+            this.selectedFile=null
             this.router.navigate(['/profil']);
           },
           error => {
             console.error('Error updating user:', error);
-            // Handle error if necessary
           }
         );
       }
     }
-  }
-  validateImage(file: File): void {
-    const reader = new FileReader();
-    reader.onload = (e: any) => {
-      const img = new Image();
-      img.onload = () => {
-        if (img.width >= 100 && img.height >= 100 && img.width <= 300 && img.height <= 300) {
-          this.formErrors.profilnaSlika = '';
-          this.selectedFile = file;
-        } else {
-          this.formErrors.profilnaSlika = 'Image dimensions must be between 100x100 and 300x300 pixels';
-          this.selectedFile = null;
-        }
-      };
-      img.src = e.target.result;
-    };
-    reader.readAsDataURL(file);
   }
 
   validateEmail(email: string): boolean {
@@ -151,12 +129,36 @@ export class ProfilComponent implements OnInit {
     const pattern = /^[0-9]{9}$/;
     return pattern.test(phone);
   }
+  validateImage(file: File): boolean {
+    const reader = new FileReader();
+    let good=true;
+    reader.onload = (e: any) => {
+      const img = new Image();
+      img.onload = () => {
+        if (img.width >= 100 && img.height >= 100 && img.width <= 300 && img.height <= 300) {
+          this.formErrors.profilnaSlika = '';
+          this.selectedFile = file;
+          good=true;
+        } else {
+          this.formErrors.profilnaSlika = 'Image dimensions must be between 100x100 and 300x300 pixels';
+          this.selectedFile = null;
+          // this.enableButton= false;
+          good=false;
+        }
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+    return good;
+  }
   validateForm(): boolean {
     this.formErrors = {};
     let isValid = true;
 
-
-  
+    if (!this.selectedFile ||  !this.validateImage(this.selectedFile)) {
+      this.formErrors.profilnaSlika = 'Image dimensions must be between 100x100 and 300x300 pixels';
+      isValid = false;
+    }
 
     if (!this.user.ime) {
       this.formErrors.ime = "Firstname is required";
@@ -167,8 +169,6 @@ export class ProfilComponent implements OnInit {
       this.formErrors.prezime = "Lastname is required";
       isValid = false;
     }
-
-   
 
     if (!this.user.adresa) {
       this.formErrors.adresa = "Address is required";
@@ -190,12 +190,8 @@ export class ProfilComponent implements OnInit {
       this.formErrors.email = "Invalid email format";
       isValid = false;
     }
-  
-    // if (!this.user.profilnaSlika) {
-    //   this.formErrors.profilnaSlika = "Profile picture is required";
-    //   isValid = false;
-    // }
-
+ 
     return isValid;
   }
+
 }
