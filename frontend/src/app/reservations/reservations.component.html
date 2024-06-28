@@ -10,7 +10,9 @@
             <a class="nav-link text-light" routerLink="/profil">Login</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-light" routerLink="/rezervacije">Rezervacije</a>
+            <a class="nav-link text-light" routerLink="/rezervacije"
+              >Rezervacije</a
+            >
           </li>
           <li class="nav-item">
             <a class="nav-link text-light" routerLink="/porudzbine">Dostava</a>
@@ -29,24 +31,41 @@
   <hr />
   <div class="p-4 rounded shadow-sm border-primary">
     <ul>
-      <li *ngFor="let reservation of neobradjeneRezervacije" class="reservation mb-3 p-3 border rounded">
+      <li
+        *ngFor="let reservation of neobradjeneRezervacije"
+        class="reservation mb-3 p-3 border rounded"
+      >
         <p><strong>Ime gosta:</strong> {{ reservation.imeGosta }}</p>
         <p><strong>Broj gostiju:</strong> {{ reservation.brojGostiju }}</p>
         <select class="form-select mb-3" [(ngModel)]="selectedTable">
-          <option *ngFor="let table of availableTables" [value]="table.id">Sto {{ table.id }}</option>
+          <option *ngFor="let table of availableTables" [value]="table.id">
+            Sto {{ table.id }}
+          </option>
         </select>
-        <button class="btn btn-success btn-sm me-2" (click)="potvrdiRezervaciju(reservation)">Potvrdi</button>
-        <button class="btn btn-danger btn-sm" (click)="odbijRezervaciju(reservation)">Odbij</button>
+        <button
+          class="btn btn-success btn-sm me-2"
+          (click)="potvrdiRezervaciju(reservation)"
+        >
+          Potvrdi
+        </button>
+        <button
+          class="btn btn-danger btn-sm"
+          (click)="odbijRezervaciju(reservation)"
+        >
+          Odbij
+        </button>
       </li>
     </ul>
   </div>
-  <div *ngIf="neobradjeneRezervacije.length == 0"> Nema neobradjenih rezervacija.</div>
-  <canvas id="canvas" width="800" height="600"></canvas>
+  <div *ngIf="neobradjeneRezervacije.length == 0">
+    Nema neobradjenih rezervacija.
+  </div>
+  <canvas id="canvas" width="90%" height="80%"></canvas>
 </div>
 
 <footer class="footer-bg text-light py-3 mt-5">
   <div class="container text-center">
-    <hr class="bg-warning mb-4">
+    <hr class="bg-warning mb-4" />
     <p>&copy; {{ currentYear }} Kutak dobre hrane. All rights reserved.</p>
   </div>
 </footer>

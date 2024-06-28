@@ -1,75 +1,49 @@
 
 <header class="header-bg text-light py-4">
-    <div class="container">
-      <div class="d-flex justify-content-between align-items-center">
-        <h1 class="text-white">
-          <i class="fas fa-utensils"></i> Kutak dobre hrane
-        </h1>
-        <nav>
-          <ul class="nav">
-            <li class="nav-item">
-              <a class="nav-link text-light" routerLink="/profilGost">Profil</a>
-            </li>
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+      <h1 class="text-white">
+        <i class="fas fa-utensils"></i> Kutak dobre hrane
+      </h1>
+      <nav>
+        <ul class="nav">
           <li class="nav-item">
-              <a class="nav-link text-light" routerLink="/login">Login</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-light" routerLink="/restoraniGost">Restorani</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-light" routerLink="/dostava">Dostava</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-light" routerLink="/statistika" >Statistika</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
+            <a class="nav-link text-light" routerLink="/profilGost">Profil</a>
+          </li>
+        <li class="nav-item">
+            <a class="nav-link text-light" routerLink="/login">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" routerLink="/restoraniGost">Restorani</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" routerLink="/dostava">Dostava</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" routerLink="/statistika" >Statistika</a>
+          </li>
+        </ul>
+      </nav>
     </div>
-  </header>
-  
-  <!-- <div class="main-bg container my-5">
-    <h2 class="text-center mb-4 text-primary">Početna stranica - Kutak dobre hrane</h2>
-    <div class="row">
-        <div class="col-md-6 mb-4">
-          <div class="card shadow-sm border-primary">
-            <div class="card-body">
-              <h4 class="card-title text-warning"> Opste informacije o restoranu </h4>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item bg-light">Naziv: {{ restoran.ime }}</li>
-                <li class="list-group-item bg-light">Adresa: {{ restoran.adresa }}</li>
-                <li class="list-group-item bg-light">Tip: {{ restoran.tip }}</li>
-                <li class="list-group-item bg-light">Kontakt: {{ restoran.kontaktOsoba }}</li>
-                <li class="list-group-item bg-light">Konobari:
-                    <ul>
-                    <li *ngFor="let konobar of konobari">
-                      {{ konobar.ime }} {{konobar.prezime}}
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    
-  </div> -->
-  <div class="main-bg container my-5">
-    <h2 class="text-center mb-4 text-primary">Detalji o restoranu - {{ restoran.ime }}</h2>
-    <div class="row">
+  </div>
+</header>
+
+<!-- <div class="main-bg container my-5">
+  <h2 class="text-center mb-4 text-primary">Početna stranica - Kutak dobre hrane</h2>
+  <div class="row">
       <div class="col-md-6 mb-4">
         <div class="card shadow-sm border-primary">
           <div class="card-body">
-            <h4 class="card-title text-warning">Opšte informacije o restoranu</h4>
+            <h4 class="card-title text-warning"> Opste informacije o restoranu </h4>
             <ul class="list-group list-group-flush">
               <li class="list-group-item bg-light">Naziv: {{ restoran.ime }}</li>
               <li class="list-group-item bg-light">Adresa: {{ restoran.adresa }}</li>
               <li class="list-group-item bg-light">Tip: {{ restoran.tip }}</li>
               <li class="list-group-item bg-light">Kontakt: {{ restoran.kontaktOsoba }}</li>
               <li class="list-group-item bg-light">Konobari:
-                <ul>
+                  <ul>
                   <li *ngFor="let konobar of konobari">
-                    {{ konobar.ime }} {{ konobar.prezime }}
+                    {{ konobar.ime }} {{konobar.prezime}}
                   </li>
                 </ul>
               </li>
@@ -77,64 +51,89 @@
           </div>
         </div>
       </div>
-      <div class="col-md-6 mb-4">
-        <div class="card shadow-sm border-primary">
-          <div class="card-body">
-            <h4 class="card-title text-warning">Rezervacija stola</h4>
-            <form (ngSubmit)="submitReservation()">
-              <div class="form-group">
-                <label for="datumVreme">Datum i vreme</label>
-                <input type="datetime-local" id="datumVreme" class="form-control" [(ngModel)]="rezervacija.datumVremeRezervacije" name="datumVreme" required>
-                <small *ngIf="!datumVremeValid" class="text-danger">Unesite validan datum i vreme.</small>
-              </div>
-              <div class="form-group">
-                <label for="brojOsoba">Broj osoba</label>
-                <input type="number" id="brojOsoba" class="form-control" [(ngModel)]="rezervacija.brojGostiju" name="brojGostiju" required>
-                <small *ngIf="!brojOsobaValid" class="text-danger">Unesite validan broj osoba.</small>
-              </div>
-              <div class="form-group">
-                <label for="opis">Dodatni zahtevi</label>
-                <textarea id="opis" class="form-control" [(ngModel)]="rezervacija.komentarGosta" name="komentarGosta"></textarea>
-              </div>
-              <button type="submit" class="btn btn-primary">Rezerviši</button>
-       
-            </form>
-          </div>
+    </div>
+  
+</div> -->
+<div class="main-bg container my-5">
+  <h2 class="text-center mb-4 text-primary">Detalji o restoranu - {{ restoran.ime }}</h2>
+  <div class="row">
+    <div class="col-md-6 mb-4">
+      <div class="card shadow-sm border-primary">
+        <div class="card-body">
+          <h4 class="card-title text-warning">Opšte informacije o restoranu</h4>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item bg-light">Naziv: {{ restoran.ime }}</li>
+            <li class="list-group-item bg-light">Adresa: {{ restoran.adresa }}</li>
+            <li class="list-group-item bg-light">Tip: {{ restoran.tip }}</li>
+            <li class="list-group-item bg-light">Kontakt: {{ restoran.kontaktOsoba }}</li>
+            <li class="list-group-item bg-light">Konobari:
+              <ul>
+                <li *ngFor="let konobar of konobari">
+                  {{ konobar.ime }} {{ konobar.prezime }}
+                </li>
+              </ul>
+            </li>
+          </ul>
         </div>
       </div>
-    
-  </div>
-  <div class="col-md-12 mb-4">
-    <div class="card shadow-sm border-primary">
-      <div class="card-body">
-        <h4 class="card-title text-warning text-center">Jelovnik</h4>
-        <div class="menu-container">
-       
-          <div *ngFor="let jelo of jelovnik" class="meal-item">
-              <h3>{{ jelo.naziv }}</h3>
-              <img [src]="jelo.slika" alt="{{ jelo.naziv }}" />
-              <p>Cena: {{ jelo.cena }} RSD</p>
-              <p>Sastojci: {{ jelo.sastojci.join(', ') }}</p>
-              <div class="d-flex align-items-center">
-                <button class="btn btn-secondary me-2" (click)="decrementQuantity(jelo)">-</button>
-                <input type="number" class="form-control text-center" [value]="quantityMap[jelo.naziv]" readonly>
-                <button class="btn btn-secondary ms-2" (click)="incrementQuantity(jelo)">+</button>
-              </div>
-              <button (click)="dodajUKorpu(jelo)">Dodaj u korpu</button>
+    </div>
+    <div class="col-md-6 mb-4">
+      <div class="card shadow-sm border-primary">
+        <div class="card-body">
+          <h4 class="card-title text-warning">Rezervacija stola</h4>
+          <form (ngSubmit)="submitReservation()">
+            <div class="form-group">
+              <label for="datumVreme">Datum i vreme</label>
+              <input type="datetime-local" id="datumVreme" class="form-control" [(ngModel)]="rezervacija.datumVremeRezervacije" name="datumVreme" required>
+              <small *ngIf="!datumVremeValid" class="text-danger">Unesite validan datum i vreme.</small>
             </div>
+            <div class="form-group">
+              <label for="brojOsoba">Broj osoba</label>
+              <input type="number" id="brojOsoba" class="form-control" [(ngModel)]="rezervacija.brojGostiju" name="brojGostiju" required>
+              <small *ngIf="!brojOsobaValid" class="text-danger">Unesite validan broj osoba.</small>
+            </div>
+            <div class="form-group">
+              <label for="opis">Dodatni zahtevi</label>
+              <textarea id="opis" class="form-control" [(ngModel)]="rezervacija.komentarGosta" name="komentarGosta"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Rezerviši</button>
+     
+          </form>
+        </div>
+      </div>
+    </div>
+  
+</div>
+<div class="col-md-12 mb-4">
+  <div class="card shadow-sm border-primary">
+    <div class="card-body">
+      <h4 class="card-title text-warning text-center">Jelovnik</h4>
+      <div class="menu-container">
+     
+        <div *ngFor="let jelo of jelovnik" class="meal-item">
+            <h3>{{ jelo.naziv }}</h3>
+            <img [src]="jelo.slika" alt="{{ jelo.naziv }}" />
+            <p>Cena: {{ jelo.cena }} RSD</p>
+            <p>Sastojci: {{ jelo.sastojci.join(', ') }}</p>
+            <div class="d-flex align-items-center">
+              <button class="btn btn-secondary me-2" (click)="decrementQuantity(jelo)">-</button>
+              <input type="number" class="form-control text-center" [value]="quantityMap[jelo.naziv]" readonly>
+              <button class="btn btn-secondary ms-2" (click)="incrementQuantity(jelo)">+</button>
+            </div>
+            <button (click)="dodajUKorpu(jelo)">Dodaj u korpu</button>
           </div>
-          <button class="vidi-korpu" (click)="prikaziKorpu()">Vidi korpu</button>
-      </div>
-      </div>
+        </div>
+        <button class="vidi-korpu" (click)="prikaziKorpu()">Vidi korpu</button>
+    </div>
     </div>
   </div>
- 
-  
-  <footer class="footer-bg text-light py-3 mt-5">
-    <div class="container text-center">
-      <hr class="bg-warning mb-4">
-      <p>&copy; {{ currentYear }} Kutak dobre hrane. All rights reserved.</p>
-    </div>
-  </footer>
-  
-  
+</div>
+
+
+<footer class="footer-bg text-light py-3 mt-5">
+  <div class="container text-center">
+    <hr class="bg-warning mb-4">
+    <p>&copy; {{ currentYear }} Kutak dobre hrane. All rights reserved.</p>
+  </div>
+</footer>
+

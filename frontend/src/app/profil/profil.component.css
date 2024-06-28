@@ -13,7 +13,8 @@
 }
 
 /* Layout Fixes */
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
   display: flex;
@@ -56,10 +57,20 @@ footer {
 
 /* Responsive Layout */
 @media (max-width: 768px) {
-  .nav {
+  .d-flex {
     flex-direction: column;
   }
+
+  .d-flex ul {
+    display: flex;
+    justify-content: center;
+  }
+
   .nav-item {
     margin-bottom: 0.5rem;
+  }
+
+  .ng-untouched .btn-primary {
+    width: 100%;
   }
 }

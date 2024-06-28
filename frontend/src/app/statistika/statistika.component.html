@@ -1,46 +1,46 @@
 <div class="wrapper">
-    <header class="header-bg text-light py-4">
-      <div class="container">
-        <div class="d-flex justify-content-between align-items-center">
-          <h1 class="text-white"><i class="fas fa-utensils"></i> Kutak dobre hrane</h1>
-          <nav>
-            <ul class="nav">
-              <li class="nav-item">
-                <a class="nav-link text-light" routerLink="/profil">Profil</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-light" routerLink="/login">Login</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-light" routerLink="/rezervacije">Rezervacije</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-light" routerLink="/dostava">Dostava</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-light" routerLink="/statistika" >Statistika</a>
-              </li>
-            </ul>
-          </nav>
-        </div>
+  <header class="header-bg text-light py-4">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <h1 class="text-white"><i class="fas fa-utensils"></i> Kutak dobre hrane</h1>
+        <nav>
+          <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link text-light" routerLink="/profil">Profil</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" routerLink="/login">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" routerLink="/rezervacije">Rezervacije</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" routerLink="/dostava">Dostava</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" routerLink="/statistika" >Statistika</a>
+            </li>
+          </ul>
+        </nav>
       </div>
-    </header>
-  
-    <div class="main-bg container my-5 p-4 rounded shadow-sm border-primary flex-fill" style="align-items: center;">
-      <h2 class="text-center mb-4 text-primary">Broj gostiju po danima za konobara {{ konobarTrenutni.korisnickoIme }}</h2>
-      <canvas id="myChart" style="width: 100%; max-width: 400px; height: auto;"></canvas>
-      <br>
-      <h2 class="text-center mb-4 text-primary">Raspodela gostiju medju konobarima za restoran {{konobarTrenutni.restoran}}</h2>
-      <canvas id="myChart1" style="width: 100%; max-width: 400px; height: auto; align-items: center;"></canvas>
-      <h2 class="text-center mb-4 text-primary">Broj rezervacija po danima u sedmici za restoran {{ konobarTrenutni.restoran }}</h2>
-      <canvas id="histogramChart"></canvas>
-      
     </div>
+  </header>
 
-    <footer class="footer-bg text-light py-3 mt-5">
-      <div class="container text-center">
-        <hr class="bg-warning mb-4">
-        <p>&copy; {{ currentYear }} Kutak dobre hrane. All rights reserved.</p>
-      </div>
-    </footer>
+  <div class="main-bg container my-5 p-4 rounded shadow-sm border-primary flex-fill" style="align-items: center;">
+    <h2 class="text-center mb-4 text-primary">Broj gostiju po danima za konobara {{ konobarTrenutni.korisnickoIme }}</h2>
+    <canvas id="myChart" style="width: 100%; max-width: 400px; height: auto;"></canvas>
+    <br>
+    <h2 class="text-center mb-4 text-primary">Raspodela gostiju medju konobarima za restoran {{konobarTrenutni.restoran}}</h2>
+    <canvas id="myChart1" style="width: 100%; max-width: 400px; height: auto; align-items: center;"></canvas>
+    <h2 class="text-center mb-4 text-primary">Broj rezervacija po danima u sedmici za restoran {{ konobarTrenutni.restoran }}</h2>
+    <canvas id="histogramChart"></canvas>
+    
   </div>
+
+  <footer class="footer-bg text-light py-3 mt-5">
+    <div class="container text-center">
+      <hr class="bg-warning mb-4">
+      <p>&copy; {{ currentYear }} Kutak dobre hrane. All rights reserved.</p>
+    </div>
+  </footer>
+</div>

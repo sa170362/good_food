@@ -1,87 +1,91 @@
 .header-bg {
-    background: linear-gradient(to right, #ff7e5f, #feb47b);
-  }
-  
-  .footer-bg {
-    background: linear-gradient(to right, #ff7e5f, #feb47b);
-  }
-  
-  .main-bg {
-    background: linear-gradient(to right, rgb(223, 220, 220), #848181);
-    border-radius: 0.75rem;
-    padding: 2rem;
-  }
-  
-  /* Layout Fixes */
-  html, body {
-    height: 100%;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .wrapper {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .main-bg {
-    flex: 1; /* Make the main content area grow to fill available space */
-  }
-  
-  footer {
-    flex-shrink: 0; /* Ensure footer doesn't shrink */
-  }
-  
-  /* Form Specific Styles */
-  .form-group {
-    margin-bottom: 1rem;
-  }
-  
-  .form-control {
-    border-radius: 0.25rem;
-    margin-bottom: 1rem;
-  }
-  
-  .btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
-  }
-  
-  .btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #0056b3;
-  }
-  
+  background: linear-gradient(to right, #ff7e5f, #feb47b);
+}
+
+.footer-bg {
+  background: linear-gradient(to right, #ff7e5f, #feb47b);
+}
+
+.main-bg {
+  background: linear-gradient(to right, rgb(223, 220, 220), #848181);
+  border-radius: 0.75rem;
+  padding: 2rem;
+}
+
+/* Layout Fixes */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-bg {
+  flex: 1; /* Make the main content area grow to fill available space */
+}
+
+footer {
+  flex-shrink: 0; /* Ensure footer doesn't shrink */
+}
+
+/* Form Specific Styles */
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-control {
+  border-radius: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
 
 .card-title {
-    font-size: 1.25rem;
+  font-size: 1.25rem;
+}
+
+.small-card {
+  font-size: 0.875rem; /* Make text smaller */
+}
+
+.small-img {
+  max-width: 100%;
+  height: 100px; /* Make images smaller */
+  object-fit: cover; /* Keep aspect ratio */
+}
+
+.card-body {
+  padding: 0.5rem; /* Reduce padding */
+}
+
+.small-text {
+  font-size: 0.875rem; /* Reduce text size */
+}
+/* Responsive Layout */
+@media (max-width: 768px) {
+  .nav-item {
+    margin-bottom: 0.5rem;
   }
-  
-  .small-card {
-    font-size: 0.875rem; /* Make text smaller */
+  .d-flex {
+    flex-direction: column;
   }
-  
-  .small-img {
-    max-width: 100%;
-    height: 100px; /* Make images smaller */
-    object-fit: cover; /* Keep aspect ratio */
+  .d-flex ul {
+    display: flex;
+    justify-content: center;
   }
-  
-  .card-body {
-    padding: 0.5rem; /* Reduce padding */
-  }
-  
-  .small-text {
-    font-size: 0.875rem; /* Reduce text size */
-  }
-  /* Responsive Layout */
-  @media (max-width: 768px) {
-    .nav {
-      flex-direction: column;
-    }
-    .nav-item {
-      margin-bottom: 0.5rem;
-    }
-  }
+}

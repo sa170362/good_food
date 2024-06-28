@@ -2,17 +2,25 @@
   <header class="header-bg text-light py-4">
     <div class="container">
       <div class="d-flex justify-content-between align-items-center">
-        <h1 class="text-white"><i class="fas fa-utensils"></i> Kutak dobre hrane</h1>
+        <h1 class="text-white">
+          <i class="fas fa-utensils"></i> Kutak dobre hrane
+        </h1>
         <nav>
           <ul class="nav">
             <li class="nav-item">
-              <a class="nav-link text-light" routerLink="/dodajRestoran">Dodaj restoran</a>
+              <a class="nav-link text-light" routerLink="/dodajRestoran"
+                >Dodaj restoran</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link text-light" routerLink="/dodajKonobara">Dodaj konobara</a>
+              <a class="nav-link text-light" routerLink="/dodajKonobara"
+                >Dodaj konobara</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link text-light" routerLink="/requests">Zahtevi za registraciju</a>
+              <a class="nav-link text-light" routerLink="/requests"
+                >Zahtevi za registraciju</a
+              >
             </li>
             <li class="nav-item">
               <a class="nav-link text-light" routerLink="/admin">Pocetna</a>
@@ -22,45 +30,102 @@
       </div>
     </div>
   </header>
-  <div class="main-bg container my-5 p-4 rounded shadow-sm border-primary flex-fill">
+  <div
+    class="main-bg container my-5 p-4 rounded shadow-sm border-primary flex-fill"
+  >
     <h2 class="text-center mb-4 text-primary">Dodaj novi restoran</h2>
     <form (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="ime">Ime:</label>
-        <input type="text" id="ime" [(ngModel)]="restaurant.ime" name="ime" class="form-control" required>
+        <input
+          type="text"
+          id="ime"
+          [(ngModel)]="restaurant.ime"
+          name="ime"
+          class="form-control"
+          required
+        />
       </div>
       <div class="form-group">
         <label for="adresa">Adresa:</label>
-        <input type="text" id="adresa" [(ngModel)]="restaurant.adresa" name="adresa" class="form-control" required>
+        <input
+          type="text"
+          id="adresa"
+          [(ngModel)]="restaurant.adresa"
+          name="adresa"
+          class="form-control"
+          required
+        />
       </div>
       <div class="form-group">
         <label for="tip">Tip:</label>
-        <select id="tip" [(ngModel)]="restaurant.tip" name="tip" class="form-control" required>
+        <select
+          id="tip"
+          [(ngModel)]="restaurant.tip"
+          name="tip"
+          class="form-control"
+          required
+        >
           <option *ngFor="let type of types" [value]="type">{{ type }}</option>
         </select>
       </div>
       <div class="form-group">
         <label for="kratakOpis">Kratak opis:</label>
-        <textarea id="kratakOpis" [(ngModel)]="restaurant.kratakOpis" name="kratakOpis" class="form-control" required></textarea>
+        <textarea
+          id="kratakOpis"
+          [(ngModel)]="restaurant.kratakOpis"
+          name="kratakOpis"
+          class="form-control"
+          required
+        ></textarea>
       </div>
       <div class="form-group">
         <label for="kontaktOsoba">Kontakt osoba:</label>
-        <input type="text" id="kontaktOsoba" [(ngModel)]="restaurant.kontaktOsoba" name="kontaktOsoba" class="form-control" required>
+        <input
+          type="text"
+          id="kontaktOsoba"
+          [(ngModel)]="restaurant.kontaktOsoba"
+          name="kontaktOsoba"
+          class="form-control"
+          required
+        />
       </div>
-      <div *ngFor="let day of days" class="form-group">
-        <label>{{ day | titlecase }}:</label>
-        <div class="form-check">
-          <input type="checkbox" class="form-check-input" id="{{day}}-open" [(ngModel)]="restaurant.workingHours[day].open" name="{{day}}-open">
-          <label class="form-check-label" for="{{day}}-open">Otvoreno</label>
-        </div>
-        <div *ngIf="restaurant.workingHours[day].open" class="d-flex">
-          <div class="form-group mr-2">
-            <label for="{{day}}-from">Od:</label>
-            <input type="time" id="{{day}}-from" [(ngModel)]="restaurant.workingHours[day].from" name="{{day}}-from" class="form-control">
+      <div class="checkbox-container">
+        <div *ngFor="let day of days" class="form-group">
+          <label>{{ day | titlecase }}:</label>
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="{{ day }}-open"
+              [(ngModel)]="restaurant.workingHours[day].open"
+              name="{{ day }}-open"
+            />
+            <label class="form-check-label" for="{{ day }}-open"
+              >Otvoreno</label
+            >
           </div>
-          <div class="form-group">
-            <label for="{{day}}-to">Do:</label>
-            <input type="time" id="{{day}}-to" [(ngModel)]="restaurant.workingHours[day].to" name="{{day}}-to" class="form-control">
+          <div *ngIf="restaurant.workingHours[day].open" class="d-flex">
+            <div class="form-group mr-2">
+              <label for="{{ day }}-from">Od:</label>
+              <input
+                type="time"
+                id="{{ day }}-from"
+                [(ngModel)]="restaurant.workingHours[day].from"
+                name="{{ day }}-from"
+                class="form-control"
+              />
+            </div>
+            <div class="form-group">
+              <label for="{{ day }}-to">Do:</label>
+              <input
+                type="time"
+                id="{{ day }}-to"
+                [(ngModel)]="restaurant.workingHours[day].to"
+                name="{{ day }}-to"
+                class="form-control"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -69,7 +134,7 @@
   </div>
   <footer class="footer-bg text-light py-3 mt-5">
     <div class="container text-center">
-      <hr class="bg-warning mb-4">
+      <hr class="bg-warning mb-4" />
       <p>&copy; {{ currentYear }} Kutak dobre hrane. Sva prava zadržana.</p>
     </div>
   </footer>

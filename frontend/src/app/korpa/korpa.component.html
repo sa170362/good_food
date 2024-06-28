@@ -1,91 +1,91 @@
 <header class="header-bg text-light py-4">
-    <div class="container">
-      <div class="d-flex justify-content-between align-items-center">
-        <h1 class="text-white">
-          <i class="fas fa-utensils"></i> Kutak dobre hrane
-        </h1>
-        <nav>
-            <ul class="nav">
-              <li class="nav-item">
-                <a class="nav-link text-light" routerLink="/profilGost">Profil</a>
-              </li>
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+      <h1 class="text-white">
+        <i class="fas fa-utensils"></i> Kutak dobre hrane
+      </h1>
+      <nav>
+          <ul class="nav">
             <li class="nav-item">
-                <a class="nav-link text-light" routerLink="/login">Login</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-light" routerLink="/restoraniGost">Restorani</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-light" routerLink="/dostava">Dostava</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-light" routerLink="/statistika" >Statistika</a>
-              </li>
-            </ul>
-          </nav>
-      </div>
+              <a class="nav-link text-light" routerLink="/profilGost">Profil</a>
+            </li>
+          <li class="nav-item">
+              <a class="nav-link text-light" routerLink="/login">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" routerLink="/restoraniGost">Restorani</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" routerLink="/dostava">Dostava</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" routerLink="/statistika" >Statistika</a>
+            </li>
+          </ul>
+        </nav>
     </div>
-  </header>
-  
-  <div class="main-bg container my-5">
-    <h2 class="text-center mb-4 text-primary">Vaša korpa</h2>
-    <div *ngIf="cart.length === 0" class="alert alert-warning text-center">
-      Vaša korpa je prazna.
-    </div>
-    <div *ngIf="cart.length > 0">
-      <div class="row">
-        <div class="col-md-3 col-sm-6 mb-4" *ngFor="let item of cart; let i = index">
-          <div class="card shadow-sm border-primary small-card">
-            <div class="card-body p-2">
-              <h5 class="card-title text-warning">{{ item.stavka.jelo.naziv }}</h5>
-              <img [src]="item.stavka.jelo.slika" alt="{{ item.stavka.jelo.naziv }}" class="img-fluid small-img" />
-              <p class="small-text">Cena: {{ item.stavka.jelo.cena }} RSD</p>
-              <p class="small-text">Količina: {{ item.stavka.kolicina }}</p>
-              <p class="small-text">Sastojci: {{ item.stavka.jelo.sastojci.join(', ') }}</p>
-              <div class="d-flex align-items-center justify-content-between">
-                <button class="btn btn-secondary btn-sm" (click)="decrementQuantity(item)">-</button>
-                <input type="number" class="form-control text-center mx-2" [value]="item.stavka.kolicina" readonly>
-                <button class="btn btn-secondary btn-sm" (click)="incrementQuantity(item)">+</button>
-            </div>
-              <button class="btn btn-danger btn-sm" (click)="ukloniIzKorpe(item)">Ukloni</button>
-            </div>
+  </div>
+</header>
+
+<div class="main-bg container my-5">
+  <h2 class="text-center mb-4 text-primary">Vaša korpa</h2>
+  <div *ngIf="cart.length === 0" class="alert alert-warning text-center">
+    Vaša korpa je prazna.
+  </div>
+  <div *ngIf="cart.length > 0">
+    <div class="row">
+      <div class="col-md-3 col-sm-6 mb-4" *ngFor="let item of cart; let i = index">
+        <div class="card shadow-sm border-primary small-card">
+          <div class="card-body p-2">
+            <h5 class="card-title text-warning">{{ item.stavka.jelo.naziv }}</h5>
+            <img [src]="item.stavka.jelo.slika" alt="{{ item.stavka.jelo.naziv }}" class="img-fluid small-img" />
+            <p class="small-text">Cena: {{ item.stavka.jelo.cena }} RSD</p>
+            <p class="small-text">Količina: {{ item.stavka.kolicina }}</p>
+            <p class="small-text">Sastojci: {{ item.stavka.jelo.sastojci.join(', ') }}</p>
+            <div class="d-flex align-items-center justify-content-between">
+              <button class="btn btn-secondary btn-sm" (click)="decrementQuantity(item)">-</button>
+              <input type="number" class="form-control text-center mx-2" [value]="item.stavka.kolicina" readonly>
+              <button class="btn btn-secondary btn-sm" (click)="incrementQuantity(item)">+</button>
+          </div>
+            <button class="btn btn-danger btn-sm" (click)="ukloniIzKorpe(item)">Ukloni</button>
           </div>
         </div>
       </div>
-     
     </div>
-    <div class="mt-4" *ngIf="showOrderDetails">
-        <h4 class="text-primary">Detalji za dostavu</h4>
-        <form (ngSubmit)="naruci()">
-          <div class="form-group">
-            <label for="imePrezime">Ime</label>
-            <input type="text" id="ime" class="form-control" [(ngModel)]="ime" name="ime" required>
-          </div>
-          <div class="form-group">
-            <label for="imePrezime">Prezime</label>
-            <input type="text" id="prezime" class="form-control" [(ngModel)]="prezime" name="prezime" required>
-          </div>
-          <div class="form-group">
-            <label for="telefon">Kontakt telefon</label>
-            <input type="text" id="telefon" class="form-control" [(ngModel)]="telefon" name="telefon" required>
-            <div *ngIf="telefon && !validatePhone(telefon)" class="text-danger">Nevažeći broj telefona. Unesite broj u formatu 06XXXXXXXX.</div>
-          </div>
-          <div class="form-group">
-            <label for="adresa">Adresa isporuke</label>
-            <input type="text" id="adresa" class="form-control" [(ngModel)]="adresa" name="adresa" required>
-          </div>
-          <button type="submit" class="btn btn-primary">Završi porudžbinu</button>
-        </form>
-      </div>
-  
-      <div *ngIf="!showOrderDetails && !zatvoriDugme" class="text-center mt-3">
-        <button (click)="prikaziDetaljeZaDostavu()" class="btn btn-success">Naruči</button>
-      </div>
+   
   </div>
-  
-  <footer class="footer-bg text-light py-3 mt-5">
-    <div class="container text-center">
-      <hr class="bg-warning mb-4">
-      <p>&copy; {{ currentYear }} Kutak dobre hrane. All rights reserved.</p>
+  <div class="mt-4" *ngIf="showOrderDetails">
+      <h4 class="text-primary">Detalji za dostavu</h4>
+      <form (ngSubmit)="naruci()">
+        <div class="form-group">
+          <label for="imePrezime">Ime</label>
+          <input type="text" id="ime" class="form-control" [(ngModel)]="ime" name="ime" required>
+        </div>
+        <div class="form-group">
+          <label for="imePrezime">Prezime</label>
+          <input type="text" id="prezime" class="form-control" [(ngModel)]="prezime" name="prezime" required>
+        </div>
+        <div class="form-group">
+          <label for="telefon">Kontakt telefon</label>
+          <input type="text" id="telefon" class="form-control" [(ngModel)]="telefon" name="telefon" required>
+          <div *ngIf="telefon && !validatePhone(telefon)" class="text-danger">Nevažeći broj telefona. Unesite broj u formatu 06XXXXXXXX.</div>
+        </div>
+        <div class="form-group">
+          <label for="adresa">Adresa isporuke</label>
+          <input type="text" id="adresa" class="form-control" [(ngModel)]="adresa" name="adresa" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Završi porudžbinu</button>
+      </form>
     </div>
-  </footer>
+
+    <div *ngIf="!showOrderDetails && !zatvoriDugme" class="text-center mt-3">
+      <button (click)="prikaziDetaljeZaDostavu()" class="btn btn-success">Naruči</button>
+    </div>
+</div>
+
+<footer class="footer-bg text-light py-3 mt-5">
+  <div class="container text-center">
+    <hr class="bg-warning mb-4">
+    <p>&copy; {{ currentYear }} Kutak dobre hrane. All rights reserved.</p>
+  </div>
+</footer>

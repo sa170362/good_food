@@ -76,3 +76,13 @@ table {
 .error-message {
   color: #e74c3c;
 }
+
+@media (max-width: 768px) {
+  .d-flex {
+    flex-direction: column;
+  }
+  .d-flex ul {
+    display: flex;
+    justify-content: center;
+  }
+}

@@ -1,0 +1,9 @@
+.table-container {
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  
+  .table-container table {
+    min-width: 40rem;
+  }
+  

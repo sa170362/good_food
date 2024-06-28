@@ -1,195 +1,203 @@
 .header-bg {
-    background: linear-gradient(to right, #ff7e5f, #feb47b);
-  }
-  
-  .footer-bg {
-    background: linear-gradient(to right, #ff7e5f, #feb47b);
-  }
-  
-  .main-bg {
-    background: linear-gradient(to right, rgb(223, 220, 220), #848181);
-    border-radius: 0.75rem;
-    padding: 2rem;
-  }
-  
-  .table-striped tbody tr:nth-of-type(odd) {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-  
-  .sortable {
-    cursor: pointer;
-  }
-  
-  .sortable:hover {
-    text-decoration: underline;
-    color: #f39c12; /* Hover color */
-  }
-  
-  .card {
-    border-radius: 0.75rem;
-  }
-  
-  .card-body {
-    padding: 1.5rem;
-  }
-  
-  table {
-    margin-bottom: 0;
-  }
-  
-  /* Additional Styling */
-  .bg-primary {
-    background-color: #007bff !important;
-  }
-  
-  .text-primary {
-    color: #007bff !important;
-  }
-  
-  .text-warning {
-    color: #f39c12 !important;
-  }
-  
-  .border-primary {
-    border-color: #007bff !important;
-  }
-  
-  .bg-warning {
-    background-color: #f39c12 !important;
-  }
-  
-  .bg-light {
-    background-color: #f8f9fa !important;
-  }
-  
-  /* Form Specific Styles */
-  .form-control {
-    border-radius: 0.25rem;
-  }
-  
-  .btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
-  }
-  
-  .btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #0056b3;
-  }
-  
-  .btn-success {
-    background-color: #28a745;
-    border-color: #28a745;
-  }
-  
-  .btn-success:hover {
-    background-color: #218838;
-    border-color: #1e7e34;
-  }
-  
-  .btn-danger {
-    background-color: #dc3545;
-    border-color: #dc3545;
-  }
-  
-  .btn-danger:hover {
-    background-color: #c82333;
-    border-color: #bd2130;
-  }
-  
-  .error-message {
-    color: #e74c3c;
+  background: linear-gradient(to right, #ff7e5f, #feb47b);
+}
+
+.footer-bg {
+  background: linear-gradient(to right, #ff7e5f, #feb47b);
+}
+
+.main-bg {
+  background: linear-gradient(to right, rgb(223, 220, 220), #848181);
+  border-radius: 0.75rem;
+  padding: 2rem;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.sortable {
+  cursor: pointer;
+}
+
+.sortable:hover {
+  text-decoration: underline;
+  color: #f39c12; /* Hover color */
+}
+
+.card {
+  border-radius: 0.75rem;
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+table {
+  margin-bottom: 0;
+}
+
+/* Additional Styling */
+.bg-primary {
+  background-color: #007bff !important;
+}
+
+.text-primary {
+  color: #007bff !important;
+}
+
+.text-warning {
+  color: #f39c12 !important;
+}
+
+.border-primary {
+  border-color: #007bff !important;
+}
+
+.bg-warning {
+  background-color: #f39c12 !important;
+}
+
+.bg-light {
+  background-color: #f8f9fa !important;
+}
+
+/* Form Specific Styles */
+.form-control {
+  border-radius: 0.25rem;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+  border-color: #1e7e34;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+  border-color: #bd2130;
+}
+
+.error-message {
+  color: #e74c3c;
+}
+
+.menu-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 30px; /* Dodajemo unutrašnji prostor oko menu-container-a */
+}
+
+.meal-item {
+  max-width: 300px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.meal-item img {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.meal-item h3 {
+  color: #333;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.meal-item p {
+  color: #666;
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.meal-item button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  margin-top: 10px; /* Dodajemo malo prostora iznad dugmeta */
+}
+
+.meal-item button:hover {
+  background-color: #45a049;
+}
+
+.view-cart {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.view-cart:hover {
+  background-color: #0056b3;
+}
+
+.vidi-korpu {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #ff000d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.vidi-korpu:hover {
+  background-color: #b30000;
+}
+
+@media (max-width: 768px) {
+  .d-flex {
+    flex-direction: column;
   }
 
-
-
-
-  .menu-container {
+  .d-flex ul {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;
-    padding: 30px; /* Dodajemo unutrašnji prostor oko menu-container-a */
   }
-  
-  .meal-item {
-    max-width: 300px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-  }
-  
-  .meal-item img {
-    width: 100%;
-    max-height: 200px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 10px;
-  }
-  
-  .meal-item h3 {
-    color: #333;
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-  }
-  
-  .meal-item p {
-    color: #666;
-    font-size: 1rem;
-    margin-bottom: 5px;
-  }
-  
-  .meal-item button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-    margin-top: 10px; /* Dodajemo malo prostora iznad dugmeta */
-  }
-  
-  .meal-item button:hover {
-    background-color: #45a049;
-  }
-  
-  .view-cart {
-    display: block;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    padding: 10px 20px;
-    font-size: 1rem;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .view-cart:hover {
-    background-color: #0056b3;
-  }
-  
-  .vidi-korpu {
-    display: block;
-    margin: 20px auto;
-    padding: 10px 20px;
-    font-size: 1rem;
-    background-color: #ff000d;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .vidi-korpu:hover {
-    background-color: #b30000;
-  }
+}
